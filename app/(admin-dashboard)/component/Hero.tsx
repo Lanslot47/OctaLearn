@@ -39,7 +39,6 @@ const Hero = () => {
         </div>
       </section>
 
-
       <section className="flex flex-col lg:flex-row gap-8 mb-8">
         <div className="flex-1 rounded-md shadow shadow-gray-300 bg-white px-6 py-8">
           <h1 className="text-2xl font-semibold mb-2">Quick Actions</h1>
@@ -53,7 +52,6 @@ const Hero = () => {
             ))}
           </div>
         </div>
-
 
         <div className="flex-1 rounded-md shadow shadow-gray-300 bg-white px-6 py-8">
           <h1 className="flex items-center gap-2 text-2xl font-semibold mb-2">

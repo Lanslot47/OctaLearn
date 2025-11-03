@@ -1,4 +1,4 @@
-import Sidebar from "@/OctaLearn/app/(admin-dashboard)/component/Sidebar";
+// import Sidebar from "@/OctaLearn/app/(admin-dashboard)/component/Sidebar";
 import Top from "./Top";
 
 
@@ -8,7 +8,7 @@ const Settings = () => {
         <div className="">
        <nav>
         
-        <Sidebar/>
+        {/* <Sidebar/> */}
        <Top />
        </nav>
        

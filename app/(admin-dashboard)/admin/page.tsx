@@ -1,11 +1,14 @@
-import Hero from '../component/Hero'
+"use client";
+import Hero from "../component/Hero";
+
 const Home = () => {
-    return (
-        <div className=''>
-            <div className='justify-end'>
-                <Hero />
-            </div>
-        </div>
-    )
-}
-export default Home
+  return (
+    <div className="max-w-[1400px] mx-auto">
+      <div className="">
+        <Hero />
+      </div>
+    </div>
+  );
+};
+
+export default Home;
