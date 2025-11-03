@@ -1,31 +1,27 @@
-import { SendIcon, FileArchiveIcon } from "lucide-react";
-import Sidebar from "../(admin-dashboard)/Component/Sidebar";
-import Tops from "./Tops";
+import { BiSend } from "react-icons/bi";
+import { FaFileArchive } from "react-icons/fa";
 
 const AskAi = () => {
   return (
-    <div>
-      <nav className="mb-63">
-        <Sidebar />
-        <Tops />
-      </nav>
-      <div className="">
-        <span className="flex gap-4 ml-70 mb-0.25 items-center shadow ">
-          <FileArchiveIcon size={30} />
+    <div className="min-h-screen bg-gray-50">
+      <div className="flex flex-col items-center p-4 md:p-10">
+        <div className="flex w-full max-w-2xl items-center gap-3 bg-white shadow-sm p-3 rounded-lg">
+          <FaFileArchive size={24} className="text-gray-500" />
           <input
             type="text"
-            id="Name"
             placeholder="Ask me anything about your studies..."
-            className=" border border-blue-500 focus:outline-none focus:border-blue-500 border hover:border-blue-500  rounded-lg focus:border-blue-500 rounded-md p-2 mb-2 w-200"
+            className="flex-1 border border-blue-400 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm md:text-base"
           />
-          <button type="submit" className="bg-blue-400 hover rounded-lg w-10 h-10 ">
-            <SendIcon
-              size={20}
-              className="text-white-400 ml-2 text-md font-bold justify-center  "
-            />
+          <button
+            type="submit"
+            className="bg-blue-500 hover:bg-blue-600 text-white p-2 rounded-lg"
+          >
+            <BiSend size={18} />
           </button>
-        </span>
-        <p className="ml-80 text-gray-400 text-sm ">supports Images,PDF's and Document, press Enter to send</p>
+        </div>
+        <p className="text-gray-400 text-xs md:text-sm mt-3 text-center">
+          Supports images, PDFs, and documents. Press Enter to send.
+        </p>
       </div>
     </div>
   );

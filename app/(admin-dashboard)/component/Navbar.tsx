@@ -1,14 +1,16 @@
-import { BiNotification } from "react-icons/bi"
+import { BiNotification } from "react-icons/bi";
+
 const Navbar = () => {
-    return (
-        <div className="fixed z-50 bg-white w-full">
-            <nav className="border-2 h-17 border-gray-300 mb-10  border-t-0 border-l-0 border-r-0 px-90 py-3.5">
-                <div className="flex items-center ml-[400px]">
-                    <BiNotification size={30} />
-                    <h3 className="text-">Amar Abdulmumin Hussaini</h3>
-                </div>
-            </nav>
-        </div>
-    )
-}
-export default Navbar
+  return (
+    <div className="fixed md:static z-40 bg-white w-full border-b border-gray-300 px-4 py-3">
+      <nav className="flex items-center justify-between md:justify-end">
+        <BiNotification size={28} className="text-gray-600" />
+        <h3 className="text-sm md:text-base font-semibold text-gray-700 ml-2 truncate">
+          Amar Abdulmumin Hussaini
+        </h3>
+      </nav>
+    </div>
+  );
+};
+
+export default Navbar;
