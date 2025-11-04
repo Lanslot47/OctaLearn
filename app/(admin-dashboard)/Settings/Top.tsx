@@ -7,7 +7,7 @@ import {
   User,
   SchoolIcon,
   Book,
-  PrinterIcon,
+  PrinterIcon, 
   Shield,
 } from "lucide-react";
 import Image from "next/image";

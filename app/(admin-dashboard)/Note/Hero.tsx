@@ -5,10 +5,10 @@ import { FiFileText } from "react-icons/fi"
 // import { BiPulse } from "react-icons/bi"
 // import { FiDelete } from "react-icons/fi"
 import { IoCalendarNumber, IoCalendarOutline } from "react-icons/io5"
-import { BsPlus, BsTrash } from "react-icons/bs"
+import { BsPlus, } from "react-icons/bs"
 import { BsSearch } from "react-icons/bs"
 import { useState } from "react"
-import {BiDownload } from "react-icons/bi"
+import { BiDownload } from "react-icons/bi"
 // import { LuDelete } from "react-icons/lu"
 const Hero = () => {
     const [hovered, setHovered] = useState('hov')
@@ -77,18 +77,18 @@ const Hero = () => {
                 <section >
                     <div className="flex gap-12 p-3" >
                         <div className="border border-gray-300 h-72 w-67 rounded-md">
-                           
+
                             <div className="p-4 py-8  ">
-                              
+
 
                                 <h1 className="font-semibold mb-3">Physics Lab Report- <br />    pendulum...</h1>
-                                
-                                
-                               
-                               
+
+
+
+
                                 <p className="text-gray-400 mb-4">Objective: to determinee accleration due to gravity using a simple pendulmu.Metal bob - stopwacth-meter...</p>
 
-  <div className="flex items-center mb-3">
+                                <div className="flex items-center mb-3">
                                     <h1 className="flex items-center gap-1 text-gray-500 text-sm  ">
                                         <IoCalendarOutline size={19} />
                                         10/11/2025
@@ -97,25 +97,25 @@ const Hero = () => {
                                 </div>
                                 <div>
                                     <div className="flex ">
-                                    <button className="w-52 ml-3 h-9 font-sans rounded-xl flex  hover:bg-gray-400  items-center gap-3 text-center  border  border-gray-400 " >
-                                     < BiDownload size={23} className="ml-10"/>  
-                                        Download
-                                         </button>
+                                        <button className="w-52 ml-3 h-9 font-sans rounded-xl flex  hover:bg-gray-400  items-center gap-3 text-center  border  border-gray-400 " >
+                                            < BiDownload size={23} className="ml-10" />
+                                            Download
+                                        </button>
                                     </div>
                                 </div>
-                            
+
 
 
 
                             </div>
-                            
+
                         </div>
                         <div className="border border-gray-300 h-72 w-67 rounded-md">
                             <div className="p-4 py-8">
                                 <h1 className="font-semibold mb-3"> Data Structure- <br />    Binary Trees</h1>
-                               
+
                                 <p className="text-gray-400 mb-4">Binary Trees Defination:A tree data structure where each node has most two childern - leftsubTree  value less than...  </p>
-                              <div className="flex items-center mb-3">
+                                <div className="flex items-center mb-3">
                                     <h1 className="flex items-center gap-1 text-gray-500 text-sm  ">
                                         <IoCalendarOutline size={19} />
                                         10/11/2025
@@ -124,10 +124,10 @@ const Hero = () => {
                                 </div>
                                 <div>
                                     <div className="flex ">
-                                    <button className="w-52 ml-3 h-9 font-sans rounded-xl flex  hover:bg-gray-400  items-center gap-3 text-center  border  border-gray-400 " >
-                                     < BiDownload size={23} className="ml-10"/>  
-                                        Download
-                                         </button>
+                                        <button className="w-52 ml-3 h-9 font-sans rounded-xl flex  hover:bg-gray-400  items-center gap-3 text-center  border  border-gray-400 " >
+                                            < BiDownload size={23} className="ml-10" />
+                                            Download
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -149,10 +149,10 @@ const Hero = () => {
                                 </div>
                                 <div>
                                     <div className="flex ">
-                                    <button className="w-52 ml-3 h-9 font-sans hover:bg-gray-400 rounded-xl flex  items-center gap-3 text-center  border  border-gray-400 " >
-                                     < BiDownload size={23} className="ml-10"/>  
-                                        Download
-                                    </button>
+                                        <button className="w-52 ml-3 h-9 font-sans hover:bg-gray-400 rounded-xl flex  items-center gap-3 text-center  border  border-gray-400 " >
+                                            < BiDownload size={23} className="ml-10" />
+                                            Download
+                                        </button>
                                     </div>
                                 </div>
                             </div>
