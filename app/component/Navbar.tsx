@@ -9,7 +9,7 @@ const Navbar = () => {
                 <span>OctaLearn</span>
 
             </h1>
-            <div className="space-x-6 text-sm">
+            <div className="space-x-6 text-sm ">
                 <button className="hover:text-blue-400 cursor-pointer font-semibold">
                     <Link href="./auth/Login">Login</Link>
                 </button>

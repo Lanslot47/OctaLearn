@@ -6,7 +6,7 @@ const Home = () => {
         <div className='py-12'>
             <form action="" className='font-sans'>
                 <div className='justify-center '>
-                    <Image src="/Capture.PNG" height={30} width={30} alt='hsh' className='mx-auto mb-5' />
+                    <Image src="/Capture.PNG" height={30} width={30} alt='404' className='mx-auto mb-5' />
                 </div>
                 <h1 className='text-2xl text-center'>Join OctaLearn</h1>
                 <p className='text-sm mb-5 text-gray-500 text-center'>Create your account and start your learning journey</p>
@@ -26,7 +26,7 @@ const Home = () => {
                         </div>
                         <div>
                             <label htmlFor="" className='font-medium'>Department</label><br />
-                            <input type="text" placeholder='Enter Your Department' className=' m-auto p-2 w-70 focus:outline-blue-500 rounded-md text-gray-500 text-sm' />
+                            <input type="text" placeholder='Enter Your Department' className=' m-auto p-2 w-70 md:w-30 focus:outline-blue-500 rounded-md text-gray-500 text-sm' />
                         </div>
                     </div>
                     <div>
