@@ -56,7 +56,7 @@ const Top = () => {
             <Image
               height={100}
               width={100}
-              src="/Capture2.PNG"
+              src="/Capture.PNG"
               alt="profile"
               className="rounded-full mb-4"
             />
