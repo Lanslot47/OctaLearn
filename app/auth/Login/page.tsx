@@ -11,7 +11,7 @@ const Home = () => {
                 </div>
                 <h1 className='text-2xl text-center'>Welcome Back</h1>
                 <p className='text-sm mb-5 text-gray-500 text-center'>Sign in to your OctaLearn Account</p>
-                <div className='space-y-4 justify-center ml-[500px] mb-5'>
+                <div className='space-y-4 justify-center ml-[437px] mb-5'>
                     <div>
                         <label htmlFor="" className='font-medium' >Email</label><br />
                         <input type="text" placeholder='Enter Your Email Address' className=' m-auto p-2 w-90 focus:outline-blue-500 rounded-md text-gray-500 text-sm' />

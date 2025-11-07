@@ -10,7 +10,7 @@ const Home = () => {
                 </div>
                 <h1 className='text-2xl text-center'>Join OctaLearn</h1>
                 <p className='text-sm mb-5 text-gray-500 text-center'>Create your account and start your learning journey</p>
-                <div className='space-y-4 justify-center ml-[500px] mb-5'>
+                <div className='space-y-4 justify-center ml-[400px] mb-5'>
                     <div>
                         <label htmlFor="" className='font-medium'>Full Name</label><br />
                         <input type="text" placeholder='Enter Your Full Name' className=' m-auto p-2 w-70 focus:outline-blue-500 rounded-md text-gray-500 text-sm' />
@@ -26,7 +26,7 @@ const Home = () => {
                         </div>
                         <div>
                             <label htmlFor="" className='font-medium'>Department</label><br />
-                            <input type="text" placeholder='Enter Your Department' className=' m-auto p-2 w-70 md:w-30 focus:outline-blue-500 rounded-md text-gray-500 text-sm' />
+                            <input type="text" placeholder='Enter Your Department' className=' m-auto p-2 w-70  focus:outline-blue-500 rounded-md text-gray-500 text-sm' />
                         </div>
                     </div>
                     <div>
@@ -45,7 +45,7 @@ const Home = () => {
                             </select>
                         </div>
                         <div>
-                            <label htmlFor="" className='font-medium'>Interests</label><br />
+                            <label htmlFor="" className='font-medium '>Interests</label><br />
                             <input type="text" placeholder='Enter Your Academic interests' className=' m-auto p-2 w-70 focus:outline-blue-500 rounded-md text-gray-500 text-sm' />
                         </div>
                     </div>

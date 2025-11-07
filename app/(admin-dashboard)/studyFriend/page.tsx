@@ -10,7 +10,7 @@ export default function BuddySection() {
   return (
     <div className="font-sans max-w-[1400px] mx-auto mt-6 px-4 md:px-6">
       <h1 className="text-2xl font-bold flex items-center gap-2">
-        <LiaUserFriendsSolid size={26} /> Study Buddy
+        <LiaUserFriendsSolid size={30} className="text-blue-500" /> Study Buddy
       </h1>
       <p className="text-gray-500 mb-4">connect with classmates, form study groups, and learn together</p>
 

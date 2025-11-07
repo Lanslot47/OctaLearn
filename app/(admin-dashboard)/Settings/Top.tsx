@@ -15,21 +15,7 @@ import Image from "next/image";
 const Top = () => {
   return (
     <div className="font-sans">
-      {/* Top Bar */}
-      <div className="fixed top-0 z-50 w-full border-b border-gray-300 bg-white p-3 flex justify-end items-center gap-3">
-        <BellIcon className="text-gray-700" />
-        <Image
-          height={30}
-          width={30}
-          src="/Capture.PNG"
-          alt="profile"
-          className="rounded-full"
-        />
-        <h1 className="text-sm sm:text-base font-medium text-gray-700">
-          Amar Abdul Mumin
-        </h1>
-      </div>
-
+  
       {/* Page Title */}
       <div className="mt-20 px-4 sm:px-8">
         <h1 className="text-xl sm:text-2xl font-bold flex items-center gap-3 mb-2">
@@ -56,7 +42,7 @@ const Top = () => {
             <Image
               height={100}
               width={100}
-              src="/Capture2.PNG"
+              src="/"
               alt="profile"
               className="rounded-full mb-4"
             />

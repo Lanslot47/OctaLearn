@@ -9,7 +9,7 @@ const Settings = () => {
        <nav>
         
         {/* <Sidebar/> */}
-       <Top />
+       <Top/>
        </nav>
        
         </div>

@@ -32,8 +32,8 @@ const Hero = () => {
                 </button>
             </div>
             <div />
-            <div className="p-4">
-                <div className="  border border-gray-300 w-229 h-18 rounded-md ">
+            <div className="p-6">
+                <div className="  border border-gray-300 w-226   h-18 rounded-md ">
                     <div className="p-4 px-3 ">
 
                         <div className="flex items-center border border-gray-300 rounded-md gap-3">
@@ -46,7 +46,7 @@ const Hero = () => {
                 </div>
             </div>
             <div>
-                <section className="flex p-4 gap-14">
+                <section className="flex p-6 gap-14">
 
                     <div className="  h-25 w-64 p-2 rounded-xl border  border-gray-300">
                         <div className="p-4"> <h1 className="text-2xl font-semibold " > 3 </h1>

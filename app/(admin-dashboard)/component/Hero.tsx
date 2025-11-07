@@ -8,7 +8,7 @@ const Hero = () => {
     { title: "Ai Conversation", heading: 5, num: "+0", content: "this month", icon: <BiMessage size={20} className="text-blue-500" />, id: 1 },
     { title: "Total Notes", heading: 0, num: "+0", content: "this week", icon: <BsFileText size={20} className="text-green-700" />, id: 2 },
     { title: "Downloads", heading: 0, num: "10 remaining", content: "this month", icon: <BiBookOpen size={20} className="text-yellow-500" />, id: 3 },
-    { title: "Study Connections", heading: 4, num: "+0", content: "this week", icon: <LiaUserFriendsSolid size={20} className="text-red-600" />, id: 4 },
+    { title: "Study Connections", heading: 4, num: "+0", content: "this week", icon: <LiaUserFriendsSolid size={20} className="text-red-600 ml-1/1" />, id: 4 },
   ];
 
   const sec = [
