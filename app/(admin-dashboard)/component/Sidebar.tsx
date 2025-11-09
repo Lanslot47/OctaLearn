@@ -17,7 +17,6 @@ const Sidebar = () => {
     { id: 2, title: "Ask AI", icon: <BiMessage size={20} />, url: "./askAi" },
     { id: 3, title: "Past Questions", icon: <BiBookOpen size={20} />, url: "./pastQ" },
     { id: 4, title: "Notes", icon: <BsFileText size={20} />, url: "./notes" },
-    { id: 3, title: "Past Questions", icon: <BiBookOpen size={20} />, url: "./pastquestions" },
     { id: 4, title: "Notes", icon: <BsFileText size={20} />, url: "./NewNote" },
     { id: 5, title: "Study Buddy", icon: <LiaUserFriendsSolid size={20} />, url: "./studyFriend" },
     { id: 6, title: "Settings", icon: <CiSettings size={20} />, url: "./Settings" },
