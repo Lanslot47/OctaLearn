@@ -42,10 +42,11 @@ const Top = () => {
             <Image
               height={100}
               width={100}
+
               src="/"
-              alt="profile"
-              className="rounded-full mb-4"
-            />
+
+              src="/Capture.PNG"
+
             <button className="flex items-center gap-2 text-blue-600 font-medium hover:underline">
               <UploadIcon size={18} />
               Upload Photo
