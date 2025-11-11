@@ -12,11 +12,13 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 
+
+
 const Top = () => {
   return (
     <div className="font-sans">
       {/* Top Bar */}
-      <div className="fixed top-0 z-50 w-full border-b border-gray-300 bg-white p-3 flex justify-end items-center gap-3">
+      <div className="fixed top-0 z-50 w-full border-b border-gray-300 p-3 flex justify-end items-center gap-3">
         <BellIcon className="text-gray-700" />
         <Image
           height={30}
@@ -29,6 +31,8 @@ const Top = () => {
           Amar Abdul Mumin
         </h1>
       </div>
+
+      <Top />
 
       {/* Page Title */}
       <div className="mt-20 px-4 sm:px-8">
