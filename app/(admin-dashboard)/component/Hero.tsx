@@ -19,7 +19,7 @@ const Hero = () => {
   ];
 
   return (
-    <div className="font-sans px-4 md:px-6 mt-24 md:mt-28">
+    <div className="font-sans px-4 md:px-6 mt-24 md:mt-6">
       <section className="mb-12">
         <h1 className="font-bold text-2xl mb-3">Dashboard</h1>
         <p className="text-gray-500 mb-10">Welcome back! Here's what's happening with your studies</p>
@@ -78,14 +78,14 @@ const Hero = () => {
         <h1 className="font-bold text-2xl mb-2">Recent Activity</h1>
         <p className="text-gray-500 text-sm mb-8">Your latest actions on OctaLearn</p>
         <div className="space-y-4">
-          {[...Array(5)].map((_, i) => (
-            <div key={i} className="flex gap-4 items-start">
-              <div className="h-8 w-8 rounded-full border flex items-center justify-center">
+          {[...Array(1)].map((_, i) => (
+            <div key={i} className=" h-60">
+              {/* <div className="h-8 w-8 rounded-full border flex items-center justify-center">
                 <BiMessage size={20} />
-              </div>
+              </div> */}
               <div>
-                <p className="font-medium">Asked, hssksksksk</p>
-                <p className="text-sm text-gray-500">10/15/2025, 4:17:07</p>
+                {/* <p className="font-medium">Asked, hssksksksk</p> */}
+                <p className=" text-gray-500 text-center mt-30 text-xl">No Recent Activity</p>
               </div>
             </div>
           ))}

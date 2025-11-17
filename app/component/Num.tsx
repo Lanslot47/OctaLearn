@@ -2,8 +2,8 @@ import Link from "next/link"
 const Num = () => {
     return (
         <div className="">
-            <section className="flex items-center justify-between p-5 px-6 mb-16 md:grid grid-cols-2 sm:block">
-                <div className="font-sans">
+            <section className="flex items-center justify-between p-5 px-6 mb-16 ">
+                <div className="font-sans ">
                     <h1 className="text-blue-500 text-3xl font-semibold">500K</h1>
                     <p className="text-gray-400 text-sm">Student helped</p>
                 </div>

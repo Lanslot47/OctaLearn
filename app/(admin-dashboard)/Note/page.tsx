@@ -1,4 +1,4 @@
-import Hero from "../Note/Hero"
+import Hero from "./Hero"
 // import Navbar from "../component/Navbar"
 
 

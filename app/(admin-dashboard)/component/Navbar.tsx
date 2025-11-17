@@ -1,21 +1,3 @@
-<<<<<<< HEAD
-import { BiBell } from "react-icons/bi";
-
-const Navbar = () => {
-  return (
-    <div className="fixed md:static z-40 bg-white w-full border-b border-gray-300 px-2 py-4">
-      <nav className="flex items-center justify-between gap-1 md:justify-end ">
-        <BiBell size={28} className="text-gray-600  " />
-        <div className="h-9 w-9 bg-gray-400 rounded-full flex items-center justify-center">
-          <span className="font-semibold  cursor-pointer">A</span>
-        </div>
-        <h3 className="text-sm md:text-base font-semibold text-gray-700 ml-2  cursor-pointer">
-          Amar Abdulmumin Hussaini
-        </h3>
-      </nav>
-    </div>
-  );
-=======
 "use client"
 import { LogOut } from "lucide-react";
 import { IoNotificationsCircleSharp } from "react-icons/io5";
@@ -27,9 +9,9 @@ const Navbar = () => {
     const [showDropDown, setShowDropDown] = useState(false)
     return (
         <div className="fixed md:static z-40 bg-white w-full h-20 border-b border-gray-300 px-4 py-3 items-center">
-            <nav className="flex  justify-between gap-6 md:justify-end">
-                <IoNotificationsCircleSharp size={28} className="text-gray-600" />
-                <div onClick={() => setShowDropDown(prev => !prev)}>
+            <nav className="flex    justify-between gap-6 md:justify-end">
+                <IoNotificationsCircleSharp size={32} className="text-gray-600 mt-2" />
+                <div onClick={() => setShowDropDown(prev => !prev)}  >
                     <div className="hover:bg-blue-50 flex items-center gap-5 mb-3 p-2">
                         <div className="h-7 w-7 rounded-2xl border-0  bg-gray-100">
                             <h3 className="text-center font-semibold mt-1">I</h3>
@@ -55,7 +37,6 @@ const Navbar = () => {
             </nav>
         </div>
     );
->>>>>>> 886f13369d35931a91424b7ab33b222ac3428441
 };
 
 export default Navbar;

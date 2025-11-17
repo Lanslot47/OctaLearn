@@ -1,6 +1,6 @@
 "use client"
 import Image from "next/image"
-import { GrDashboard } from "react-icons/gr"
+import { FaFoursquare } from "react-icons/fa6"
 import { BiMessage, BiBookOpen } from "react-icons/bi"
 import { BsFileText } from "react-icons/bs"
 import { LiaUserFriendsSolid } from "react-icons/lia"
@@ -8,21 +8,23 @@ import { CiSettings } from "react-icons/ci"
 import Link from "next/link"
 import { useState } from "react"
 import { FiMenu } from "react-icons/fi"
+import {
+  LayoutDashboard
+} from "lucide-react";
+// import Image from "next/image";
 
 const Sidebar = () => {
   const [open, setOpen] = useState(false)
 
   const items = [
-    { id: 1, title: "Dashboard", icon: <GrDashboard size={20} />, url: "./admin" },
+    { id: 1, title: "Dashboard", icon: < LayoutDashboard size={20} />, url: "./admin" },
     { id: 2, title: "Ask AI", icon: <BiMessage size={20} />, url: "./askAi" },
-<<<<<<< HEAD
-    { id: 3, title: "Past Questions", icon: <BiBookOpen size={20} />, url: "./pastquestions" },
-    { id: 4, title: "Note", icon: <BsFileText size={20} />, url: "./Note" },
-=======
+
+    // { id: 3, title: "Past Questions", icon: <BiBookOpen size={20} />, url: "./pastquestions" },
+    // { id: 4, title: "Note", icon: <BsFileText size={20} />, url: "./Note" },
     { id: 3, title: "Past Questions", icon: <BiBookOpen size={20} />, url: "./pastQ" },
-    { id: 4, title: "Notes", icon: <BsFileText size={20} />, url: "./notes" },
-    { id: 4, title: "Notes", icon: <BsFileText size={20} />, url: "./NewNote" },
->>>>>>> 886f13369d35931a91424b7ab33b222ac3428441
+    // { id: 4, title: "Notes", icon: <BsFileText size={20} />, url: "./notes" },
+    { id: 4, title: "Notes", icon: <BsFileText size={20} />, url: "./Note" },
     { id: 5, title: "Study Buddy", icon: <LiaUserFriendsSolid size={20} />, url: "./studyFriend" },
     { id: 6, title: "Settings", icon: <CiSettings size={20} />, url: "./Settings" },
   ]

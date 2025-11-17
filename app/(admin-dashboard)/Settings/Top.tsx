@@ -7,7 +7,7 @@ import {
   User,
   SchoolIcon,
   Book,
-  PrinterIcon, 
+  PrinterIcon,
   Shield,
 } from "lucide-react";
 import Image from "next/image";
@@ -15,9 +15,9 @@ import Image from "next/image";
 const Top = () => {
   return (
     <div className="font-sans">
-  
+
       {/* Page Title */}
-      <div className="mt-20 px-4 sm:px-8">
+      <div className="mt-6 px-4 sm:px-8">
         <h1 className="text-xl sm:text-2xl font-bold flex items-center gap-3 mb-2">
           <SettingsIcon size={30} className="text-blue-500" />
           Settings
@@ -38,15 +38,10 @@ const Top = () => {
           <p className="text-sm text-gray-500 mb-6">
             Upload and manage your profile photo
           </p>
-          <div className="flex flex-col items-center">
-            <Image
-              height={100}
+          <div className="flex flex-col items-center mb-4">
+            <Image height={100}
               width={100}
-
-              src="/"
-
-              src="/Capture.PNG"
-
+              src="/Capture.PNG" alt="dhdhdh " className="mb-4"></Image>
             <button className="flex items-center gap-2 text-blue-600 font-medium hover:underline">
               <UploadIcon size={18} />
               Upload Photo
