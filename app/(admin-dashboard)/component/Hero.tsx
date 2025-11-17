@@ -25,7 +25,7 @@ const Hero = () => {
         <p className="text-gray-500 mb-10">Welcome back! Here's what's happening with your studies</p>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {first.map((list) => (
-            <div key={list.id} className="shadow-sm shadow-gray-300 bg-white rounded-md p-4">
+            <div key={list.id} className="shadow-sm shadow-gray-300 bg-white rounded-md p-3">
               <div className="flex justify-between mb-4">
                 <h2 className="font-semibold">{list.title}</h2>
                 <span>{list.icon}</span>

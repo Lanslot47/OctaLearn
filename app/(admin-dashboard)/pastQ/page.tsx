@@ -15,7 +15,7 @@ const Home = () => {
                 <h1 className="font-b">Subscription Required</h1>
                 <p className="text-gray-400">Subscribe to download past questions and study materials</p>
              
-                <button  className="h-11  w-30  rounded-xl text-white bg-blue-500 ml-170">View Plans
+                <button  className="h-11  w-30 mt-80 rounded-xl text-white bg-blue-500 ml-170">View Plans
 
                     
                 </button>

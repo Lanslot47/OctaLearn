@@ -35,6 +35,7 @@ const Top = () => {
             <CameraIcon size={20} />
             Profile Picture
           </h1>
+          {/* <input type="Im"placeholder="ss" /> */}
           <p className="text-sm text-gray-500 mb-6">
             Upload and manage your profile photo
           </p>
