@@ -42,7 +42,7 @@ const Top = () => {
           <div className="flex flex-col items-center mb-4">
             <Image height={100}
 
-            
+
               width={100}
               src="/Capture.PNG" alt="dhdhdh " className="mb-4"></Image>
             <button className="flex items-center gap-2 text-blue-600 font-medium hover:underline">
