@@ -25,11 +25,11 @@ const Navbar = () => {
                         <div className="border border-gray-300 font-sans p-2 h-42 w-48 inline-block space-y-2 rounded-md">
                             <h1 className="font-semibold">My Account</h1>
                             <div>
-                                <Link href="#" className="hover:bg-blue-200 w-43 rounded-md flex items-center gap-3 p-1 hover:text-blue-400"><span><LiaUserFriendsSolid size={23} /></span> Profile</Link>
-                                <Link href="#" className="hover:bg-blue-200 w-43 rounded-md flex items-center gap-3 p-1 hover:text-blue-400"><span><CiSettings size={23} /></span> Settings</Link>
+                                <Link href="./Settings" className="hover:bg-blue-200 w-43 rounded-md flex items-center gap-3 p-1 hover:text-blue-400"><span><LiaUserFriendsSolid size={23} /></span> Profile</Link>
+                                <Link href="./Settings" className="hover:bg-blue-200 w-43 rounded-md flex items-center gap-3 p-1 hover:text-blue-400"><span><CiSettings size={23} /></span> Settings</Link>
                             </div>
                             <hr className="border-gray-300"/>
-                            <Link href="#" className="hover:bg-blue-200 w-43 rounded-md flex items-center gap-3 p-1 hover:text-blue-400"><span><LogOut size={23} /></span> Logout</Link>
+                            <Link href="admin" className="hover:bg-blue-200 w-43 rounded-md flex items-center gap-3 p-1 hover:text-blue-400"><span><LogOut size={23} /></span> Logout</Link>
 
                         </div>
                     }

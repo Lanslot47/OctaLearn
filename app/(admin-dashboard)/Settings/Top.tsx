@@ -15,6 +15,20 @@ import Image from "next/image";
 const Top = () => {
   return (
     <div className="font-sans">
+      {/* Top Bar */}
+      <div className="fixed top-0 z-50 w-full border-b border-gray-300 p-3 flex justify-end items-center gap-3">
+        <BellIcon className="text-gray-700" />
+        <Image
+          height={30}
+          width={30}
+          src="/Capture.PNG"
+          alt="profile"
+          className="rounded-full"
+        />
+        <h1 className="text-sm sm:text-base font-medium text-gray-700">
+          Amar Abdul Mumin
+        </h1>
+      </div>
 
       {/* Page Title */}
       <div className="mt-6 px-4 sm:px-8">
@@ -35,16 +49,17 @@ const Top = () => {
             <CameraIcon size={20} />
             Profile Picture
           </h1>
-          {/* <input type="Im"placeholder="ss" /> */}
           <p className="text-sm text-gray-500 mb-6">
             Upload and manage your profile photo
           </p>
           <div className="flex flex-col items-center mb-4">
-            <Image height={100}
-
-
+            <Image
+              height={100}
               width={100}
-              src="/Capture.PNG" alt="dhdhdh " className="mb-4"></Image>
+              src="/Capture.PNG"
+              alt="Profile Image"
+              className="mb-4"
+            />
             <button className="flex items-center gap-2 text-blue-600 font-medium hover:underline">
               <UploadIcon size={18} />
               Upload Photo
@@ -123,6 +138,7 @@ const Top = () => {
             <h2 className="text-md font-semibold flex items-center gap-2 mt-6">
               <Book size={20} /> Interests & Subjects
             </h2>
+
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3">
               <input
                 type="text"
@@ -144,7 +160,7 @@ const Top = () => {
         </section>
       </div>
 
-      {/* Account Info */}
+      {/* Account Information */}
       <div className="mt-10 px-4 sm:px-8 pb-10">
         <section className="shadow-md shadow-gray-300 rounded-md p-6">
           <h1 className="text-lg font-semibold flex items-center gap-2 mb-3">

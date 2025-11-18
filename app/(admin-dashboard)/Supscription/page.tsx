@@ -1,4 +1,4 @@
-import Sidebar from "../component/Sidebar";
+import Sidebar from "../Settings/component/Sidebar";
 import { Crown, Zap } from "lucide-react";
 
 const Subscription = () => {
