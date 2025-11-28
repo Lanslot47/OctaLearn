@@ -12,8 +12,6 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 
-
-
 const Top = () => {
   return (
     <div className="font-sans">
@@ -104,8 +102,7 @@ const Top = () => {
               <label className="block text-sm font-medium">Bio</label>
               <textarea
                 placeholder="Tell others about yourself"
-                className="border border-gray-300 focus:border-blue-500 outline-none rounded-md w-full p-2"
-              ></textarea>
+                className="border border-gray-300 focus:border-blue-500 outline-none rounded-md w-full p-2"></textarea>
             </div>
 
             <h2 className="text-md font-semibold flex items-center gap-2 mt-6">

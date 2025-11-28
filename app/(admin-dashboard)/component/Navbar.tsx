@@ -29,8 +29,7 @@ const Navbar = () => {
                                 <Link href="./Settings" className="hover:bg-blue-200 w-43 rounded-md flex items-center gap-3 p-1 hover:text-blue-400"><span><CiSettings size={23} /></span> Settings</Link>
                             </div>
                             <hr className="border-gray-300"/>
-                            <Link href="admin" className="hover:bg-blue-200 w-43 rounded-md flex items-center gap-3 p-1 hover:text-blue-400"><span><LogOut size={23} /></span> Logout</Link>
-
+                            <Link href="auth/Login" className="hover:bg-blue-200 w-43 rounded-md flex items-center gap-3 p-1 hover:text-blue-400"><span><LogOut size={23} /></span> Logout</Link>
                         </div>
                     }
                 </div>
@@ -38,5 +37,4 @@ const Navbar = () => {
         </div>
     );
 };
-
 export default Navbar;
