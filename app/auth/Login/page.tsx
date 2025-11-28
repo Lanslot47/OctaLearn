@@ -11,21 +11,27 @@ const Home = () => {
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
+    const token = localStorage.getItem('token')
     const res = await fetch("http://localhost:5000/api/user/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Owner ${token}`
       },
       body: JSON.stringify({ email, password }),
+      
     });
     const data = await res.json();
     if (!res.ok) {
+       throw new Error(data.error || "Invalid");
       alert("invalid email or password");
-      throw new Error(data.error || "Invalid");
       console.log(data.message);
-       localStorage.setItem("token", data.token);
+
+      // alert(data.messag)
     }
-    alert("login successfully");
+    alert(data.message);
+    // alert("login successfully");
+    localStorage.setItem("token", data.token);
     router.push("../admin");
   };
   return (

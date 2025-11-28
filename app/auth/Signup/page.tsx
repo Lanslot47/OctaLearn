@@ -13,6 +13,7 @@ const Home = () => {
   const [department, setDepartment] = useState("");
   const [interest, setInterest] = useState("");
   const [course, setCourse] = useState("");
+  const [level, setLevel] = useState("")
   const router = useRouter();
   const handleSignup = async (e: React.FormEvent) => {
       e.preventDefault();
@@ -30,6 +31,7 @@ const Home = () => {
         phone,
         school,
         course,
+        level
       }),
     });
     const data = await res.json();
@@ -37,7 +39,7 @@ const Home = () => {
       alert("invalid email or password");
       throw new Error(data.error || "Invalid");
       console.log(data.message);
-       localStorage.setItem("token", data.token);
+       localStorage.setItem("token" , data.token);
     }
     alert("Signup Successfully");
     router.push("../admin");
@@ -128,13 +130,14 @@ const Home = () => {
               <label className="font-medium">Level</label>
               <br />
               <select
-                className="w-full p-2 focus:outline-blue-500 rounded-md text-gray-500 text-sm"
+                className="w-full p-2 focus:outline-blue-500 rounded-md text-gray-500 text-sm" onChange={(e)=>setLevel(e.target.value)}
+                   value={level}
                 >
                 <option value="">Select your Level</option>
-                <option value="">100 level</option>
-                <option value="">200 level</option>
-                <option value="">300 level</option>
-                <option value="">400 level</option>
+                <option value="100 level">100 level</option>
+                <option value="200 level">200 level</option>
+                <option value="300 level">300 level</option>
+                <option value="400 level">400 level</option>
               </select>
             </div>
 
