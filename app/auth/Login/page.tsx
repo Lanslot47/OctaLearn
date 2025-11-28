@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { BiArrowBack } from 'react-icons/bi'
-import Image from 'next/image'
-
+// import Image from 'next/image'
+// 
 const Home = () => {
     return (
         <div className="py-12 px-4 sm:px-8">

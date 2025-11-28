@@ -17,7 +17,7 @@ const Hero = () => {
     return (
 
         <div >
-            <div className="p-5   ">
+            <div className="p-4   ">
 
                 <h1 className="text-2xl font-semibold flex items-center  gap-2 mb-2 ">
                     <FiFileText size={30} className="text-blue-500" />
@@ -48,11 +48,11 @@ const Hero = () => {
                         <span className="flex items-center">
                             <button className="bg-blue-500 w-40 mx-97 h-8  text-white rounded-md hover hover:bg-blue-500 flex">
                                 <span className="flex items-center gap-2 text-sm p-2">
-                                    <PrinterIcon size={20} />
+                                    <PrinterIcon size={20} className="cursor-pointer" />
                                     Save Changes
                                 </span>
                             </button>
-                            <button className="hover hover:text-blue-500 -ml-155" onClick={()=>setClicked(false)}>cancel</button>
+                            <button className="hover hover:text-blue-500 -ml-155 cursor-pointer" onClick={()=>setClicked(false)}>cancel</button>
                         </span>
                     </div>
                 </div>
