@@ -8,24 +8,24 @@ const Hero = () => {
     { title: "Ai Conversation", heading: 5, num: "+0", content: "this month", icon: <BiMessage size={20} className="text-blue-500" />, id: 1 },
     { title: "Total Notes", heading: 0, num: "+0", content: "this week", icon: <BsFileText size={20} className="text-green-700" />, id: 2 },
     { title: "Downloads", heading: 0, num: "10 remaining", content: "this month", icon: <BiBookOpen size={20} className="text-yellow-500" />, id: 3 },
-    { title: "Study Connections", heading: 4, num: "+0", content: "this week", icon: <LiaUserFriendsSolid size={20} className="text-red-600" />, id: 4 },
+    { title: "Study Connections", heading: 4, num: "+0", content: "this week", icon: <LiaUserFriendsSolid size={20} className="text-red-600 ml-1/1" />, id: 4 },
   ];
 
   const sec = [
-    { icon: <BiBrain size={25} className="text-blue-500 mb-2" />, title: "Ask AI" },
-    { icon: <BsFileText size={25} className="text-green-500 mb-2" />, title: "New Note" },
-    { icon: <BiBookOpen size={25} className="text-yellow-500 mb-2" />, title: "Past Questions" },
-    { icon: <LiaUserFriendsSolid size={25} className="text-red-500 mb-2" />, title: "Study Buddy" },
+    { icon: <BiBrain size={25} className="text-blue-500 mb-2 ml-20" />, title: "Ask AI" },
+    { icon: <BsFileText size={25} className="text-green-500 mb-2 ml-18" />, title: "New Note" },
+    { icon: <BiBookOpen size={25} className="text-yellow-500 mb-2 ml-18" />, title: "Past Questions" },
+    { icon: <LiaUserFriendsSolid size={25} className="text-red-500 mb-2 ml-18" />, title: "Study Buddy" },
   ];
 
   return (
-    <div className="font-sans px-4 md:px-6 mt-24 md:mt-28">
+    <div className="font-sans px-4 md:px-6 mt-24 md:mt-6">
       <section className="mb-12">
         <h1 className="font-bold text-2xl mb-3">Dashboard</h1>
         <p className="text-gray-500 mb-10">Welcome back! Here's what's happening with your studies</p>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {first.map((list) => (
-            <div key={list.id} className="shadow-sm shadow-gray-300 bg-white rounded-md p-4">
+            <div key={list.id} className="shadow-sm shadow-gray-300 bg-white rounded-md p-3">
               <div className="flex justify-between mb-4">
                 <h2 className="font-semibold">{list.title}</h2>
                 <span>{list.icon}</span>
@@ -43,7 +43,7 @@ const Hero = () => {
         <div className="flex-1 rounded-md shadow shadow-gray-300 bg-white px-6 py-8">
           <h1 className="text-2xl font-semibold mb-2">Quick Actions</h1>
           <p className="text-gray-400 mb-8">Jump into your most used features</p>
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-6">
+          <div className="grid sm:grid-cols-2 grid-cols-4 gap-6">
             {sec.map((lists, i) => (
               <div key={i} className="shadow-sm shadow-gray-200 p-4 rounded-md text-center">
                 <span>{lists.icon}</span>
@@ -78,14 +78,14 @@ const Hero = () => {
         <h1 className="font-bold text-2xl mb-2">Recent Activity</h1>
         <p className="text-gray-500 text-sm mb-8">Your latest actions on OctaLearn</p>
         <div className="space-y-4">
-          {[...Array(5)].map((_, i) => (
-            <div key={i} className="flex gap-4 items-start">
-              <div className="h-8 w-8 rounded-full border flex items-center justify-center">
+          {[...Array(1)].map((_, i) => (
+            <div key={i} className=" h-60">
+              {/* <div className="h-8 w-8 rounded-full border flex items-center justify-center">
                 <BiMessage size={20} />
-              </div>
+              </div> */}
               <div>
-                <p className="font-medium">Asked, hssksksksk</p>
-                <p className="text-sm text-gray-500">10/15/2025, 4:17:07</p>
+                {/* <p className="font-medium">Asked, hssksksksk</p> */}
+                <p className=" text-gray-500 text-center mt-30 text-xl">No Recent Activity</p>
               </div>
             </div>
           ))}

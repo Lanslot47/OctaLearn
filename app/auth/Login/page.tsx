@@ -1,33 +1,25 @@
 import Link from 'next/link'
 import { BiArrowBack } from 'react-icons/bi'
-import Image from 'next/image'
-
+// import Image from 'next/image'
+// 
 const Home = () => {
     return (
         <div className="py-12 px-4 sm:px-8">
             <form className="font-sans max-w-md sm:max-w-lg md:max-w-xl mx-auto bg-white">
-                {/* Logo */}
-                <div className="flex justify-center">
-                    <Image src="/Capture.PNG" height={50} width={50} alt="Logo" className="mx-auto mb-5" />
-                </div>
-
-                {/* Heading */}
                 <h1 className="text-2xl sm:text-3xl text-center font-semibold">Welcome Back</h1>
                 <p className="text-sm sm:text-base mb-5 text-gray-500 text-center">
                     Sign in to your OctaLearn Account
                 </p>
-
-                {/* Form Inputs */}
-                <div className="space-y-4 mb-5">
-                    <div>
-                        <label className="font-medium ml-14">Email</label><br />
+                <div className="space-y-2  mb-5">
+                    <div className='ml-20'>
+                        <label className="font-medium ml-2">Email</label><br />
                         <input
                             type="text"
                             placeholder="Enter Your Email Address"
-                            className="w-4/5 ml-14 p-2 focus:outline-blue-500 rounded-md text-gray-500 text-sm"
+                            className="w-4/5  p-2 focus:outline-blue-500 rounded-md text-gray-500 text-sm"
                         />
                     </div>
-                    <div>
+                    <div className='ml-8'>
                         <label className="font-medium ml-14">Password</label><br />
                         <input
                             type="password"
@@ -37,9 +29,8 @@ const Home = () => {
                     </div>
                 </div>
 
-                {/* Buttons and Links */}
                 <div className="text-center">
-                    <button className="bg-blue-500 p-2  sm:w-[360px] mb-8 rounded-md text-white hover:bg-blue-400 transition">
+                    <button className="bg-blue-500 p-2 px-5 sm:w-[360px] mb-8 rounded-md text-white hover:bg-blue-400 transition">
                         Sign in
                     </button>
 
