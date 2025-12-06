@@ -12,9 +12,9 @@ const Home = () => {
                     <Image src="/Capture.PNG" height={50} width={50} alt="Logo" className="mx-auto mb-5" />
                 </div>
 
-               
-               
-                <div className='space-y-4 justify-center ml-[400px] mb-5'>
+
+
+                <div className='space-y-4 justify-center ml-[100px] mb-5'>
 
                     {/* Header */}
                     <h1 className="text-2xl sm:text-3xl text-center font-semibold">Join OctaLearn</h1>
@@ -31,7 +31,7 @@ const Home = () => {
                             <input
                                 type="text"
                                 placeholder="Enter Your Full Name"
-                                className="w-full p-2 focus:outline-blue-500 rounded-md text-gray-500 text-sm"
+                                className="w-full p-2 focus:outline-blue-500 rounded-md border border-gray-500 text-gray-500 text-sm"
                             />
                         </div>
 
@@ -40,33 +40,28 @@ const Home = () => {
                             <input
                                 type="email"
                                 placeholder="Enter Your Email address"
-                                className="w-full p-2 focus:outline-blue-500 rounded-md text-gray-500 text-sm"
+                                className="w-full p-2 focus:outline-blue-500 rounded-md  border border-gray-500  text-gray-500 text-sm"
                             />
                         </div>
 
-                        <div className="flex flex-col md:flex-row gap-4">
-                            <div className="flex-1">
-                                <label className="font-medium">School/Institution</label><br />
-                                <input
-                                    type="text"
-                                    placeholder="Enter Your Institution Name"
-                                    className="w-full p-2 focus:outline-blue-500 rounded-md text-gray-500 text-sm"
-                                />
-                            </div>
-
-                            <div>
-                                <label htmlFor="" className='font-medium'>Department</label><br />
-                                <input type="text" placeholder='Enter Your Department' className=' m-auto p-2 w-70  focus:outline-blue-500 rounded-md text-gray-500 text-sm' />
-
-
+                        <div className=" md:flex-row gap-4">
+                            <div className='flex gap-2 '>
                                 <div className="flex-1">
-                                    <label className="font-medium">Department</label><br />
+                                    <label className="font-medium">School/Institution</label><br />
                                     <input
                                         type="text"
-                                        placeholder="Enter Your Department"
-                                        className="w-full p-2 focus:outline-blue-500 rounded-md text-gray-500 text-sm"
+                                        placeholder="Enter Your Institution Name"
+                                        className="w-full p-2 focus:outline-blue-500 rounded-md  border border-gray-500 text-gray-500 text-sm"
                                     />
                                 </div>
+                                <div className='flex-1'>
+                                    <label htmlFor="" className='font-medium'>Department</label><br />
+                                    <input type="text" placeholder='Enter Your Department' className=' m-auto p-2 w-full  border border-gray-500 focus:outline-blue-500 rounded-md text-gray-500 text-sm' />
+
+
+                                </div>
+
+
                             </div>
 
                             <div>
@@ -74,71 +69,65 @@ const Home = () => {
                                 <input
                                     type="text"
                                     placeholder="Enter Your Course or Major"
-                                    className="w-full p-2 focus:outline-blue-500 rounded-md text-gray-500 text-sm"
+                                    className="w-full p-2 focus:outline-blue-500   border border-gray-500  rounded-md text-gray-500 text-sm"
                                 />
                             </div>
 
-                            <div className="flex flex-col md:flex-row gap-4">
-                                <div className="flex-1">
-                                    <label className="font-medium">Level</label><br />
-                                    <select className="w-full p-2 focus:outline-blue-500 rounded-md text-gray-500 text-sm">
-                                        <option value="">Select your Level</option>
-                                        <option value="">100 level</option>
-                                        <option value="">200 level</option>
-                                        <option value="">300 level</option>
-                                        <option value="">400 level</option>
-                                    </select>
-                                </div>
+                            <div className=" md:flex-row ">
+                                <div className='flex gap-2'>
+                                    <div className="flex-1 ">
+                                        <label className="font-medium">Level</label><br />
+                                        <select className="w-full p-2 focus:outline-blue-500  border border-gray-500   rounded-md text-gray-500 text-sm">
+                                            <option value="">Select your Level</option>
+                                            <option value="">100 level</option>
+                                            <option value="">200 level</option>
+                                            <option value="">300 level</option>
+                                            <option value="">400 level</option>
+                                        </select>
+                                    </div>
 
-                                <div>
-                                    <label htmlFor="" className='font-medium '>Interests</label><br />
-                                    <input type="text" placeholder='Enter Your Academic interests' className=' m-auto p-2 w-70 focus:outline-blue-500 rounded-md text-gray-500 text-sm' />
+                                    <div className='flex-1'>
+                                        <label htmlFor="" className='font-medium '>Interests</label><br />
+                                        <input type="text" placeholder='Enter Your Academic interests' className=' m-auto  border border-gray-500  p-2 w-full focus:outline-blue-500 rounded-md text-gray-500 text-sm' />
 
 
-                                    <div className="flex-1">
-                                        <label className="font-medium">Interests</label><br />
-                                        <input
-                                            type="text"
-                                            placeholder="Enter Your Academic interests"
-                                            className="w-full p-2 focus:outline-blue-500 rounded-md text-gray-500 text-sm"
-                                        />
 
                                     </div>
                                 </div>
+                                <div className='flex-1'>
+                                    <div className='flex-1'>
+                                        <label className="font-medium">Phone (Optional)</label><br />
+                                        <input
+                                            type="number"
+                                            placeholder="Enter Your Phone Number"
+                                            className=" w-full  p-2 focus:outline-blue-500 rounded-md   border border-gray-500  text-gray-500 text-sm"
+                                        />
+                                    </div>
 
-                                <div>
-                                    <label className="font-medium">Phone (Optional)</label><br />
-                                    <input
-                                        type="number"
-                                        placeholder="Enter Your Phone Number"
-                                        className="w-full p-2 focus:outline-blue-500 rounded-md text-gray-500 text-sm"
-                                    />
+                                    <div className='flex-1'>
+                                        <label className="font-medium">Bio (Optional)</label><br />
+                                        <input
+                                            type="text"
+                                            placeholder="Brief Description About you"
+                                            className="w-full p-2 focus:outline-blue-500  border border-gray-500 rounded-md text-gray-500 text-sm"
+                                        />
+                                    </div>
                                 </div>
-
-                                <div>
-                                    <label className="font-medium">Bio (Optional)</label><br />
-                                    <input
-                                        type="text"
-                                        placeholder="Brief Description About you"
-                                        className="w-full p-2 focus:outline-blue-500 rounded-md text-gray-500 text-sm"
-                                    />
-                                </div>
-
                                 <div>
                                     <label className="font-medium">Password</label><br />
                                     <input
                                         type="password"
                                         placeholder="Enter Your Password"
-                                        className="w-full p-2 focus:outline-blue-500 rounded-md text-gray-500 text-sm"
+                                        className="w-full p-2 focus:outline-blue-500   border border-gray-500 rounded-md text-gray-500 text-sm"
                                     />
                                 </div>
 
-                                <div>
+                                <div className='mb-5'>
                                     <label className="font-medium">Confirm Password</label><br />
                                     <input
                                         type="password"
                                         placeholder="Re-enter your Password"
-                                        className="w-full p-2 focus:outline-blue-500 rounded-md text-gray-500 text-sm"
+                                        className="w-full p-2 focus:outline-blue-500  border border-gray-500   rounded-md text-gray-500 text-sm"
                                     />
                                 </div>
                             </div>
