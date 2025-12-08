@@ -1,5 +1,5 @@
 "use client";
-import Hero from "../component/Hero";
+import Hero from "../component/Hero"
 
 const Home = () => {
   return (

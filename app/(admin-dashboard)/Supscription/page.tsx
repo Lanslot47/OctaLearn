@@ -20,7 +20,7 @@ const Subscription = () => {
           Your Trail has Ended. Subscribe to continue accessing preemium content
         </p>
       </section>
-      <div className="grid grid grid-cols-1 p-3  gap-2 mx-3 space-y-9 lg:grid lg:grid-cols-3 justify-center">
+      <div className="grid grid-cols-1 p-3  gap-2 mx-3 space-y-9 lg:grid lg:grid-cols-3 justify-center">
       <nav className="hover:border border-blue-500 rounded-lg p-3 pl-20 lg:pl-10">
           <div className="ml-26 hover hover:shadow shadow-md-blue-500">
           <Crown size={35} className="text-blue-500 font-bold font-xl mb-5 " />
@@ -201,7 +201,7 @@ const Subscription = () => {
           <button className=" rounded-lg w-26 cursor-pointer hover:text-white -mx-12 mt-6 h-10 text-gray-600 font-bold hover hover:bg-blue-500 text-white-500">Subscribe</button>
         </div>
        </nav>
-       <nav className=" shadow shadow-md-gray-500 lg:w-[920px]  sm:w-[400px] shadow-lg shadow-gray-300 ">
+       <nav className="  shadow-md-gray-500 lg:w-[920px]  sm:w-[400px] shadow-lg shadow-gray-300 ">
        <div className="p-4">
          <h1 className="font-bolde text-2xl mb-4">Why Subscribe ?</h1>
         <p className="text-gray-500 text-sm mb-5">

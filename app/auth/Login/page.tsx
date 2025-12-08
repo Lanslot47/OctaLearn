@@ -5,38 +5,34 @@ import Image from "next/image";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 const Home = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState(" ");
+  const [password, setPassword] = useState(" ");
   const router = useRouter();
-
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    const token = localStorage.getItem('token')
-    const res = await fetch("http://localhost:5000/api/user/login", {
+    const res = await fetch("http://localhost:2000/api/user/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Owner ${token}`
       },
-      body: JSON.stringify({ email, password }),
-      
+      body: JSON.stringify({email, password }),
     });
     const data = await res.json();
     if (!res.ok) {
-       throw new Error(data.error || "Invalid");
       alert("invalid email or password");
-      console.log(data.message);
-
-      // alert(data.messag)
+      return;
+      // throw new Error(data.error || "Invalid");
+      // console.log(data.message);
+      localStorage.setItem("token", data.token);
     }
-    alert(data.message);
-    // alert("login successfully");
-    localStorage.setItem("token", data.token);
+    alert("login Successfully");
     router.push("../admin");
-  };
+  
+};
+
   return (
     <div className="py-12 px-4 sm:px-8">
-      <form className="font-sans max-w-md sm:max-w-lg md:max-w-xl mx-auto bg-white">
+      <form className="font-sans max-w-md sm:max-w-lg md:max-w-xl mx-auto">
         {/* Logo */}
         <div className="flex justify-center">
           <Image
@@ -64,7 +60,7 @@ const Home = () => {
             <input
               type="text"
               placeholder="Enter Your Email Address"
-              className="w-4/5 ml-14 p-2 focus:outline-blue-500 rounded-md text-gray-500 text-sm"
+              className="w-4/5 ml-14 p-2 border border-gray-300 focus:outline-blue-500 rounded-md text-gray-500 text-sm"
               onChange={(e) => setEmail(e.target.value)}
             />
           </div>
@@ -74,7 +70,7 @@ const Home = () => {
             <input
               type="password"
               placeholder="Enter Your Password"
-              className="w-4/5 ml-14 p-2 focus:outline-blue-500 rounded-md text-gray-500 text-sm"
+              className="w-4/5 ml-14 p-2 border border-gray-300 focus:outline-blue-500 rounded-md text-gray-500 text-sm"
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>

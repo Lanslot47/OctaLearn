@@ -17,7 +17,7 @@ const Home = () => {
   const router = useRouter();
   const handleSignup = async (e: React.FormEvent) => {
       e.preventDefault();
-    const res = await fetch("http://localhost:5000/api/user/signup", {
+    const res = await fetch("http://localhost:6000/api/user/signup", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -45,8 +45,8 @@ const Home = () => {
     router.push("../admin");
   };
   return (
-    <div className="py-12 px-4 sm:px-8">
-      <form className="font-sans max-w-3xl mx-auto bg-white">
+    <div className="py-12 px-4  mx-4 sm:px-8">
+      <form className="font-sans max-w-3xl mx-auto">
         {/* Logo */}
         <div className="flex justify-center">
           <Image
@@ -67,14 +67,14 @@ const Home = () => {
         </p>
 
         {/* Form Fields */}
-        <div className="space-y-4 mb-5">
+        <div className="space-y-4 mx-26 mb-5">
           <div>
             <label className="font-medium">Full Name</label>
             <br />
             <input
               type="text"
               placeholder="Enter Your Full Name"
-              className="w-full p-2 focus:outline-blue-500 rounded-md text-gray-500 text-sm"
+              className="w-full p-2 border boder-gray-300 focus:outline-blue-500 rounded-md text-gray-500 text-sm"
               onChange={(e) => setUserName(e.target.value)}
             />
           </div>
@@ -85,7 +85,7 @@ const Home = () => {
             <input
               type="email"
               placeholder="Enter Your Email address"
-              className="w-full p-2 focus:outline-blue-500 rounded-md text-gray-500 text-sm"
+              className="w-full p-2 border boder-gray-300 focus:outline-blue-500 rounded-md text-gray-500 text-sm"
               onChange={(e) => setEmail(e.target.value)}
             />
           </div>
@@ -97,7 +97,7 @@ const Home = () => {
               <input
                 type="text"
                 placeholder="Enter Your Institution Name"
-                className="w-full p-2 focus:outline-blue-500 rounded-md text-gray-500 text-sm"
+                className="w-full p-2 border boder-gray-300 focus:outline-blue-500 rounded-md text-gray-500 text-sm"
                 onChange={(e) => setSchool(e.target.value)}
               />
             </div>
@@ -108,7 +108,7 @@ const Home = () => {
               <input
                 type="text"
                 placeholder="Enter Your Department"
-                className="w-full p-2 focus:outline-blue-500 rounded-md text-gray-500 text-sm"
+                className="w-full p-2 border boder-gray-300 focus:outline-blue-500 rounded-md text-gray-500 text-sm"
                 onChange={(e) => setDepartment(e.target.value)}
               />
             </div>
@@ -120,7 +120,7 @@ const Home = () => {
             <input
               type="text"
               placeholder="Enter Your Course or Major"
-              className="w-full p-2 focus:outline-blue-500 rounded-md text-gray-500 text-sm"
+              className="w-full p-2 border boder-gray-300 focus:outline-blue-500 rounded-md text-gray-500 text-sm"
               onChange={(e) => setCourse(e.target.value)}
             />
           </div>
@@ -147,7 +147,7 @@ const Home = () => {
               <input
                 type="text"
                 placeholder="Enter Your Academic interests"
-                className="w-full p-2 focus:outline-blue-500 rounded-md text-gray-500 text-sm"
+                className="w-full p-2 border boder-gray-300 focus:outline-blue-500 rounded-md text-gray-500 text-sm"
                 onChange={(e) => setInterest(e.target.value)}
               />
             </div>
@@ -159,7 +159,7 @@ const Home = () => {
             <input
               type="number"
               placeholder="Enter Your Phone Number"
-              className="w-full p-2 focus:outline-blue-500 rounded-md text-gray-500 text-sm"
+              className="w-full p-2 border boder-gray-300 focus:outline-blue-500 rounded-md text-gray-500 text-sm"
               onChange={(e) => setPhone(e.target.value)}
             />
           </div>
@@ -170,7 +170,7 @@ const Home = () => {
             <input
               type="text"
               placeholder="Brief Description About you"
-              className="w-full p-2 focus:outline-blue-500 rounded-md text-gray-500 text-sm"
+              className="w-full p-2 border boder-gray-300 focus:outline-blue-500 rounded-md text-gray-500 text-sm"
             />
           </div>
 
@@ -180,7 +180,7 @@ const Home = () => {
             <input
               type="password"
               placeholder="Enter Your Password"
-              className="w-full p-2 focus:outline-blue-500 rounded-md text-gray-500 text-sm"
+              className="w-full p-2 border boder-gray-300 focus:outline-blue-500 rounded-md text-gray-500 text-sm"
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>
@@ -191,7 +191,7 @@ const Home = () => {
             <input
               type="password"
               placeholder="Re-enter your Password"
-              className="w-full p-2 focus:outline-blue-500 rounded-md text-gray-500 text-sm"
+              className="w-full p-2 border boder-gray-300 focus:outline-blue-500 rounded-md text-gray-500 text-sm"
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>

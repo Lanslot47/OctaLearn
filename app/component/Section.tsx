@@ -18,7 +18,7 @@ const Section = () => {
 
                 {
                     list.map(items => (
-                        <div className="h-64 w-65 justify-center   p-8 rounded-md cursor-pointer" key={items.id}>
+                        <div className="h-64 w-65 justify-center  p-8 rounded-md cursor-pointer" key={items.id}>
                             <div className="bg-blue-500 w-12 h-12 rounded-md ml-16 mb-4 px-2.5 pt-2 text-center text-white font-sans cursor-pointer hover:transform hover:-translate-0.5 hover:bg-blue-300 hover:duration-75 ">
                                 <h1 className=""><span>{items.icon}</span></h1>
                             </div>

@@ -2,9 +2,9 @@ import { SendIcon, FileArchiveIcon } from "lucide-react";
 
 const AskAi = () => {
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center p-3 md:p-6">
+    <div className="min-h-screen  flex items-center justify-center p-3 md:p-6">
       <div className="flex flex-col items-center w-full max-w-3xl">
-        <div className="flex w-full items-center gap-3 bg-white shadow-md p-3 md:p-4 rounded-xl border border-gray-100 transition-all duration-300">
+        <div className="flex w-full items-center gap-3 shadow-md p-3 md:p-4 rounded-xl border border-gray-100 transition-all duration-300">
           <FileArchiveIcon size={22} className="text-gray-500 shrink-0" />
           <input
             type="text"
