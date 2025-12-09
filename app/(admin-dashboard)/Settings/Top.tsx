@@ -1,4 +1,4 @@
-"use client";
+  "use client";
 import {
   BellIcon,
   SettingsIcon,
@@ -10,9 +10,12 @@ import {
   PrinterIcon,
   Shield,
 } from "lucide-react";
+import {useState} from 'react'
 import Image from "next/image";
 
 const Top = () => {
+  const [clickEmail, setClickEmail]= useState(false)
+  const [clickPassword, setClickPassword]= useState(false)
   return (
     <div className="font-sans">
       {/* Top Bar */}
@@ -100,8 +103,7 @@ const Top = () => {
               <label className="block text-sm font-medium">Bio</label>
               <textarea
                 placeholder="Tell others about yourself"
-                className="border border-gray-300 focus:border-blue-500 outline-none rounded-md w-full p-2"
-              ></textarea>
+                className="border border-gray-300 focus:border-blue-500 outline-none rounded-md w-full p-2"></textarea>
             </div>
 
             <h2 className="text-md font-semibold flex items-center gap-2 mt-6">
@@ -172,18 +174,32 @@ const Top = () => {
           </p>
 
           <div className="space-y-8">
-            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center">
+            <div className=" flex-col sm:flex-row justify-between items-start sm:items-center">
               <div>
                 <h2 className="font-semibold text-lg">Email Address</h2>
                 <p className="text-sm text-gray-500">
                   amarhussaini72@gmail.com
                 </p>
               </div>
-              <a href="#" className="text-blue-500 hover:underline">
+              <a href="#" className="text-blue-500 hover:underline cursor-pointer" onClick={() => setClickEmail(prev => !prev) }>
                 Change Email
               </a>
-            </div>
+              
+                {clickEmail && 
+                  <div className=" -mt-280 bg-gray-400 w-[650px] h-85 space-y-4 justify-center">
+                  <div className="p-16">
+                     <label className="mb-2">Email</label> <br />
+                     <input type="text" placeholder="email" className="p-1 round-md border  border-blue-400 w-85 mb-6 " /> <br />
+                    <label className="mb-2">New Email</label><br />
+                  <input type="email" placeholder="Enter new Email" className="p-1 round-md border border-blue-400 w-85 mb-6  "/> <br/>
+                  <nav className="space-x-6 flex mx-10 ">
+                  <button onClick={()=>setClickEmail(false)} className=" hover:text-white  border w-30 p-2 ">cancel</button>
+                  <button onClick={()=>setClickEmail(true)} className="bg-blue-500 text-white rounded-md hover:bg-blue-600  p-2 w-30 gap-2">save changes</button>
+                  </nav>
+                  </div>
+                </div>
 
+                }
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center">
               <div>
                 <h2 className="font-semibold text-lg">Password</h2>
@@ -191,9 +207,26 @@ const Top = () => {
                   Last updated 30 days ago
                 </p>
               </div>
-              <a href="#" className="text-blue-500 hover:underline">
+              <a href="#" className="text-blue-500 hover:underline" onClick={()=> setClickPassword(pass => !pass)}>
                 Change Password
               </a>
+               {clickPassword && 
+                  <div className=" -mt-280 bg-gray-400 w-[500px] h-95 space-y-6 -ml-85">
+                  <div className="p-16">
+                     <label className="mb-2">Old Password</label> <br />
+                     <input type="text" placeholder="Old password" className="p-1 round-md border  border-blue-400 w-85 mb-6 " /> <br />
+                    <label className="mb-2">New password</label><br />
+                  <input type="email" placeholder="Enter new password" className="p-1 round-md border border-blue-400 w-85 mb-6 "/> <br/>
+                    <label className="mb-2">Confirm New password</label><br />
+                  <input type="email" placeholder="Confirm new password" className="p-1 round-md border border-blue-400 w-85 mb-6 "/> <br/>
+                  <nav className="space-x-6 flex mx-10 mb-6 ">
+                  <button onClick={()=>setClickPassword(false)} className=" hover:text-white  border w-30 p-2 ">cancel</button>
+                  <button onClick={()=>setClickPassword(true)} className="bg-blue-500 text-white rounded-md hover:bg-blue-600  p-2 w-30 gap-2">save changes</button>
+                  </nav>
+                  </div>
+                </div>
+
+                }
             </div>
 
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center">
@@ -210,10 +243,11 @@ const Top = () => {
               </button>
             </div>
           </div>
+            </div>
         </section>
+    
       </div>
     </div>
   );
 };
-
 export default Top;

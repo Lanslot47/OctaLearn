@@ -12,10 +12,10 @@ const Hero = () => {
   ];
 
   const sec = [
-    { icon: <BiBrain size={25} className="text-blue-500 mb-2" />, title: "Ask AI" },
-    { icon: <BsFileText size={25} className="text-green-500 mb-2" />, title: "New Note" },
-    { icon: <BiBookOpen size={25} className="text-yellow-500 mb-2" />, title: "Past Questions" },
-    { icon: <LiaUserFriendsSolid size={25} className="text-red-500 mb-2" />, title: "Study Buddy" },
+    { icon: <BiBrain size={25} className="text-blue-500 mb-2 ml-15" />, title: "Ask AI" },
+    { icon: <BsFileText size={25} className="text-green-500 mb-2 ml-15" />, title: "New Note" },
+    { icon: <BiBookOpen size={25} className="text-yellow-500 mb-2 mx-15" />, title: "Past Questions" },
+    { icon: <LiaUserFriendsSolid size={25} className="text-red-500 mb-2 mx-15 " />, title: "Study Buddy" },
   ];
 
   return (
@@ -25,7 +25,7 @@ const Hero = () => {
         <p className="text-gray-500 mb-10">Welcome back! Here's what's happening with your studies</p>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {first.map((list) => (
-            <div key={list.id} className="shadow-sm shadow-gray-300 bg-white rounded-md p-3">
+            <div key={list.id} className="shadow-sm shadow-gray-300  rounded-md p-3">
               <div className="flex justify-between mb-4">
                 <h2 className="font-semibold">{list.title}</h2>
                 <span>{list.icon}</span>
@@ -40,20 +40,20 @@ const Hero = () => {
       </section>
 
       <section className="flex flex-col lg:flex-row gap-8 mb-8">
-        <div className="flex-1 rounded-md shadow shadow-gray-300 bg-white px-6 py-8">
+        <div className="flex-1 rounded-md shadow shadow-gray-300  px-6 py-8">
           <h1 className="text-2xl font-semibold mb-2">Quick Actions</h1>
           <p className="text-gray-400 mb-8">Jump into your most used features</p>
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-6">
+          <div className="grid sm:grid-cols-2 grid-cols-4 gap-6">
             {sec.map((lists, i) => (
-              <div key={i} className="shadow-sm shadow-gray-200 p-4 rounded-md text-center">
-                <span>{lists.icon}</span>
-                <p className="font-bold text-sm">{lists.title}</p>
+              <div key={i} className="shadow-sm shadow-gray-200 p-4   rounded-md text-center w-4/4">
+                <span className="">{lists.icon}</span>
+                <p className="font-bold text-sm -mx-4">{lists.title}</p>
               </div>
             ))}
           </div>
         </div>
 
-        <div className="flex-1 rounded-md shadow shadow-gray-300 bg-white px-6 py-8">
+        <div className="flex-1 rounded-md shadow shadow-gray-300  px-6 py-8">
           <h1 className="flex items-center gap-2 text-2xl font-semibold mb-2">
             <IoNotificationsCircle size={30} /> Announcements
           </h1>
@@ -74,7 +74,7 @@ const Hero = () => {
         </div>
       </section>
 
-      <section className="border border-gray-300 bg-white rounded-md px-6 py-6">
+      <section className="border border-gray-300  rounded-md px-6 py-6">
         <h1 className="font-bold text-2xl mb-2">Recent Activity</h1>
         <p className="text-gray-500 text-sm mb-8">Your latest actions on OctaLearn</p>
         <div className="space-y-4">

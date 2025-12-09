@@ -54,14 +54,14 @@ const Home = () => {
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 {Array.from({ length: 9 }).map((_, idx) => (
-                    <div key={idx} className="border p-5 rounded-md border-gray-300 bg-white flex flex-col justify-between">
+                    <div key={idx} className="border p-5 rounded-md border-gray-300  flex flex-col justify-between">
                         <div>
                             <div className="flex gap-3 mb-3">
                                 <div>
                                     <h2 className="font-bold text-lg">Linear Algebra Past Questions 2020-2023</h2>
                                     <p className="text-sm text-gray-500">100 level</p>
                                 </div>
-                                <div className="h-6 w-20 bg-white border border-gray-300 rounded-full flex items-center justify-center">
+                                <div className="h-6 w-20  border border-gray-300 rounded-full flex items-center justify-center">
                                     <span className="text-xs">PDF</span>
                                 </div>
                             </div>

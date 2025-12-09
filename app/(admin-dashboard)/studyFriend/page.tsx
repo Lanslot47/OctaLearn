@@ -14,7 +14,7 @@ export default function BuddySection() {
       </h1>
       <p className="text-gray-500 mb-4">connect with classmates, form study groups, and learn together</p>
 
-      <div className="w-full bg-gray-100 rounded-md p-3">
+      <div className="w-full rounded-md p-3">
         <div className="flex flex-wrap gap-2 mb-4">
           <button
             onClick={() => setActiveTab("buddies")}
@@ -36,7 +36,7 @@ export default function BuddySection() {
           </button>
         </div>
 
-        <div className="w-full rounded-md bg-white p-4">
+        <div className="w-full rounded-md  p-4">
           {activeTab === "request" && (
             <div>
               <h2 className="text-xl font-bold mb-2">Requests</h2>
@@ -74,17 +74,18 @@ export default function BuddySection() {
                     <option>All Levels</option>
                     <option>100 level</option>
                     <option>200 level</option>
+                    <option>300 level</option>
+                    <option>400 level</option>
                   </select>
                 </div>
               </div>
-
               {/* Cards grid */}
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 {Array.from({ length: 9 }).map((_, idx) => (
-                  <div key={idx} className="border p-4 rounded-md border-gray-300 bg-white flex flex-col justify-between">
+                  <div key={idx} className="border p-4 rounded-md border-gray-300 flex flex-col justify-between">
                     <div>
                       <div className="flex gap-3 items-center mb-3">
-                        <div className="h-10 w-10 bg-blue-200 rounded-full flex items-center justify-center">
+                        <div className="h-10 w-10  rounded-full flex items-center justify-center">
                           <span className="font-semibold text-blue-600">DA</span>
                         </div>
                         <div>
@@ -97,7 +98,7 @@ export default function BuddySection() {
                         <p>Programming</p>
                       </div>
                       <p className="font-semibold text-sm mb-2">Interest:</p>
-                      <div className="inline-block mb-4 bg-blue-100 rounded-full px-3 py-1">
+                      <div className="inline-block mb-4  rounded-full px-3 py-1">
                         <p className="text-sm">Programming</p>
                       </div>
                     </div>

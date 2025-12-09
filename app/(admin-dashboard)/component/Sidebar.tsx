@@ -15,7 +15,7 @@ const Sidebar = () => {
   const items = [
     { id: 1, title: "Dashboard", icon: <LayoutDashboard size={20} />, url: "./admin" },
     { id: 2, title: "Ask AI", icon: <BiMessage size={20} />, url: "./askAi" },
-    { id: 3, title: "Past Questions", icon: <BiBookOpen size={20} />, url: "./pastQ" },
+    { id: 3, title: "Past Questions", icon: <BiBookOpen size={20} />, url: "./Note/pastQ" },
     { id: 4, title: "Notes", icon: <BsFileText size={20} />, url: "./Note" },
     { id: 5, title: "Study Buddy", icon: <LiaUserFriendsSolid size={20} />, url: "./studyFriend" },
     { id: 6, title: "Settings", icon: <CiSettings size={20} />, url: "./Settings" },
@@ -37,7 +37,7 @@ const Sidebar = () => {
       </div>
 
       <div
-        className={`fixed top-0 left-0 h-full bg-white border-r-2 border-gray-300 px-6 py-6 w-64 transform 
+        className={`fixed top-0 left-0 h-full  border-r-2 border-gray-300 px-6 py-6 w-64 transform 
         ${open ? "translate-x-0" : "-translate-x-full"} 
         md:translate-x-0 transition-transform duration-300 ease-in-out z-50`}
       >

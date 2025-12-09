@@ -1,3 +1,4 @@
+
 import Hero from "./Hero"
 // import Navbar from "../component/Navbar"
 
