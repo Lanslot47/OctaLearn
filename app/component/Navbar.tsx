@@ -3,7 +3,7 @@ import Link from 'next/link'
 const Navbar = () => {
 
     return (
-        <nav className="flex justify-between px-6 py-6 fixed w-full z-50 top-0 ">
+        <nav className="flex justify-between bg-blue-100 px-6 py-6 fixed w-full z-50 top-0 ">
             <h1 className="text-xl text-blue-400 font-semibold font-sans flex items-center gap-2">
                 <Image src="/Capture.PNG" height={50} width={50} alt='hsh' />
                 <span>OctaLearn</span>

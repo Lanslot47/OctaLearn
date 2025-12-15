@@ -1,4 +1,4 @@
-  "use client";
+"use client";
 import {
   BellIcon,
   SettingsIcon,
@@ -10,12 +10,12 @@ import {
   PrinterIcon,
   Shield,
 } from "lucide-react";
-import {useState} from 'react'
+import { useState } from 'react'
 import Image from "next/image";
 
 const Top = () => {
-  const [clickEmail, setClickEmail]= useState(false)
-  const [clickPassword, setClickPassword]= useState(false)
+  const [clickEmail, setClickEmail] = useState(false)
+  const [clickPassword, setClickPassword] = useState(false)
   return (
     <div className="font-sans">
       {/* Top Bar */}
@@ -173,33 +173,66 @@ const Top = () => {
             Manage your login and notification settings
           </p>
 
-          <div className="space-y-8">
+          <div className="space-y-2">
             <div className=" flex-col sm:flex-row justify-between items-start sm:items-center">
               <div>
                 <h2 className="font-semibold text-lg">Email Address</h2>
                 <p className="text-sm text-gray-500">
-                  amarhussaini72@gmail.com
+                  alfaisibrahim3@gmail.com
                 </p>
               </div>
-              <a href="#" className="text-blue-500 hover:underline cursor-pointer" onClick={() => setClickEmail(prev => !prev) }>
+              <a href="#" className="text-blue-500  hover-underline cursor-pointer ml-170" onClick={() => setClickEmail(prev => !prev)}>
                 Change Email
               </a>
-              
-                {clickEmail && 
-                  <div className=" -mt-280 bg-gray-400 w-[650px] h-85 space-y-4 justify-center">
-                  <div className="p-16">
-                     <label className="mb-2">Email</label> <br />
-                     <input type="text" placeholder="email" className="p-1 round-md border  border-blue-400 w-85 mb-6 " /> <br />
-                    <label className="mb-2">New Email</label><br />
-                  <input type="email" placeholder="Enter new Email" className="p-1 round-md border border-blue-400 w-85 mb-6  "/> <br/>
-                  <nav className="space-x-6 flex mx-10 ">
-                  <button onClick={()=>setClickEmail(false)} className=" hover:text-white  border w-30 p-2 ">cancel</button>
-                  <button onClick={()=>setClickEmail(true)} className="bg-blue-500 text-white rounded-md hover:bg-blue-600  p-2 w-30 gap-2">save changes</button>
-                  </nav>
-                  </div>
-                </div>
+            </div>
+            {clickEmail &&
+              <div className="fixed inset-0 bg-black/58 z-60">
+                <div className="h-60 mx-auto mt-32 w-79 bg-white rounded-sm"> 
+                <div className="p-3 ml-1 " >
+                  <label htmlFor="" className="font-semibold">old email</label>
+                  <br/>
+                  <input type="email" 
+                  //  placeholder="old email"
+                     className="w-71 h-7 rounded-sm border border-gray-300"
+                     />
+                </div >
+                <div className="w-75 ml-2 h-30 border border-red-200 rounded-sm">
 
-                }
+<div className="p-2"> 
+ <label htmlFor="">New email</label> 
+ <br />
+ <input type="email" className="w-70 mb-1  border border-gray-300 rounded-sm" />
+<br></br>
+ <label htmlFor="">Confim email</label>
+ <br></br>
+ <input type="text"  className="w-70 border border-gray-300 rounded-sm" />
+     <div className="flex gap-2 justify-end p-3">
+        
+             
+               <div>
+                <button onClick={() => setClickEmail(false) }>
+                  cancel
+                </button>
+               </div>
+               <div>
+
+                Save 
+               </div>
+      </div>
+</div>
+
+  
+
+
+                </div>
+                </div>
+<div>
+
+</div>
+                
+              </div>
+
+            }
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center">
               <div>
                 <h2 className="font-semibold text-lg">Password</h2>
@@ -207,26 +240,14 @@ const Top = () => {
                   Last updated 30 days ago
                 </p>
               </div>
-              <a href="#" className="text-blue-500 hover:underline" onClick={()=> setClickPassword(pass => !pass)}>
+              <a href="#" className="text-blue-500 hover:underline" onClick={() => setClickPassword(pass => !pass)}>
                 Change Password
               </a>
-               {clickPassword && 
-                  <div className=" -mt-280 bg-gray-400 w-[500px] h-95 space-y-6 -ml-85">
-                  <div className="p-16">
-                     <label className="mb-2">Old Password</label> <br />
-                     <input type="text" placeholder="Old password" className="p-1 round-md border  border-blue-400 w-85 mb-6 " /> <br />
-                    <label className="mb-2">New password</label><br />
-                  <input type="email" placeholder="Enter new password" className="p-1 round-md border border-blue-400 w-85 mb-6 "/> <br/>
-                    <label className="mb-2">Confirm New password</label><br />
-                  <input type="email" placeholder="Confirm new password" className="p-1 round-md border border-blue-400 w-85 mb-6 "/> <br/>
-                  <nav className="space-x-6 flex mx-10 mb-6 ">
-                  <button onClick={()=>setClickPassword(false)} className=" hover:text-white  border w-30 p-2 ">cancel</button>
-                  <button onClick={()=>setClickPassword(true)} className="bg-blue-500 text-white rounded-md hover:bg-blue-600  p-2 w-30 gap-2">save changes</button>
-                  </nav>
-                  </div>
-                </div>
+              {clickPassword &&
+                <div>
 
-                }
+                </div>
+              }
             </div>
 
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center">
@@ -243,10 +264,11 @@ const Top = () => {
               </button>
             </div>
           </div>
-            </div>
         </section>
-    
       </div>
+
+
+
     </div>
   );
 };
