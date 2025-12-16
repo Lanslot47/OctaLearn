@@ -1,6 +1,24 @@
+"use client";
 import { SendIcon, FileArchiveIcon } from "lucide-react";
+import React, { useState } from "react"
+
 
 const AskAi = () => {
+  const [message , setMessage] = useState(" ")
+    const handleChat = async (e: React.FormEvent) => {
+        e.preventDefault();
+      const res = await fetch("http://localhost:6000/api/courses", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        alert("invalid email or password");
+        throw new Error(data.error || "Invalid");
+        console.log(data.message);
+      }
   return (
     <div className="min-h-screen  flex items-center justify-center p-3 md:p-6">
       <div className="flex flex-col items-center w-full max-w-3xl">
@@ -10,10 +28,11 @@ const AskAi = () => {
             type="text"
             placeholder="Ask me anything about your studies..."
             className="flex-1 border border-blue-400 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm md:text-base placeholder:text-gray-400"
+            onChange={(e)=> setMessage(e.target.value)}
           />
           <button
             type="submit"
-            className="bg-blue-500 hover:bg-blue-600 text-white p-2 md:p-3 rounded-lg transition-colors duration-300"
+            className="bg-blue-500 hover:bg-blue-600 text-white p-2 md:p-3 rounded-lg transition-colors duration-300" onClick={handleChat}
           >
             <SendIcon size={18} className="md:size-5" />
           </button>
@@ -25,5 +44,6 @@ const AskAi = () => {
     </div>
   );
 };
+}
 
 export default AskAi;

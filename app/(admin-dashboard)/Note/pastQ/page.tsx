@@ -1,24 +1,42 @@
 import { Calendar } from "lucide-react";
+import Link from "next/link";
 import { Download } from "lucide-react";
 import { BiBookOpen } from "react-icons/bi"
 import { BiFilter } from "react-icons/bi";
 const Home = () => {
+
+      const handleSignup = async (e: React.FormEvent) => {
+      e.preventDefault();
+    const res = await fetch("http://localhost:6000/api/courses", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const data = await res.json();
+    if (!res.ok) {
+      alert("invalid email or password");
+      throw new Error(data.error || "Invalid");
+      console.log(data.message);
+    }
+
+  };
     return (
         <div className="font-sans max-w-[1400px] mx-auto mt-6 px-4 md:px-6 ">
             <h1 className="text-2xl font-bold flex items-center gap-2">
                 <BiBookOpen size={26} className="text-blue-500" /> Past Questions & Handouts
             </h1>
             <p className="text-gray-500 mb-4">Access thousands of study materials from various institutions</p>
-           <div className="border border-red-400 h-19  cursor-pointer  rounded-md   mb-14">
+           <div className="border border-red-400 h-19  rounded-md mb-14">
             <div className="p-3 ">
                 
                 <h1 className="font-b">Subscription Required</h1>
                 <p className="text-gray-400">Subscribe to download past questions and study materials</p>
-             
-                <button  className="h-11  w-30 mt-80 rounded-xl text-white bg-blue-500 ml-170">View Plans
-
-                    
+             <Link href="Supscription">
+                <button  className="h-11  w-30 -mt-4 cursor-pointer rounded-xl text-white bg-blue-500">
+                    View Plans 
                 </button>
+                </Link>
             </div>
 
            </div>
@@ -30,7 +48,7 @@ const Home = () => {
                         <input type="text" placeholder="Search handouts and past questions..." className="border-0 w-full outline-none text-sm text-gray-500" />
                     </div>
 
-                    <select className="p-2 border border-gray-300 rounded-md">
+                    <select className="p-2 border border-gray-300 text-blue-600 rounded-md">
                         <option value="">All Subjects</option>
                         <option>Mathematics</option>
                         <option>Physics</option>
@@ -39,7 +57,7 @@ const Home = () => {
                         <option>Biology</option>
                     </select>
 
-                    <select className="p-2 border border-gray-300 rounded-md">
+                    <select className="p-2 border border-gray-300 text-blue-600 rounded-md">
                         <option>All Levels</option>
                         <option>100 level</option>
                         <option>200 level</option>

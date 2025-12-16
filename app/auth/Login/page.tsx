@@ -10,7 +10,7 @@ const Home = () => {
   const router = useRouter();
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    const res = await fetch("http://localhost:2000/api/user/login", {
+    const res = await fetch("http://localhost:3000/api/user/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
