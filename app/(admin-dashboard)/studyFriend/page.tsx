@@ -9,12 +9,12 @@ export default function BuddySection() {
 
   return (
     <div className="font-sans max-w-[1400px] mx-auto mt-6 px-4 md:px-6">
-      <h1 className="text-2xl font-bold flex items-center gap-2">
+      <h1 className="text-2xl font-bold flex items-center gap-2 ml-6">
         <LiaUserFriendsSolid size={30} className="text-blue-500" /> Study Buddy
       </h1>
-      <p className="text-gray-500 mb-4">connect with classmates, form study groups, and learn together</p>
+      <p className="text-gray-500 mb-4 ml-6">connect with classmates, form study groups, and learn together</p>
 
-      <div className="w-full rounded-md p-3">
+      <div className="w-full bg-gray rounded-md p-3">
         <div className="flex flex-wrap gap-2 mb-4">
           <button
             onClick={() => setActiveTab("buddies")}
@@ -86,7 +86,7 @@ export default function BuddySection() {
                     <div>
                       <div className="flex gap-3 items-center mb-3">
                         <div className="h-10 w-10  rounded-full flex items-center justify-center">
-                          <span className="font-semibold text-blue-600">DA</span>
+                          <span className="font-semibold bg-blue-100 rounded-full w-15 h-10 p-2 text-blue-600">DA</span>
                         </div>
                         <div>
                           <h2 className="font-bold text-lg">Dawood Ahmad</h2>

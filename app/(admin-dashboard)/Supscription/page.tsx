@@ -22,7 +22,7 @@ const Subscription = () => {
       </section>
       <div className="grid grid-cols-1 p-3  gap-2 mx-3 space-y-9 lg:grid lg:grid-cols-3 justify-center">
       <nav className="hover:border border-blue-500 rounded-lg p-3 pl-20 lg:pl-10">
-          <div className="ml-26 hover hover:shadow shadow-md-blue-500">
+          <div className="ml-25 hover hover:shadow shadow-md-blue-500">
           <Crown size={35} className="text-blue-500 font-bold font-xl mb-5 " />
           <h1 className="text-2xl -mx-6 text-bold mb-4 ">Monthly</h1>
           <p className="flex items-center gap-8 mx-5  mb-4 ">
@@ -30,7 +30,7 @@ const Subscription = () => {
             <sub className="text-gray-500 text-md mx-15"> /month</sub>{" "}
           </p>
           <nav className="-mx-30 p-1.5 gap-4">
-            <i className="w-22 h-6 bg-blue-200 text-blue-600 rounded-full text-xs">
+            <i className="w-23 h-6 bg-blue-200 text-blue-600 rounded-full text-xs">
               &#10003;
             </i>{" "}
             <span className="text-xs">
@@ -142,7 +142,7 @@ const Subscription = () => {
           </nav>
         </div>
       </nav>
-       <nav className="hover hover:border h-138 lg:h-120 border-blue-500 rounded-lg pl-20 lg:pl-10   p-3">
+       <nav className="hover hover:border h-138 lg:h-120 border-blue-500 rounded-lg pl-50 lg:pl-10   p-3">
          <div className="mx-28  rounded">
           <Crown size={35} className="text-blue-500 font-bold font-xl mb-5 " />
           <h1 className="text-2xl -mx-6 text-bold mb-4 ">Annual</h1>

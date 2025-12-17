@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Download } from "lucide-react";
 import { BiBookOpen } from "react-icons/bi"
 import { BiFilter } from "react-icons/bi";
+import Link from 'next/link'
 const Home = () => {
 
       const handleSignup = async (e: React.FormEvent) => {
@@ -27,6 +28,7 @@ const Home = () => {
                 <BiBookOpen size={26} className="text-blue-500" /> Past Questions & Handouts
             </h1>
             <p className="text-gray-500 mb-4">Access thousands of study materials from various institutions</p>
+<<<<<<< HEAD:app/(admin-dashboard)/Note/pastQ/page.tsx
            <div className="border border-red-400 h-19  rounded-md mb-14">
             <div className="p-3 ">
                 
@@ -37,9 +39,24 @@ const Home = () => {
                     View Plans 
                 </button>
                 </Link>
-            </div>
+=======
+            <div className="border border-red-400 bg-red-50 h-19  cursor-pointer  rounded-md   mb-14">
+                <div className="p-3 ">
+                    <div className="">
+                        <h1 className="">Subscription Required</h1>
+                        <p className="text-gray-400">subscribe to download past questions and study materials</p>
+                    </div>
+                    <div className="-mt-11">
+                        <button className="h-11  w-30  rounded-xl text-white bg-blue-500 ml-170 ">
+                            <Link href="/Supscription">View plans</Link>
 
-           </div>
+
+                        </button></div>
+
+                </div>
+
+>>>>>>> 15a04247178bdd5ab9d670051cccb4738e898f5e:app/(admin-dashboard)/pastQ/page.tsx
+            </div>
             <div className="w-full rounded-md border border-gray-300 p-4 mb-6">
                 <h2 className="text-2xl font-bold mb-3">Find Study Partners</h2>
                 <div className="flex flex-col md:flex-row gap-3">
