@@ -1,24 +1,40 @@
 "use client";
 import { SendIcon, FileArchiveIcon } from "lucide-react";
-import React, { useState } from "react"
-
+import React, { useState } from "react";
 
 const AskAi = () => {
-  const [message , setMessage] = useState(" ")
-    const handleChat = async (e: React.FormEvent) => {
-        e.preventDefault();
-      const res = await fetch("http://localhost:6000/api/courses", {
-        method: "GET",
+  const [message, setMessage] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const handleChat = async () => {
+    if (!message.trim()) return;
+
+    setLoading(true);
+
+    try {
+      const res = await fetch("http://localhost:2000/api/ask-ai", {
+        method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
+        body: JSON.stringify({ question: message }),
       });
+
       const data = await res.json();
+
       if (!res.ok) {
-        alert("invalid email or password");
-        throw new Error(data.error || "Invalid");
-        console.log(data.message);
+        throw new Error(data.error || "AI request failed");
       }
+
+      console.log("AI Response:", data);
+    } catch (error) {
+      console.error("AskAI Error:", message);
+      alert("Failed to get AI response");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="min-h-screen  flex items-center justify-center p-3 md:p-6">
       <div className="flex flex-col items-center w-full max-w-3xl">
@@ -28,11 +44,14 @@ const AskAi = () => {
             type="text"
             placeholder="Ask me anything about your studies..."
             className="flex-1 border border-blue-400 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm md:text-base placeholder:text-gray-400"
-            onChange={(e)=> setMessage(e.target.value)}
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
           />
           <button
             type="submit"
-            className="bg-blue-500 hover:bg-blue-600 text-white p-2 md:p-3 rounded-lg transition-colors duration-300" onClick={handleChat}
+            onClick={handleChat}
+            disabled={loading}
+            className="bg-blue-500 hover:bg-blue-600 text-white p-2 md:p-3 rounded-lg transition-colors duration-300"
           >
             <SendIcon size={18} className="md:size-5" />
           </button>
@@ -44,6 +63,5 @@ const AskAi = () => {
     </div>
   );
 };
-}
 
 export default AskAi;
