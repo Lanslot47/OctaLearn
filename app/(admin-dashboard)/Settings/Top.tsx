@@ -10,12 +10,41 @@ import {
   PrinterIcon,
   Shield,
 } from "lucide-react";
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import Image from "next/image";
+// import { User } from "lucide-react";
+
 
 const Top = () => {
+  const fileInputRev = useRef<HTMLInputElement>(null)
+  const [preview, setPreview] = useState<string | null>(null)
   const [clickEmail, setClickEmail] = useState(false)
   const [clickPassword, setClickPassword] = useState(false)
+  const [inputValue, setInputValue] = useState("");
+  const [messages, setMessages] = useState(['']);
+  const handleAdd = () => {
+    if (inputValue.trim() === "") return; // ignore empty input
+    setMessages([...messages, inputValue]); // append input to messages array
+    setInputValue("");
+    if (messages.length >= 4) {
+      alert('reach 3')
+      setMessages([...messages, ''])
+    }
+
+  }
+  const handleFile = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (file) {
+      const reader = new FileReader()
+      reader.onloadend = () => {
+        if (typeof reader.result === 'string') {
+          setPreview(reader.result)
+        }
+      }
+      reader.readAsDataURL(file)
+    }
+  }
+
   return (
     <div className="font-sans">
       {/* Top Bar */}
@@ -52,20 +81,26 @@ const Top = () => {
             <CameraIcon size={20} />
             Profile Picture
           </h1>
-          <p className="text-sm text-gray-500 mb-6">
+          <p className="text-sm text-gray-500 mb-4">
             Upload and manage your profile photo
           </p>
           <div className="flex flex-col items-center mb-4">
-            <Image
-              height={100}
-              width={100}
-              src="/Capture.PNG"
-              alt="Profile Image"
-              className="mb-4"
-            />
+            {preview ? (
+              <div className="h-20 w-20 rounded-4xl font-light bg-gray-300 ">
+              <img
+                
+                src={preview}
+                alt="Profile Image"
+                className="mb-4 h-20 rounded-4xl"
+              /></div>) : (
+                <div className="h-20 w-20 rounded-4xl font-light pt-3 bg-gray-300 pl-3">
+                  <User size={50} className=""/>
+                </div>
+              )
+            }
             <button className="flex items-center gap-2 text-blue-600 font-medium hover:underline">
               <UploadIcon size={18} />
-              Upload Photo
+              <input type="file"className="text-gray-500 font-sans" ref={fileInputRev} onChange={handleFile} accept="image/" placeholder="chh" name="" id="" />
             </button>
           </div>
         </section>
@@ -144,14 +179,27 @@ const Top = () => {
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3">
               <input
                 type="text"
+                value={inputValue}
+                onChange={(e) => setInputValue(e.target.value)}
                 placeholder="Enter your interests or subjects"
                 className="border border-gray-300 focus:border-blue-500 outline-none rounded-md p-2 w-full sm:w-3/4"
               />
-              <button className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">
+              <button className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600" onClick={handleAdd}                      >
                 Add
               </button>
             </div>
 
+            <div>
+              {/* {
+                messages.length === 0 ? <p>hello</p> : <p>hey</p>
+              } */}
+              {
+                messages.length >= 0 ? messages.map((ul) => (
+                  <ul>{ul}</ul>
+                )) : <p>hhhhhh</p>
+              }
+            </div>
+            {/*  && ) */}
             <div className="flex justify-end mt-6">
               <button className="bg-blue-500 text-white px-6 py-2 rounded-md hover:bg-blue-600 flex items-center gap-2 font-semibold">
                 <PrinterIcon size={18} />
@@ -187,49 +235,43 @@ const Top = () => {
             </div>
             {clickEmail &&
               <div className="fixed inset-0 bg-black/58 z-60">
-                <div className="h-60 mx-auto mt-32 w-79 bg-white rounded-sm"> 
-                <div className="p-3 ml-1 " >
-                  <label htmlFor="" className="font-semibold">old email</label>
-                  <br/>
-                  <input type="email" 
-                  //  placeholder="old email"
-                     className="w-71 h-7 rounded-sm border border-gray-300"
-                     />
-                </div >
-                <div className="w-75 ml-2 h-30 border border-red-200 rounded-sm">
+                <div className="h-60 mx-auto mt-32 w-79 bg-white rounded-sm">
+                  <div className="p-3 ml-1 " >
+                    <label htmlFor="" className="font-semibold">old email</label>
+                    <br />
+                    <input type="email"
+                      //  placeholder="old email"
+                      className="w-71 h-7 rounded-sm border border-gray-300"
+                    />
+                  </div >
+                  <div className="w-75 ml-2 h-30 border border-red-200 rounded-sm">
 
-<div className="p-2"> 
- <label htmlFor="">New email</label> 
- <br />
- <input type="email" className="w-70 mb-1  border border-gray-300 rounded-sm" />
-<br></br>
- <label htmlFor="">Confim email</label>
- <br></br>
- <input type="text"  className="w-70 border border-gray-300 rounded-sm" />
-     <div className="flex gap-2 justify-end p-3">
-        
-             
-               <div>
-                <button onClick={() => setClickEmail(false) }>
-                  cancel
-                </button>
-               </div>
-               <div>
-
-                Save 
-               </div>
-      </div>
-</div>
-
-  
+                    <div className="p-2">
+                      <label htmlFor="">New email</label>
+                      <br />
+                      <input type="email" className="w-70 mb-1  border border-gray-300 rounded-sm" />
+                      <br></br>
+                      <label htmlFor="">Confim email</label>
+                      <br></br>
+                      <input type="text" className="w-70 border border-gray-300 rounded-sm" />
+                      <div className="flex gap-2 justify-end p-3">
 
 
+                        <div>
+                          <button onClick={() => setClickEmail(false)}>
+                            cancel
+                          </button>
+                        </div>
+                        <div>
+
+                          Save
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
+                <div>
                 </div>
-<div>
-
-</div>
-                
               </div>
 
             }
@@ -244,8 +286,44 @@ const Top = () => {
                 Change Password
               </a>
               {clickPassword &&
-                <div>
+                <div className="fixed inset-0 bg-black/58 z-60">
+                  <div className="h-60 mx-auto mt-32 w-79 bg-white rounded-sm">
+                    <div className="p-3 ml-1 " >
+                      <label htmlFor="" className="font-semibold">old Password</label>
+                      <br />
+                      <input type="email"
+                        //  placeholder="old email"
+                        className="w-71 h-7 rounded-sm border border-gray-300"
+                      />
+                    </div >
+                    <div className="w-75 ml-2 h-30 border border-red-200 rounded-sm">
 
+                      <div className="p-2">
+                        <label htmlFor="">New Password</label>
+                        <br />
+                        <input type="email" className="w-70 mb-1  border border-gray-300 rounded-sm" />
+                        <br></br>
+                        <label htmlFor="">Confim Password</label>
+                        <br></br>
+                        <input type="text" className="w-70 border border-gray-300 rounded-sm" />
+                        <div className="flex gap-2 justify-end p-3">
+
+
+                          <div>
+                            <button onClick={() => setClickPassword(false)}>
+                              cancel
+                            </button>
+                          </div>
+                          <div>
+
+                            Save
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                  </div>
                 </div>
               }
             </div>
@@ -272,4 +350,4 @@ const Top = () => {
     </div>
   );
 };
-export default Top;
+export default Top
