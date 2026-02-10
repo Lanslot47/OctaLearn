@@ -7,7 +7,7 @@ const Home = () => {
 
     const handleSignup = async (e: React.FormEvent) => {
         e.preventDefault();
-        const res = await fetch("http://localhost:6000/api/courses", {
+        const res = await fetch("http://localhost:5000/api/courses", {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",

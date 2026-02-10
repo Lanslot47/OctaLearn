@@ -16,33 +16,39 @@ const Home = () => {
   const [level, setLevel] = useState("")
   const router = useRouter();
   const handleSignup = async (e: React.FormEvent) => {
-      e.preventDefault();
-    const res = await fetch("http://localhost:6000/api/user/signup", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email,
-        password,
-        userName,
-        department,
-        interest,
-        phone,
-        school,
-        course,
-        level
-      }),
-    });
-    const data = await res.json();
-    if (!res.ok) {
-      alert("invalid email or password");
-      throw new Error(data.error || "Invalid");
-      console.log(data.message);
-       localStorage.setItem("token" , data.token);
+    e.preventDefault();
+    try {
+      const res = await fetch("http://localhost:5000/api/auth/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email,
+          password,
+          userName,
+          department,
+          interest,
+          phone,
+          school,
+          course,
+          level
+        }),
+        credentials: 'include',
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        alert("invalid email or password");
+        throw new Error(data.error || "Invalid");
+        console.log(data.message);
+        localStorage.setItem("token", data.token);
+      }
+      alert("Signup Successfully");
+      router.push("../admin");
     }
-    alert("Signup Successfully");
-    router.push("../admin");
+    catch (error) {
+      console.log(error)
+    }
   };
   return (
     <div className="py-12 px-4  mx-4 sm:px-8">
@@ -130,9 +136,9 @@ const Home = () => {
               <label className="font-medium">Level</label>
               <br />
               <select
-                className="w-full p-2 focus:outline-blue-500 rounded-md text-gray-500 text-sm" onChange={(e)=>setLevel(e.target.value)}
-                   value={level}
-                >
+                className="w-full p-2 focus:outline-blue-500 rounded-md text-gray-500 text-sm" onChange={(e) => setLevel(e.target.value)}
+                value={level}
+              >
                 <option value="">Select your Level</option>
                 <option value="100 level">100 level</option>
                 <option value="200 level">200 level</option>
@@ -199,7 +205,7 @@ const Home = () => {
 
         {/* Button */}
         <div className="text-center">
-           <button
+          <button
             className="bg-blue-500 p-2  sm:w-[360px] mb-8 rounded-md text-white hover:bg-blue-400 transition"
             onClick={handleSignup}>
             Sign in

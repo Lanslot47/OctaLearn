@@ -12,6 +12,10 @@ import { useState } from "react";
 import { BiDownload } from "react-icons/bi";
 
 // import { LuDelete } from "react-icons/lu"
+
+
+ 
+
 const Hero = () => {
   const [clicked, setClicked] = useState(false);
   return (
@@ -167,11 +171,11 @@ const Hero = () => {
                 </div>
               </div>
             </div>
-             </div>
+          </div>
         </section>
       </div>
     </div>
- 
+
   );
 };
 

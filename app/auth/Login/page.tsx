@@ -10,25 +10,33 @@ const Home = () => {
   const router = useRouter();
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    const res = await fetch("http://localhost:3000/api/user/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({email, password }),
-    });
-    const data = await res.json();
-    if (!res.ok) {
-      alert("invalid email or password");
-      return;
-      // throw new Error(data.error || "Invalid");
-      // console.log(data.message);
-      localStorage.setItem("token", data.token);
-    }
-    alert("login Successfully");
-    router.push("../admin");
   
-};
+    try {
+      const res = await fetch("http://localhost:4000/api/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      });
+  
+      const data = await res.json();
+  
+      if (!res.ok) {
+        throw new Error(data.message || "Invalid email or password");
+      }
+  
+      // ✅ success path only
+      localStorage.setItem("token", data.token);
+      alert("Login successfully");
+      router.push("../admin");
+  
+    } catch (err: any) {
+      console.error("Login error:", err.message);
+      alert(err.message || "Login failed");
+    }
+  };
+  
 
   return (
     <div className="py-12 px-4 sm:px-8">

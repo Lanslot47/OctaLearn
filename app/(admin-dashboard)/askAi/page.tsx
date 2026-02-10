@@ -34,7 +34,7 @@ const AskAi = () => {
     setQuestion("");
 
     try {
-      const res = await fetch("http://localhost:2000/api/ask-ai", {
+      const res = await fetch("http://localhost:5000/api/ask-ai", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ question: currentQuestion }),
