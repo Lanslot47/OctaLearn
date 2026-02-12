@@ -195,7 +195,7 @@ const Home = () => {
                 </div>
             </form>
         </div>
+  );
+};
 
-    )
-}
-export default Home
+export default Home;

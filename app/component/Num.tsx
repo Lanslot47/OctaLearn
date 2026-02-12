@@ -25,7 +25,7 @@ const Num = () => {
             <section className="font-sans w-full text-center box-border p-7 py-17 bg-gradient-to-r from-blue-100 via-blue-500 to-blue-100">
                 <h1 className="text-3xl font-semibold mb-2">Ready to Transform Your Learning?</h1>
                 <p className="text-md font-medium mb-5">Join thousands of students already using OctaLearn to excel in their studies</p>
-                <button className="border-none bg-white px-5 py-2 text-sm hover:bg-blue-400 font-sans rounded-sm hover:transform hover:translate-0.5 hover:duration-75 cursor-pointer">
+                <button className="border-none transparent px-5 py-2  text-sm hover:bg-blue-400 font-sans rounded-sm hover:transform hover:translate-0.5 hover:duration-75 cursor-pointer">
                     <Link href="./auth/Signup">Get started — it's free</Link>
                 </button>
             </section>

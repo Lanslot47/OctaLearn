@@ -1,5 +1,4 @@
 "use client";
-import { useEffect, useState } from "react";
 import {
   BellIcon,
   SettingsIcon,
@@ -11,7 +10,10 @@ import {
   PrinterIcon,
   Shield,
 } from "lucide-react";
+import { useState, useEffect, useRef } from 'react'
 import Image from "next/image";
+// import { User } from "lucide-react";
+
 
 const API = "http://localhost:5000";
 
@@ -288,6 +290,9 @@ export default function SettingsPage() {
           </h1>
         </section>
       </div>
+
+
+
     </div>
   );
 }

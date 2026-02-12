@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { PrinterIcon } from "lucide-react";
 import { FiFileText } from "react-icons/fi"
 import { IoCalendarNumber, IoCalendarOutline } from "react-icons/io5"
@@ -236,9 +236,8 @@ const Hero = () => {
             <div>
             </div>
         </div>
-
-    )
-}
-
-export default Hero
+      )}
+      <div />
+      
+export default Hero;
 // 0813
