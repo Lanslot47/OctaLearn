@@ -29,7 +29,7 @@ const OctAdmin = () => {
     ];
     const materials = [
         { topic: "Linear Algebra", subject: "Maths", level: "200 level", char: 1289, del: <Trash2 className="text-red-600" />, downloads: <Download size={15} />, date: "12/43/2028", id: 1 },
-        { topic: "Linear Algebra", subject: "Maths", level: "200 level", char: 1289, del: <Trash2 className="text-red-600" />, downloads: <Download size={15}/>, date: "12/43/2028", id: 2 },
+        { topic: "Linear Algebra", subject: "Maths", level: "200 level", char: 1289, del: <Trash2 className="text-red-600" />, downloads: <Download size={15} />, date: "12/43/2028", id: 2 },
         { topic: "Linear Algebra", subject: "Maths", level: "200 level", char: 1289, del: <Trash2 className="text-red-600" />, downloads: <Download size={15} />, date: "12/43/2028", id: 3 }
     ];
     const content = [
@@ -37,6 +37,27 @@ const OctAdmin = () => {
         { topic: "data structure note", sunject: "compute", download: "2100 downloads", id: 2 },
         { topic: "data structure note", sunject: "compute", download: "2102 downloads", id: 3 }
     ]
+
+    const getdata = async () => {
+        try {
+            const res = await fetch('localhost:5000/api/admin', {
+                method: 'post',
+                body: JSON.stringify({
+                    email: "email"
+                }),
+                headers: ({
+                    "content-type": "application/json"
+                }),
+
+            })
+            const data = await res.json();
+            if (!data.ok) {
+            console.log("success")
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
     return (
         <div className="p-4 via-none">
@@ -54,7 +75,7 @@ const OctAdmin = () => {
                         </p>
                     </div>
                 ))}
-                <div className=" flex gap-75  items-center  w-[80vw] h-8 rounded-2xl p-4 mr-8 mb-4 bg-gray-200 font-bold">
+                <div className=" flex gap-75  items-center  w-[80vw] h-12 rounded-2xl p-4 mr-8 mb-4 bg-gray-200 font-bold">
                     <button
                         onClick={() => setActive("users")}
                         className={active === "users" ? "bg-white p-2 rounded-xl" : "p-2"}
