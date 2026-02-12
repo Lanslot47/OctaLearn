@@ -24,7 +24,7 @@ const Home = () => {
         setLoading(true)
         setError('')
         try {
-            const res = await fetch('http://localhost:5000/api/signup', {
+            const res = await fetch('http://localhost:4000/api/auth/signup', {
                 method: 'Post',
                 headers: {
                     'Content-Type': 'application/json'
@@ -169,7 +169,8 @@ const Home = () => {
                                 </div>
                             </div>
                             <div className="text-center">
-                                <button className="bg-blue-500 p-2 w-full sm:w-[360px] mb-8 rounded-md text-white hover:bg-blue-400 transition">
+
+                                <button onClick={handleSignup} className="bg-blue-500 p-2 w-full sm:w-[360px] mb-8 rounded-md text-white hover:bg-blue-400 transition">
                                     Create Account
                                 </button>
 

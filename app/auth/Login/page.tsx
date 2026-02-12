@@ -1,8 +1,42 @@
+"use client"
 import Link from 'next/link'
 import { BiArrowBack } from 'react-icons/bi'
-// import Image from 'next/image'
-// 
+import Image from 'next/image'
+import React, { useState } from 'react'
+import { useRouter } from 'next/navigation'
+
 const Home = () => {
+    const router = useRouter()
+    const [error, setError] = useState('')
+    const [loading, setLoading] = useState(false)
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+    const handleLogin= async (e: React.FormEvent) => {
+        e.preventDefault()
+        setLoading(true)
+        setError('')
+        try {
+            const res = await fetch('http://localhost:4000/api/auth/login', {
+                method: 'Post',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ email, password })
+            })
+            const data = await res.json()
+            if (!res.ok) {
+                throw new Error(data.error || "Invalid")
+            }
+            const token = localStorage.setItem('token', data.token)
+            console.log(token)
+            router.push('../admin')
+        }
+        catch (err: any) {
+            setError(err.message || "something went wrong")
+        } finally {
+            setLoading(false)
+        }
+    }
     return (
         <div className="py-12 px-4 sm:px-8">
             <form className="font-sans max-w-md sm:max-w-lg md:max-w-xl mx-auto bg-white">
@@ -16,6 +50,7 @@ const Home = () => {
                         <input
                             type="text"
                             placeholder="Enter Your Email Address"
+                            onChange={(e)=>setEmail(e.target.value)}
                             className="w-4/5  p-2 focus:outline-blue-500 rounded-md text-gray-500 text-sm"
                         />
                     </div>
@@ -24,13 +59,14 @@ const Home = () => {
                         <input
                             type="password"
                             placeholder="Enter Your Password"
+                              onChange={(e)=>setPassword(e.target.value)}
                             className="w-4/5 ml-14 p-2 focus:outline-blue-500 rounded-md text-gray-500 text-sm"
                         />
                     </div>
                 </div>
 
                 <div className="text-center">
-                    <button className="bg-blue-500 p-2 px-5 sm:w-[360px] mb-8 rounded-md text-white hover:bg-blue-400 transition">
+                    <button onClick={handleLogin} className="bg-blue-500 p-2 px-5 sm:w-[360px] mb-8 rounded-md text-white hover:bg-blue-400 transition">
                         Sign in
                     </button>
 
