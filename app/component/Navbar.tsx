@@ -10,7 +10,7 @@ const Navbar = () => {
 
             </h1>
             <div className="space-x-6 text-sm ">
-                <button className="hover:text-blue-400 cursor-pointer font-semibold">
+                <button className="hover:text-blue-400  cursor-pointer font-semibold">
                     <Link href="./auth/Login">Login</Link>
                 </button>
                 <button className="bg-blue-400 px-6 py-2 rounded-md font-semibold font-sans text-white cursor-pointer hover:transform hover:-translate-0.5 hover:bg-blue-300 hover:duration-75 ">

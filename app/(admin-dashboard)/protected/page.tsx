@@ -61,42 +61,42 @@ const OctAdmin = () => {
 
     return (
         <div className="p-4 via-none">
-            <span className="flex gap-2 mb-3"><Shield size={30} className="text-blue-500" /><h1 className="text-2xl mt-1 font-bold">Admin Panel</h1></span>
+            <span className="flex gap-2 mb-3"><Shield size={30} className="text-blue-500" /><h1 className=" mt-1 font-semibold">Admin Panel</h1></span>
             <p className="text-gray-400 mb-4">manage users , content , and system settings</p>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                 {stats.map((list) => (
                     <div key={list.id} className="shadow-sm shadow-gray-300 rounded-md p-3 border border-gray-100">
                         <div className="flex justify-between ">
-                            <h2 className="font-semibold text-gray-400">{list.title}</h2>
+                            <h3 className="font-light text-gray-400">{list.title}</h3>
                             <span>{list.icon}</span>
                         </div>
-                        <h1 className="font-bold text-2xl">{list.heading}</h1>
-                        <p className="text-sm">
+                        <h1 className="font-light ">{list.heading}</h1>
+                        <p className="text-xs">
                         </p>
                     </div>
                 ))}
-                <div className=" flex gap-75  items-center  w-[80vw] h-12 rounded-2xl p-4 mr-8 mb-4 bg-gray-200 font-bold">
+                <div className=" flex gap-40  items-center  w-[73vw] h-10 rounded-2xl p-4 mr-8 mb-4 bg-gray-200 font-light">
                     <button
                         onClick={() => setActive("users")}
-                        className={active === "users" ? "bg-white p-2 rounded-xl" : "p-2"}
+                        className={active === "users" ? "bg-white p-1 rounded-xl" : "p-1"}
                     >
                         Users
                     </button>
                     <button
                         onClick={() => setActive("handouts")}
-                        className={active === "handouts" ? "bg-white p-2 rounded-xl" : "p-2"}
+                        className={active === "handouts" ? "bg-white p-1 rounded-xl" : "p-1"}
                     >
                         Handouts
                     </button>
                     <button
                         onClick={() => setActive("announcement")}
-                        className={active === "announcement" ? "bg-white p-2 rounded-xl" : "p-2"}
+                        className={active === "announcement" ? "bg-white p-1 rounded-xl" : "p-1"}
                     >
                         announcement
                     </button>
                     <button
                         onClick={() => setActive("analytics")}
-                        className={active === "analytics" ? "bg-white p-2 rounded-xl" : "p-2"}
+                        className={active === "analytics" ? "bg-white p-1 rounded-xl" : "p-1"}
                     >
                         analytics
                     </button>
@@ -104,16 +104,16 @@ const OctAdmin = () => {
             </div>
             {/* USERS */}
             {active === "users" && (
-                <div className="w-[80vw]  border-gray-100 p-4  shadow-2xl rounded-2xl">
-                    <h1 className="text-2xl mt-1 text-black font-semibold mb-2">Recent Users </h1>
+                <div className="w-[72vw]  border-gray-100 p-4  shadow-2xl rounded-2xl">
+                    <h1 className="text2-l mt-1 text-black font-semibold mb-2">Recent Users </h1>
                     <p className="text-gray-400 mb-4">manage users account and supscriptions</p>
                     {data.map((list) => (
-                        <div key={list.id} className="shadow-md w-[75vw] ml-5 rounded-2xl  border-sm mb-6 bg-gray-10 p-4">
-                            <h2 className="  font-bold text-black ">{list.name}</h2>
+                        <div key={list.id} className="shadow-md w-[70vw]  rounded-2xl  border-sm mb-6 bg-gray-10 p-4">
+                            <h2 className="  font-sans text-black ">{list.name}</h2>
                             <p className="text-gray-500 mb-2 ">{list.email}</p>
-                            <div className=" flex items-center gap-190">
+                            <div className=" flex items-center gap-120">
                                 <span className=" flex items-center mb-2 text-gray-500  gap-2">{list.university} <ul>{list.date}</ul></span>
-                                <span className="flex items-center gap-6 text-xs"><a href="#" className="border rounded-2xl p-2 flex items-center text-xs gap-1 hover:bg-blue-200"> < Crown size={10} />{list.plan}</a> <a href="./Settings" className="border rounded-2xl p-1.5 hover:bg-blue-200 ">{list.details}</a></span>
+                                <span className="flex items-center  gap-5 text-xs"><a href="#" className="border rounded-2xl p-2 flex items-center text-xs gap-1 hover:bg-blue-200"> < Crown size={10} />{list.plan}</a> <a href="./Settings" className="border rounded-2xl p-1.5 hover:bg-blue-200 ">{list.details}</a></span>
 
                             </div>
 
@@ -126,15 +126,15 @@ const OctAdmin = () => {
 
             {/* Handouts */}
             {active === "handouts" && (
-                <div className="w-[80vw]  border-gray-100 p-4  shadow-2xl rounded-2xl ">
-                    <h1 className="text-2xl mt-1 text-black font-semibold mb-2">Manage Handouts </h1>
+                <div className="w-[72vw]  border-gray-100 p-4  shadow-2xl rounded-2xl ">
+                    <h1 className="text-xl mt-1 text-black font-semibold mb-2">Manage Handouts </h1>
                     <p className="text-gray-400 mb-4">Uploads and manage study materials</p>
                     <button onClick={() => setUpload(prev => !prev)} className=" bg-blue-500 w-50 h-10 p-2 text-white rounded-xl items-left">uploads handout</button>
                     <div>
                         {
                             materials.map((material) => (
                                 <div key={material.id} className="shadow-sm mb-4 p-6 ">
-                                    <h1 className="  font-bold text-black mb-2 ">{material.subject}</h1>
+                                    <h1 className="  font-semibold text-black mb-2 ">{material.subject}</h1>
                                     <div className="flex gap-4 text-xs text-gray-500  ">
                                         <span>{material.topic}</span>
                                         <span className=" flex items-center text-xs">{material.downloads} {material.char}</span>
@@ -152,7 +152,7 @@ const OctAdmin = () => {
                 <div className="fixed inset-0 items-center justify-center z-60">
                     <div className="justify-center items-center w-2/5 mt-32 ml-140 bg-gray-100 rounded-xl">
                         <div className="p-3 " >
-                            <h1 className="text-2xl mt-1 font-bold">Ceate Announcement</h1>
+                            <h1 className="text-xl mt-1 font-semibold">Ceate Announcement</h1>
                             <p className="text-gray-400 mb-4 ">send announcement to all users</p>
 
                             <label className="font-semibold">Title</label>
@@ -190,11 +190,11 @@ const OctAdmin = () => {
                             <input type="file" placeholder="choose the file" />
                             <div className="flex gap-2 justify-end p-3">
                                 <div>
-                                    <button onClick={() => setUpload(false)} className="border w-16 rounded-xl h-8">
+                                    <button onClick={() => setUpload(false)} className="border w-15 rounded-xl h-9">
                                         cancel
                                     </button>
                                 </div>
-                                <div className="border bg-blue-500 text-white p-1 h-9  rounded-xl w-16">
+                                <div className="border bg-blue-500 text-white p-1 h-7  rounded-xl w-12">
                                     publish
                                 </div>
                             </div>
@@ -208,18 +208,18 @@ const OctAdmin = () => {
             }
             {/* {anouncement} */}
             {active === "announcement" && (
-                <div className="w-[80vw]  border-gray-100 p-4  shadow-2xl rounded-2xl ">
+                <div className="w-[72vw]  border-gray-100 p-4  shadow-2xl rounded-2xl ">
 
-                    <h1 className="text-2xl mt-1 text-black font-semibold mb-2">Anouncement </h1>
+                    <h3 className="text-xl mt-1 text-black font-semibold mb-2">Anouncement </h3>
                     <p className="text-gray-400 mb-6">Create Anouncement for All Users</p>
-                    <button className=" bg-blue-500 w-50 h-10 p-2 text-white rounded-xl items-left" onClick={() => setClickEmail(prev => !prev)}>Create Announcement</button>
+                    <button className=" bg-blue-500 w-40 h-10 p-2 text-white rounded-xl items-left" onClick={() => setClickEmail(prev => !prev)}>Create Announcement</button>
                     {/* <a href="#" className="text-blue-500  hover-underline cursor-pointer ml-170" onClick={() => setClickEmail(prev => !prev)}>
                 Change Email
               </a> */}
 
 
                     <div className="h-80 shadow-sm mb-6">
-                        <h1 className="text-2xl mt-1 text-black font-semibold mb-2 text-center">Announcement</h1>
+                        <h1 className="text-xl mt-1 text-black font-semibold mb-2 text-center">Announcement</h1>
                         <p  >Create your first anniuncement to notify all users about important update</p>
 
                     </div>
@@ -233,7 +233,7 @@ const OctAdmin = () => {
                 <div className="fixed inset-0 items-center justify-center z-60">
                     <div className="justify-center items-center w-2/5 mt-32 ml-140 bg-gray-100 rounded-xl">
                         <div className="p-3 " >
-                            <h1 className="text-2xl mt-1 font-bold">Ceate Announcement</h1>
+                            <h1 className="text-xl mt-1 font-bold">Ceate Announcement</h1>
                             <p className="text-gray-400 mb-4">send announcement to all users</p>
 
                             <label className="font-semibold p-4">Title</label>
@@ -272,18 +272,18 @@ const OctAdmin = () => {
             {active === "analytics" && (
                 <div className="flex items-center gap-2">
                     <div className="border-gray-100 p-4  shadow-2xl rounded-2xl h-100 w-1/2 ">
-                        <h1 className="text-2xl mt-1 text-black font-semibold mb-2">User Growth </h1>
+                        <h1 className=" mt-1 text-black font-semibold mb-2">User Growth </h1>
                     </div>
                     <div className="w-1/2 border-gray-100 p-4 h-100   shadow-2xl rounded-2xl">
-                        <h1 className="text-2xl mt-1 text-black font-semibold mb-2">Popular Content</h1>
+                        <h1 className=" mt-1 text-black font-semibold mb-2">Popular Content</h1>
 
                         {
                             content.map((content) => (
                                 <div key={content.id}>
-                                    <h3 className="text-m mt-1 text-black font-semibold">{content.topic}</h3>
+                                    <span className=" mt-1 text-black font-semibold">{content.topic}</span>
                                     <span className="flex items-center gap-110">
-                                        <h5 className=" text-center mb-4 text-sm">{content.sunject}</h5>
-                                        <h4 className=" text-center mb-4 border-1 p-1 text-xs flex rounded-xl " >{content.download}</h4>
+                                        <span className=" text-center mb-4 text-sm">{content.sunject}</span>
+                                        <span className=" text-center mb-4 border-1 p-1 text-xs flex rounded-xl " >{content.download}</span>
                                     </span>
                                 </div>
                             ))

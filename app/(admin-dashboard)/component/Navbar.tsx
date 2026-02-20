@@ -1,12 +1,43 @@
 "use client"
 import { LogOut } from "lucide-react";
 import { IoNotificationsCircleSharp } from "react-icons/io5";
-import { useState } from "react";
+// import { useState } from "react";
 import { LiaUserFriendsSolid } from "react-icons/lia"
 import { CiSettings } from "react-icons/ci"
 import Link from "next/link";
+import { useState, useEffect } from "react";
+
 const Navbar = () => {
     const [showDropDown, setShowDropDown] = useState(false)
+    const [character, setCharacter] = useState('')
+    const [userName, setUsername] = useState('')
+
+    useEffect(() => {
+        const fetchUserInfo = async () => {
+            try {
+                const token = localStorage.getItem('token')
+                const res = await fetch('http://localhost:4000/api/user/getCharacter', {
+                    method: "Get",
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${token}`
+                    }
+                })
+                const data =await res.json()
+                if (!res.ok) {
+                    new Error('failed to fetch')
+                }
+
+
+                setCharacter(data.character)
+                setUsername(data.username)
+            }
+            catch(error){
+                console.log(error)
+            }
+        }
+        fetchUserInfo()
+    }, [])
     return (
         <div className="fixed md:static z-40  w-full h-20 border-b border-gray-300 px-4 py-3 items-center">
             <nav className="flex justify-between gap-6 md:justify-end">
@@ -14,10 +45,10 @@ const Navbar = () => {
                 <div onClick={() => setShowDropDown(prev => !prev)}  >
                     <div className=" flex items-center gap-5 mb-3 p-2">
                         <div className="h-7 w-7 rounded-2xl border-0">
-                            <h3 className="text-center font-semibold mt-1">I</h3>
+                            <h3 className="text-center font-semibold mt-1">{character}</h3>
                         </div>
                         <h3 className={`text-sm md:text-base font-semibold text-gray-700 ml-2 truncate hover:bg-blue-50${showDropDown}`}>
-                            ISHAQ
+                            {userName}
                         </h3>
                     </div>
                     {
@@ -28,7 +59,7 @@ const Navbar = () => {
                                 <Link href="./Settings" className="hover:bg-blue-200 w-43 rounded-md flex items-center gap-3 p-1 hover:text-blue-400"><span><LiaUserFriendsSolid size={23} /></span> Profile</Link>
                                 <Link href="./Settings" className="hover:bg-blue-200 w-43 rounded-md flex items-center gap-3 p-1 hover:text-blue-400"><span><CiSettings size={23} /></span> Settings</Link>
                             </div>
-                            <hr className="border-gray-300"/>
+                            <hr className="border-gray-300" />
                             <Link href="auth/Login" className="hover:bg-blue-200 w-43 rounded-md flex items-center gap-3 p-1 hover:text-blue-400"><span><LogOut size={23} /></span> Logout</Link>
                         </div>
                     }

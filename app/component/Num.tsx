@@ -3,9 +3,7 @@ import Link from "next/link"
 const Num = () => {
     return (
         <div className="">
-
-            <section className="lg:flex items-center justify-between p-5 px-26 mb-16 md:grid grid-cols-2 space-y-4 mx-8 sm:block">
-
+            <section className=" items-center justify-between p-5 px-6 mb-16 grid grid-cols-2 lg:flex sm:block">
                 <div className="font-sans">
                     <h1 className="text-blue-500 text-3xl font-semibold">500K</h1>
                     <p className="text-gray-400 text-sm">Student helped</p>
