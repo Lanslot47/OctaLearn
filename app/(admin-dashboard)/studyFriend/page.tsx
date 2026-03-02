@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { LiaUserFriendsSolid } from "react-icons/lia";
 import { BiFilter } from "react-icons/bi";
 
-const API = "http://localhost:4000/api"; 
+const API = "http://localhost:4000/api";
 
 export default function BuddySection() {
   const [activeTab, setActiveTab] = useState("buddies");
@@ -18,38 +18,78 @@ export default function BuddySection() {
   const token =
     typeof window !== "undefined" ? localStorage.getItem("token") : "";
 
-  useEffect(() => {
-    fetchBuddies();
-    fetchRequests();
-    fetchChats();
-  }, []);
+  const userId =
+    typeof window !== "undefined" ? localStorage.getItem("userId") : "";
 
   const headers = {
     Authorization: `Bearer ${token}`,
     "Content-Type": "application/json",
   };
 
+  useEffect(() => {
+    fetchBuddies();
+    fetchRequests();
+    fetchChats();
+  }, []);
+
   const fetchBuddies = async () => {
-    const res = await fetch(`${API}/users`, { headers });
-    const data = await res.json();
-    setBuddies(data);
+    try {
+      const res = await fetch(`${API}/user/getAllUser`, {
+        method: "GET",
+        headers,
+      });
+
+      if (!res.ok) {
+        console.error("Failed to fetch buddies");
+        setBuddies([]);
+        return;
+      }
+
+      const data = await res.json();
+
+      // Make sure users exists
+      setBuddies(Array.isArray(data.users) ? data.users : []);
+    } catch (err) {
+      console.error("Error fetching buddies:", err);
+      setBuddies([]);
+    }
   };
 
   const fetchRequests = async () => {
-    const res = await fetch(`${API}/connections/requests`, { headers });
+    const res = await fetch(`${API}/requests`, {
+      method: "GET",
+       headers 
+       
+       });
+
+    if (!res.ok) {
+      console.error("Failed to fetch requests");
+      setRequests([]);
+      return;
+    }
+
     const data = await res.json();
-    setRequests(data);
+    setRequests(Array.isArray(data) ? data : []);
   };
 
   const fetchChats = async () => {
-    const res = await fetch(`${API}/connections/chats`, { headers });
+    const res = await fetch(`${API}/chats`, {
+      method: "GET",
+       headers 
+      });
+
+    if (!res.ok) {
+      console.error("Failed to fetch chats");
+      setChats([]);
+      return;
+    }
+
     const data = await res.json();
-    setChats(data);
+    setChats(Array.isArray(data) ? data : []);
   };
 
-
   const connectUser = async (userId: string) => {
-    await fetch(`${API}/connections/connect`, {
+    await fetch(`${API}/connect`, {
       method: "POST",
       headers,
       body: JSON.stringify({ userId }),
@@ -58,7 +98,7 @@ export default function BuddySection() {
   };
 
   const respondRequest = async (requestId: string, action: string) => {
-    await fetch(`${API}/connections/respond`, {
+    await fetch(`${API}/respond`, {
       method: "POST",
       headers,
       body: JSON.stringify({ requestId, action }),
@@ -69,11 +109,19 @@ export default function BuddySection() {
 
   const loadMessages = async (userId: string) => {
     setActiveChat(userId);
+
     const res = await fetch(`${API}/messages/get-message/${userId}`, {
       headers,
     });
+
+    if (!res.ok) {
+      console.error("Failed to fetch messages");
+      setMessages([]);
+      return;
+    }
+
     const data = await res.json();
-    setMessages(data);
+    setMessages(Array.isArray(data) ? data : []);
   };
 
   const sendMessage = async () => {
@@ -92,8 +140,6 @@ export default function BuddySection() {
     loadMessages(activeChat);
   };
 
-
-
   return (
     <div className="max-w-[1400px] mx-auto mt-6 px-4">
       <h1 className="text-2xl font-bold flex items-center gap-2">
@@ -106,9 +152,8 @@ export default function BuddySection() {
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
-              className={`px-4 h-8 rounded-md font-semibold text-sm ${
-                activeTab === tab ? "bg-white" : "bg-gray-200"
-              }`}
+              className={`px-4 h-8 rounded-md font-semibold text-sm ${activeTab === tab ? "bg-white" : "bg-gray-200"
+                }`}
             >
               {tab.toUpperCase()}
             </button>
@@ -116,15 +161,10 @@ export default function BuddySection() {
         </div>
 
         <div className="bg-white p-4 rounded-md">
-
-
           {activeTab === "request" &&
             requests.map((r) => (
-              <div
-                key={r._id}
-                className="flex justify-between border-b py-3"
-              >
-                <p>{r.requester.name}</p>
+              <div key={r._id} className="flex justify-between border-b py-3">
+                <p>{r.requester?.name}</p>
                 <div className="flex gap-2">
                   <button
                     onClick={() => respondRequest(r._id, "accepted")}
@@ -144,7 +184,6 @@ export default function BuddySection() {
 
           {activeTab === "message" && (
             <div className="grid grid-cols-3 gap-4">
-
               <div className="border rounded-md p-3 space-y-2">
                 {chats.map((u) => (
                   <div
@@ -157,17 +196,15 @@ export default function BuddySection() {
                 ))}
               </div>
 
-
               <div className="col-span-2 border rounded-md flex flex-col">
                 <div className="flex-1 overflow-y-auto p-3 space-y-2">
                   {messages.map((m) => (
                     <div
                       key={m._id}
-                      className={`p-2 max-w-xs rounded ${
-                        m.sender === activeChat
-                          ? "bg-gray-200"
-                          : "bg-blue-500 text-white ml-auto"
-                      }`}
+                      className={`p-2 max-w-xs rounded ${m.sender === userId
+                        ? "bg-blue-500 text-white ml-auto"
+                        : "bg-gray-200"
+                        }`}
                     >
                       {m.text}
                     </div>
@@ -195,12 +232,10 @@ export default function BuddySection() {
           {activeTab === "buddies" && (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
               {buddies.map((u) => (
-                <div
-                  key={u._id}
-                  className="border p-4 rounded-md bg-white"
-                >
-                  <h2 className="font-bold">{u.name}</h2>
+                <div key={u._id} className="border p-4 rounded-md bg-white">
+                  <h2 className="font-bold">{u.userName}</h2>
                   <p className="text-sm text-gray-500">{u.department}</p>
+                  <p className="text-sm text-gray-400">{u.level}</p>
 
                   <button
                     onClick={() => connectUser(u._id)}

@@ -27,6 +27,7 @@ const Home = () => {
             if (!res.ok) {
                 throw new Error(data.error || "Invalid")
             }
+            alert('login successfully')
             const token = localStorage.setItem('token', data.token)
             console.log(token)
             router.push('../admin')
@@ -66,8 +67,8 @@ const Home = () => {
                 </div>
 
                 <div className="text-center">
-                    <button onClick={handleLogin} className="bg-blue-500 p-2 px-5 sm:w-[360px] mb-8 rounded-md text-white hover:bg-blue-400 transition">
-                        Sign in
+                    <button disabled={loading} onClick={handleLogin} className={`p-2 px-5 cursor-pointer sm:w-[360px] mb-8 rounded-md text-white transition ${loading? "bg-blue-300 cursor-not-allowed" : "bg-blue-500 hover:bg-blue-400"}`}>
+                        {loading? 'Signing...' : "Login"}
                     </button>
 
                     <p className="text-blue-500 hover:text-gray-600 cursor-pointer mb-8">

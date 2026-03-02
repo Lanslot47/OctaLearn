@@ -29,13 +29,17 @@ const Home = () => {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ email, password, interest,level, name, institution, bio, phone, department, course, confirm_passowrd })
+                body: JSON.stringify({
+                     email:email, password:password, interest,level, userName:name, institution, bio, phone, department, course, confirmPassword:confirm_passowrd
+                     })
             })
             const data = await res.json()
             if (!res.ok) {
                 throw new Error(data.error || "Invalid")
             }
-            router.push('./auth/Login')
+            alert("Account created successfully")
+            setError(data.message || "Account Created Successfully")
+            router.push('../auth/Login')
         }
         catch (err: any) {
             setError(err.message || "something went wrong")
@@ -170,8 +174,8 @@ const Home = () => {
                             </div>
                             <div className="text-center">
 
-                                <button onClick={handleSignup} className="bg-blue-500 p-2 w-full sm:w-[360px] mb-8 rounded-md text-white hover:bg-blue-400 transition">
-                                    Create Account
+                                <button disabled={loading} onClick={handleSignup} className={`p-2 w-full sm:w-[360px] mb-8 rounded-md text-white cursor-pointer transition ${loading ?"bg-blue-300 cursor-not-allowed" :"bg-blue-500  hover:bg-blue-400"}`}>
+                                    {loading ?"Creating Account..":"Create Account"}
                                 </button>
 
                                 <p className="mb-10 text-sm sm:text-base">
