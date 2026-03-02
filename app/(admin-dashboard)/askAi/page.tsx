@@ -36,7 +36,7 @@ const AskAi = () => {
     <div className="min-h-screen bg-gray-50 flex items-center justify-center p-3 md:p-6">
       <div className="flex flex-col items-center w-full max-w-3xl">
         <div>
-          <p>hjjsj{response}</p>
+          <p>{response}</p>
           
         </div>
         <div className="flex w-full items-center gap-3 bg-white shadow-md p-3 md:p-4 rounded-xl border border-gray-100 transition-all duration-300">

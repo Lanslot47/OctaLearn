@@ -1,7 +1,11 @@
-import type { Metadata } from "next";
+"use client";
+
 import { Geist, Geist_Mono } from "next/font/google";
 import Sidebar from "./component/Sidebar";
 import Navbar from "./component/Navbar";
+import { useRouter } from "next/navigation";
+import { ReactNode, useEffect } from "react";
+import { useAuth } from "@/hooks/useAuth";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -9,24 +13,38 @@ const geistSans = Geist({
 });
 
 const geistMono = Geist_Mono({
-  varifcdxszable: "--font-geist-mono",
+  variable: "--font-geist-mono",
   subsets: ["latin"],
 });
 
-export const metadata: Metadata = {
-  title: "OctaLearn",
-  description: "Your AI-powered learning dashboard",
-};
-
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: {
+  children: ReactNode;
+}) {
+  // const { isLoggedIn } = useAuth();
+  // const router = useRouter();
+
+  // useEffect(() => {
+  //   if (isLoggedIn === false) {
+  //     router.replace("../auth/Login");
+  //   }
+  // }, [isLoggedIn]);
+
+  // if (isLoggedIn === null) {
+  //   return <div>Loading...</div>;
+  // }
+
+  // if (isLoggedIn === false) {
+  //   return null;
+  // }
+
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-50`}>
-        <div className="flex flex-col md:flex-row overflow-x-hidden ">
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-50`}
+      >
+        <div className="flex flex-col md:flex-row overflow-x-hidden">
           <Sidebar />
           <div className="flex-1 md:ml-64">
             <Navbar />

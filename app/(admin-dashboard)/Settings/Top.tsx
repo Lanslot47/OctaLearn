@@ -12,10 +12,9 @@ import {
 } from "lucide-react";
 import { useState, useEffect, useRef } from 'react'
 import Image from "next/image";
-// import { User } from "lucide-react";
 
 
-const API = "http://localhost:5000";
+const API = "http://localhost:4000";
 
 type SettingsForm = {
   fullName: string;
@@ -38,10 +37,7 @@ export default function SettingsPage() {
 
   const [avatar, setAvatar] = useState<string>("");
 
-  const token =
-    typeof window !== "undefined" ? localStorage.getItem("token") : null;
-
-  // ---------------- FETCH USER SETTINGS ----------------
+  const token = typeof window !== "undefined" ? localStorage.getItem("token") : null;
   useEffect(() => {
     const fetchSettings = async () => {
       if (!token) return;
