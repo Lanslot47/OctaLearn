@@ -10,9 +10,8 @@ import {
   PrinterIcon,
   Shield,
 } from "lucide-react";
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect } from "react";
 import Image from "next/image";
-
 
 const API = "http://localhost:4000";
 
@@ -37,54 +36,57 @@ export default function SettingsPage() {
 
   const [avatar, setAvatar] = useState<string>("");
 
-  const token = typeof window !== "undefined" ? localStorage.getItem("token") : null;
+  const token =
+    typeof window !== "undefined" ? localStorage.getItem("token") : null;
+
+  // ================= FETCH SETTINGS =================
   useEffect(() => {
     const fetchSettings = async () => {
       if (!token) return;
 
       try {
-        const res = await fetch(`${API}/api/settings`, {
+        const res = await fetch(`${API}/api/get-settings`, {
+          method: "GET",
           headers: {
             Authorization: `Bearer ${token}`,
           },
         });
 
+        if (!res.ok) {
+          const text = await res.text();
+          throw new Error(text);
+        }
+
         const data = await res.json();
 
-        if (!res.ok) throw new Error(data.error || "Failed to fetch settings");
-
         setForm({
-          ...data,
-          interests: data.interests?.join(", ") || "",
+          fullName: data.userName || "",
+          phone: data.phone || "",
+          bio: data.Bio || "",
+          course: data.course || "",
+          level: data.level || "",
+          interests: data.interest || "",
         });
 
-        setAvatar(data.avatar);
-      } catch (err: any) {
-        console.error(err);
+        setAvatar(data.avatar || "");
+      } catch (err) {
+        console.error("Fetch error:", err);
       }
     };
 
     fetchSettings();
   }, [token]);
 
-  // ---------------- HANDLE INPUT CHANGE ----------------
+  // ================= HANDLE INPUT =================
   const handleChange = (
-    e: React.ChangeEvent<
-      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-    >
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
-    const { name, value } = e.target;
-    setForm({ ...form, [name]: value });
+    setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  // ---------------- SAVE SETTINGS ----------------
-  const handleSave = async (): Promise<void> => {
+  // ================= SAVE SETTINGS =================
+  const handleSave = async () => {
     if (!token) return;
-
-    const payload = {
-      ...form,
-      interests: form.interests.split(",").map((i) => i.trim()),
-    };
 
     try {
       const res = await fetch(`${API}/api/settings`, {
@@ -93,20 +95,28 @@ export default function SettingsPage() {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify(payload),
+        body: JSON.stringify({
+          ...form,
+          interests: form.interests
+            .split(",")
+            .map((i) => i.trim())
+            .filter((i) => i !== ""),
+        }),
       });
 
       const data = await res.json();
 
-      if (!res.ok) throw new Error(data.error || "Failed to save settings");
+      if (!res.ok) {
+        throw new Error(data.error || "Failed to update");
+      }
 
       alert("Settings Updated Successfully");
     } catch (err: any) {
-      alert(err.message || "Something went wrong");
+      alert(err.message);
     }
   };
 
-  // ---------------- IMAGE UPLOAD ----------------
+  // ================= UPLOAD AVATAR =================
   const handleImageUpload = async (
     e: React.ChangeEvent<HTMLInputElement>
   ) => {
@@ -119,8 +129,8 @@ export default function SettingsPage() {
     formData.append("avatar", file);
 
     try {
-      const res = await fetch(`${API}/api/settings/avatar`, {
-        method: "POST",
+      const res = await fetch(`${API}/api/avatar`, {
+        method: "PATCH",
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -129,31 +139,34 @@ export default function SettingsPage() {
 
       const data = await res.json();
 
-      if (!res.ok) throw new Error(data.error || "Failed to upload avatar");
+      if (!res.ok) {
+        throw new Error(data.error || "Upload failed");
+      }
 
       setAvatar(data.avatar);
     } catch (err: any) {
-      console.error(err);
-      alert(err.message || "Failed to upload avatar");
+      alert(err.message);
     }
   };
 
   return (
     <div className="font-sans">
-      {/* Top Bar */}
+      {/* TOP BAR */}
       <div className="fixed top-0 z-50 w-full border-b p-3 flex justify-end items-center gap-3 bg-white">
         <BellIcon />
+
         <Image
-          height={30}
-          width={30}
+          height={34}
+          width={34}
+          unoptimized
           src={avatar ? `${API}${avatar}` : "/Capture.PNG"}
           alt="profile"
-          className="rounded-full"
+          className="rounded-full object-cover border shadow"
         />
+
         <h1 className="text-sm font-medium">{form.fullName}</h1>
       </div>
 
-      {/* Page Title */}
       <div className="mt-16 px-6">
         <h1 className="text-2xl font-bold flex items-center gap-3">
           <SettingsIcon size={30} />
@@ -161,25 +174,25 @@ export default function SettingsPage() {
         </h1>
       </div>
 
-      {/* Main Sections */}
       <div className="flex flex-col lg:flex-row gap-6 px-6 mt-6">
-        {/* Profile Picture */}
-        <section className="flex-1 shadow-md rounded-md p-6">
+        {/* PROFILE PICTURE */}
+        <section className="flex-1 shadow-md rounded-xl p-6 bg-white">
           <h1 className="font-semibold flex items-center gap-2">
             <CameraIcon />
             Profile Picture
           </h1>
 
-          <div className="flex flex-col items-center mt-4">
+          <div className="flex flex-col items-center mt-6">
             <Image
-              height={100}
-              width={100}
+              height={120}
+              width={120}
+              unoptimized
               src={avatar ? `${API}${avatar}` : "/Capture.PNG"}
               alt="Profile"
-              className="rounded-full mb-4"
+              className="rounded-full object-cover border-4 border-gray-200 shadow-lg hover:scale-105 transition mb-4"
             />
 
-            <label className="flex items-center gap-2 text-blue-600 cursor-pointer">
+            <label className="flex items-center gap-2 text-white bg-blue-600 px-4 py-2 rounded-lg cursor-pointer hover:bg-blue-700 transition">
               <UploadIcon size={18} />
               Upload Photo
               <input
@@ -192,8 +205,8 @@ export default function SettingsPage() {
           </div>
         </section>
 
-        {/* Personal Info */}
-        <section className="flex-[2] shadow-md rounded-md p-6">
+        {/* PERSONAL INFO */}
+        <section className="flex-[2] shadow-md rounded-xl p-6 bg-white">
           <h1 className="font-semibold flex items-center gap-2">
             <User />
             Personal Information
@@ -244,11 +257,10 @@ export default function SettingsPage() {
                 className="border w-full p-2 rounded"
               >
                 <option value="">Select level</option>
-                <option>100</option>
-                <option>200</option>
-                <option>300</option>
-                <option>400</option>
-                <option>500</option>
+                <option value="100 level">100</option>
+                <option value="200 level">200</option>
+                <option value="300 level">300</option>
+                <option value="400 level">400</option>
               </select>
             </div>
 
@@ -267,7 +279,7 @@ export default function SettingsPage() {
             <div className="flex justify-end">
               <button
                 onClick={handleSave}
-                className="bg-blue-600 text-white px-6 py-2 rounded flex items-center gap-2"
+                className="bg-blue-600 text-white px-6 py-2 rounded flex items-center gap-2 hover:bg-blue-700 transition"
               >
                 <PrinterIcon size={18} />
                 Save Changes
@@ -277,18 +289,20 @@ export default function SettingsPage() {
         </section>
       </div>
 
-      {/* Account Info */}
-      <div className="mt-10 px-6">
-        <section className="shadow-md rounded-md p-6">
+      {/* ACCOUNT INFO */}
+      <div className="mt-10 px-6 pb-10">
+        <section className="shadow-md rounded-xl p-6 bg-white">
           <h1 className="font-semibold flex items-center gap-2">
             <Shield />
             Account Information
           </h1>
+
+          <p>Name: {form.fullName}</p>
+          <p>Bio: {form.bio}</p>
+          <p>Interest: {form.interests}</p>
+          <p>Phone: {form.phone}</p>
         </section>
       </div>
-
-
-
     </div>
   );
 }
