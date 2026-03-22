@@ -1,14 +1,6 @@
 "use client"
-<<<<<<< HEAD
-import { Calendar } from "lucide-react";
-import Link from "next/link";
-import { Download } from "lucide-react";
-import { BiBookOpen } from "react-icons/bi"
-import { BiFilter } from "react-icons/bi";
-=======
 import { Calendar, Download } from "lucide-react";
 import { BiBookOpen, BiFilter } from "react-icons/bi";
->>>>>>> 54e129e608f44ac18692aeedb1ec3e28231e9a74
 import React, { useState, useEffect } from 'react'
 
 const Home = () => {
@@ -53,26 +45,8 @@ const Home = () => {
                 <BiBookOpen size={26} className="text-blue-500" /> Past Questions & Handouts
             </h1>
             <p className="text-gray-500 mb-4">Access thousands of study materials from various institutions</p>
-<<<<<<< HEAD
-            <div className="border border-red-400 bg-red-50 h-19  cursor-pointer  rounded-md   mb-14">
-                <div className="p-3 flex items-center justify-between ">
-
-                   <span className="-mt-12">
-                   <h1 className="font-b">Subscription Required</h1>
-                    <p className="text-gray-400">Subscribe to download past questions and study materials</p>
-                   </span>
-
-                   <Link href="../Supscription">
-                   <button className="h-11  w-30 mb-15 rounded-xl text-white bg-blue-500 ">View Plans
-                    </button>
-                   </Link>
-                </div>
-
-            </div>
-=======
 
             {/* Filters */}
->>>>>>> 54e129e608f44ac18692aeedb1ec3e28231e9a74
             <div className="w-full rounded-md border border-gray-300 p-4 mb-6">
                 <h2 className="text-2xl font-bold mb-3">Find Study Partners</h2>
                 <div className="flex flex-col md:flex-row gap-3">
