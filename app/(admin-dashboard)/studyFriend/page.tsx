@@ -1,30 +1,71 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { io, Socket } from "socket.io-client";
+import { useEffect, useState, useRef } from "react";
 import { LiaUserFriendsSolid } from "react-icons/lia";
-import { BiFilter } from "react-icons/bi";
 
 const API = "http://localhost:4000/api";
 
+interface User {
+  _id: string;
+  userName: string;
+  department?: string;
+  level?: string;
+}
+
+interface Message {
+  _id: string;
+  sender: string;
+  recipient: string;
+  content: string;
+  createdAt?: string;
+}
+
 export default function BuddySection() {
+  const [socket, setSocket] = useState<Socket | null>(null);
   const [activeTab, setActiveTab] = useState("buddies");
-  const [buddies, setBuddies] = useState<any[]>([]);
+  const [buddies, setBuddies] = useState<User[]>([]);
   const [requests, setRequests] = useState<any[]>([]);
-  const [chats, setChats] = useState<any[]>([]);
-  const [messages, setMessages] = useState<any[]>([]);
-  const [activeChat, setActiveChat] = useState<any>(null);
+  const [chats, setChats] = useState<User[]>([]);
+  const [messages, setMessages] = useState<Message[]>([]);
+  const [activeChat, setActiveChat] = useState<string | null>(null);
+  const [activeUser, setActiveUser] = useState<User | null>(null);
   const [text, setText] = useState("");
 
-  const token =
-    typeof window !== "undefined" ? localStorage.getItem("token") : "";
+  const activeChatRef = useRef<string | null>(null);
 
-  const userId =
-    typeof window !== "undefined" ? localStorage.getItem("userId") : "";
+  const token = typeof window !== "undefined" ? localStorage.getItem("token") : "";
+  const userId = typeof window !== "undefined" ? localStorage.getItem("userId") : "";
 
   const headers = {
     Authorization: `Bearer ${token}`,
     "Content-Type": "application/json",
   };
+
+  useEffect(() => {
+    if (!userId) return;
+
+    const s = io("http://localhost:4000");
+
+    s.emit("join", userId);
+
+    s.on("newMessage", (message: Message) => {
+      if (
+        message.sender === activeChatRef.current ||
+        message.recipient === activeChatRef.current
+      ) {
+        setMessages((prev) => [...prev, message]);
+      }
+
+      fetchChats();
+    });
+
+    setSocket(s);
+
+    return () => {
+      s.disconnect();
+    };
+  }, [userId]);
 
   useEffect(() => {
     fetchBuddies();
@@ -34,65 +75,38 @@ export default function BuddySection() {
 
   const fetchBuddies = async () => {
     try {
-      const res = await fetch(`${API}/user/getAllUser`, {
-        method: "GET",
-        headers,
-      });
-
-      if (!res.ok) {
-        console.error("Failed to fetch buddies");
-        setBuddies([]);
-        return;
-      }
-
+      const res = await fetch(`${API}/user/getAllUser`, { headers });
       const data = await res.json();
-
-      // Make sure users exists
       setBuddies(Array.isArray(data.users) ? data.users : []);
-    } catch (err) {
-      console.error("Error fetching buddies:", err);
+    } catch {
       setBuddies([]);
     }
   };
 
   const fetchRequests = async () => {
-    const res = await fetch(`${API}/requests`, {
-      method: "GET",
-       headers 
-       
-       });
-
-    if (!res.ok) {
-      console.error("Failed to fetch requests");
+    try {
+      const res = await fetch(`${API}/requests`, { headers });
+      const data = await res.json();
+      setRequests(Array.isArray(data) ? data : []);
+    } catch {
       setRequests([]);
-      return;
     }
-
-    const data = await res.json();
-    setRequests(Array.isArray(data) ? data : []);
   };
 
   const fetchChats = async () => {
-    const res = await fetch(`${API}/chats`, {
-      method: "GET",
-       headers 
-      });
-
-    if (!res.ok) {
-      console.error("Failed to fetch chats");
+    try {
+      const res = await fetch(`${API}/chats`, { headers });
+      const data = await res.json();
+      setChats(Array.isArray(data) ? data : []);
+    } catch {
       setChats([]);
-      return;
     }
-
-    const data = await res.json();
-    setChats(Array.isArray(data) ? data : []);
   };
-
-  const connectUser = async (userId: string) => {
+  const connectUser = async (id: string) => {
     await fetch(`${API}/connect`, {
       method: "POST",
       headers,
-      body: JSON.stringify({ userId }),
+      body: JSON.stringify({ userId: id }),
     });
     alert("Request sent");
   };
@@ -103,47 +117,50 @@ export default function BuddySection() {
       headers,
       body: JSON.stringify({ requestId, action }),
     });
-    fetchRequests();
-    fetchChats();
+    await fetchRequests();
+    await fetchChats();
+    setActiveTab("message");
   };
 
-  const loadMessages = async (userId: string) => {
-    setActiveChat(userId);
+  const loadMessages = async (user: User) => {
+    setActiveChat(user._id);
+    activeChatRef.current = user._id;
+    setActiveUser(user);
 
-    const res = await fetch(`${API}/messages/get-message/${userId}`, {
-      headers,
-    });
-
-    if (!res.ok) {
-      console.error("Failed to fetch messages");
+    try {
+      const res = await fetch(`${API}/get-message/${user._id}`, { headers });
+      const data = await res.json();
+      setMessages(data.messages || []);
+    } catch {
       setMessages([]);
-      return;
     }
-
-    const data = await res.json();
-    setMessages(Array.isArray(data) ? data : []);
   };
 
   const sendMessage = async () => {
-    if (!text.trim()) return;
+    if (!text.trim() || !activeChat) return;
 
-    await fetch(`${API}/messages/send-message`, {
+    const res = await fetch(`${API}/send-message`, {
       method: "POST",
       headers,
       body: JSON.stringify({
         recipientId: activeChat,
-        text,
+        content: text,
       }),
     });
 
-    setText("");
-    loadMessages(activeChat);
-  };
+    const data = await res.json();
 
+    if (data?.message) {
+      setMessages((prev) => [...prev, data.message]);
+    }
+
+    setText("");
+  };
   return (
     <div className="max-w-[1400px] mx-auto mt-6 px-4">
       <h1 className="text-2xl font-bold flex items-center gap-2">
-        <LiaUserFriendsSolid size={30} className="text-blue-500" /> Study Buddy
+        <LiaUserFriendsSolid size={30} className="text-blue-500" />
+        Study Buddy
       </h1>
 
       <div className="bg-gray-100 p-3 rounded-md mt-4">
@@ -152,8 +169,9 @@ export default function BuddySection() {
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
-              className={`px-4 h-8 rounded-md font-semibold text-sm ${activeTab === tab ? "bg-white" : "bg-gray-200"
-                }`}
+              className={`px-4 h-8 rounded-md font-semibold text-sm ${
+                activeTab === tab ? "bg-white" : "bg-gray-200"
+              }`}
             >
               {tab.toUpperCase()}
             </button>
@@ -161,10 +179,11 @@ export default function BuddySection() {
         </div>
 
         <div className="bg-white p-4 rounded-md">
+
           {activeTab === "request" &&
             requests.map((r) => (
               <div key={r._id} className="flex justify-between border-b py-3">
-                <p>{r.requester?.name}</p>
+                <p>{r.requester?.userName}</p> 
                 <div className="flex gap-2">
                   <button
                     onClick={() => respondRequest(r._id, "accepted")}
@@ -182,52 +201,111 @@ export default function BuddySection() {
               </div>
             ))}
 
-          {activeTab === "message" && (
-            <div className="grid grid-cols-3 gap-4">
-              <div className="border rounded-md p-3 space-y-2">
-                {chats.map((u) => (
-                  <div
-                    key={u._id}
-                    onClick={() => loadMessages(u._id)}
-                    className="cursor-pointer p-2 hover:bg-gray-100 rounded"
-                  >
-                    {u.name}
-                  </div>
-                ))}
+{activeTab === "message" && (
+  <div className="grid grid-cols-3 gap-4 h-[500px]">
+
+
+    <div className="border rounded-2xl p-3 space-y-2 bg-white shadow-sm overflow-y-auto">
+      {chats.length === 0 ? (
+        <p className="text-gray-400 text-sm text-center mt-4">
+          No connections yet
+        </p>
+      ) : (
+        chats.map((u) => (
+          <div
+            key={u._id}
+            onClick={() => loadMessages(u)}
+            className="flex items-center gap-3 p-3 cursor-pointer hover:bg-gray-100 rounded-xl transition"
+          >
+            <div className="w-10 h-10 rounded-full bg-blue-500 text-white flex items-center justify-center font-semibold shadow">
+              {u.userName?.charAt(0).toUpperCase()}
+            </div>
+            <div>
+              <p className="text-sm font-semibold">{u.userName}</p>
+              <p className="text-xs text-gray-400">{u.department}</p>
+            </div>
+          </div>
+        ))
+      )}
+    </div>
+
+    <div className="col-span-2 flex flex-col rounded-2xl overflow-hidden shadow-md bg-[#efeae2]">
+
+      {!activeChat ? (
+        <div className="flex items-center justify-center h-full text-gray-400 text-sm">
+          Select a user to start chatting 💬
+        </div>
+      ) : (
+        <>
+          <div className="flex items-center justify-between px-4 py-3 bg-white border-b shadow-sm">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-full bg-blue-500 text-white flex items-center justify-center font-bold">
+                {activeUser?.userName?.charAt(0).toUpperCase()}
               </div>
-
-              <div className="col-span-2 border rounded-md flex flex-col">
-                <div className="flex-1 overflow-y-auto p-3 space-y-2">
-                  {messages.map((m) => (
-                    <div
-                      key={m._id}
-                      className={`p-2 max-w-xs rounded ${m.sender === userId
-                        ? "bg-blue-500 text-white ml-auto"
-                        : "bg-gray-200"
-                        }`}
-                    >
-                      {m.text}
-                    </div>
-                  ))}
-                </div>
-
-                <div className="flex border-t">
-                  <input
-                    value={text}
-                    onChange={(e) => setText(e.target.value)}
-                    className="flex-1 p-2 outline-none"
-                    placeholder="Type message..."
-                  />
-                  <button
-                    onClick={sendMessage}
-                    className="bg-blue-500 px-4 text-white"
-                  >
-                    Send
-                  </button>
-                </div>
+              <div>
+                <p className="font-semibold text-sm">
+                  {activeUser?.userName}
+                </p>
+                <p className="text-xs text-green-500">Online</p>
               </div>
             </div>
-          )}
+          </div>
+
+
+          <div className="flex-1 overflow-y-auto p-4 space-y-3">
+            {messages.map((m) => {
+              const isMe = m.sender?.toString() === userId?.toString();
+
+              return (
+                <div
+                  key={m._id}
+                  className={`flex ${isMe ? "justify-end" : "justify-start"}`}
+                >
+                  <div
+                    className={`
+                      px-4 py-2 max-w-[70%] text-sm shadow-md
+                      ${isMe
+                        ? "bg-blue-500 text-white rounded-2xl rounded-br-none"
+                        : "bg-white text-gray-800 rounded-2xl rounded-bl-none border"
+                      }
+                    `}
+                  >
+                    <p>{m.content}</p>
+
+                    {m.createdAt && (
+                      <span className="block text-[10px] mt-1 opacity-70 text-right">
+                        {new Date(m.createdAt).toLocaleTimeString([], {
+                          hour: "2-digit",
+                          minute: "2-digit",
+                        })}
+                      </span>
+                    )}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+
+          <div className="flex items-center gap-2 px-3 py-2 bg-white border-t">
+            <input
+              value={text}
+              onChange={(e) => setText(e.target.value)}
+              onKeyDown={(e) => e.key === "Enter" && sendMessage()}
+              className="flex-1 px-4 py-2 text-sm border rounded-full outline-none focus:ring-2 focus:ring-blue-400"
+              placeholder="Type a message..."
+            />
+            <button
+              onClick={sendMessage}
+              className="bg-blue-500 hover:bg-blue-600 px-5 py-2 text-white text-sm rounded-full shadow"
+            >
+              Send
+            </button>
+          </div>
+        </>
+      )}
+    </div>
+  </div>
+)}
 
           {activeTab === "buddies" && (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -247,6 +325,7 @@ export default function BuddySection() {
               ))}
             </div>
           )}
+
         </div>
       </div>
     </div>
