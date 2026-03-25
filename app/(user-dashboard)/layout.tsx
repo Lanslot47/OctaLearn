@@ -22,22 +22,22 @@ export default function RootLayout({
 }: {
   children: ReactNode;
 }) {
-  // const { isLoggedIn } = useAuth();
-  // const router = useRouter();
+  const { isLoggedIn } = useAuth();
+  const router = useRouter();
 
-  // useEffect(() => {
-  //   if (isLoggedIn === false) {
-  //     router.replace("../auth/Login");
-  //   }
-  // }, [isLoggedIn]);
+  useEffect(() => {
+    if (isLoggedIn === false) {
+      router.replace("../auth/Login");
+    }
+  }, [isLoggedIn]);
 
-  // if (isLoggedIn === null) {
-  //   return <div>Loading...</div>;
-  // }
+  if (isLoggedIn === null) {
+    return <div>Loading...</div>;
+  }
 
-  // if (isLoggedIn === false) {
-  //   return null;
-  // }
+  if (isLoggedIn === false) {
+    return null;
+  }
 
   return (
     <html lang="en">
