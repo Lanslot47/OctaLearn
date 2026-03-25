@@ -1,9 +1,4 @@
-<<<<<<< HEAD
-"use client"
-import Router from "@/node_modules/next/router";
-=======
 "use client";
->>>>>>> 619b96d88f2477ec6594f1a5322a8c546c664f77
 import { SendIcon, FileArchiveIcon } from "lucide-react";
 import React, { useState } from "react";
 
@@ -53,13 +48,7 @@ const AskAi = () => {
     } catch (err: any) {
       setError(err.message || "Something went wrong");
     } finally {
-<<<<<<< HEAD
-      setLoading(false)
-       
-      Router.push("./")
-=======
       setLoading(false);
->>>>>>> 619b96d88f2477ec6594f1a5322a8c546c664f77
     }
   };
 

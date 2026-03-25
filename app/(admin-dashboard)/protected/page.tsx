@@ -6,6 +6,7 @@ import { Shield } from "lucide-react"
 
 import { Crown, Trash2, Download } from "lucide-react"
 import React, { useEffect, useState } from "react";
+import { resolveSoa } from "dns";
 
 type User = {
     _id: string;
@@ -42,12 +43,15 @@ const OctAdmin = () => {
     const [level, setLevel] = useState('')
     const [subject, setSubject] = useState('')
     const [contents, setContent] = useState('')
+    const [Stats, setStats] = useState(null)
     const [announcement, setAnnouncement] = useState<Announcement[]>([])
     const [file, setFile] = useState<File | null>(null)
     // const [loading, setLoading] = useState(false)
     useEffect(() => {
         handleGetUsers()
         handleAnnouncement()
+        handleStat()
+
     }, [])
     const token = localStorage.getItem('token')
     const handleGetUsers = async () => {
@@ -72,7 +76,7 @@ const OctAdmin = () => {
     }
     const handleAnnouncement = async () => {
         try {
-            const res = await fetch("http://localhost:4000/api/admin/announcement", {
+            const res = await fetch("http://localhost:4000/api/announcement", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -103,6 +107,19 @@ const OctAdmin = () => {
     //     data.append('file', file)
     //     const res = await fetch('')
     // }
+    const getAnnouncement = async () => {
+        try {
+            const res = await fetch('http://localhost/4000/api/getAnnouncement')
+            const data = await res.json()
+            if (!data) {
+                console.log('no announcement')
+            }
+            setAnnouncement(data)
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
     const handleHandout = async () => {
         try {
             setLoading(true)
@@ -147,12 +164,22 @@ const OctAdmin = () => {
     //     { name: "sarah", email: "user@gmail.com", university: "unijos", date: " joined . 12/feb/2026", plan: "grand pro", details: "view details", id: 3 },
     //     { name: "sarah", email: "user@gmail.com", university: "unijos", date: " joined . 12/feb/2026", plan: "grand pro", details: "view details", id: 4 }
     // ]
-    const stats = [
-        { title: "Total Users", heading: 1247, icon: <LiaUserFriendsSolid size={40} className="text-blue-500" />, id: 1 },
-        { title: "Active Users", heading: 892, content: "this week", icon: <BsFileText size={40} className="text-green-700" />, id: 2 },
-        { title: "Total Handout", heading: 156, icon: <BiBookOpen size={40} className="text-yellow-500" />, id: 3 },
-        { title: "Pro Users", heading: 120, icon: <LiaUserFriendsSolid size={40} className="text-red-600" />, id: 4 },
-    ];
+    const handleStat = async () => {
+        try {
+            const res = await fetch('http://localhost:4000/api/stats')
+            const data = await res.json()
+            setStats(data)
+
+        } catch (err) {
+            console.log(err)
+        }
+    }
+    // const stats = [
+    //     { title: "Total Users",  value:statistic.totalUsers || 0, icon: <LiaUserFriendsSolid size={40} className="text-blue-500" />, id: 1 },
+    //     { title: "Active Users", heading: 892, content: "this week", icon: <BsFileText size={40} className="text-green-700" />, id: 2 },
+    //     { title: "Total Handout", heading: 156, icon: <BiBookOpen size={40} className="text-yellow-500" />, id: 3 },
+    //     { title: "Pro Users", heading: 120, icon: <LiaUserFriendsSolid size={40} className="text-red-600" />, id: 4 },
+    // ];
     const materials = [
         { topic: "Linear Algebra", subject: "Maths", level: "200 level", char: 1289, del: <Trash2 className="text-red-600" />, downloads: <Download size={15} />, date: "12/43/2028", id: 1 },
         { topic: "Linear Algebra", subject: "Maths", level: "200 level", char: 1289, del: <Trash2 className="text-red-600" />, downloads: <Download size={15} />, date: "12/43/2028", id: 2 },
@@ -178,7 +205,7 @@ const OctAdmin = () => {
             })
             const data = await res.json();
             if (!data.ok) {
-            console.log("success")
+                console.log("success")
             }
         } catch (error) {
             console.log(error)
@@ -190,7 +217,26 @@ const OctAdmin = () => {
             <span className="flex gap-2 mb-3"><Shield size={30} className="text-blue-500" /><h1 className=" mt-1 font-semibold">Admin Panel</h1></span>
             <p className="text-gray-400 mb-4">manage users , content , and system settings</p>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                {stats.map((list) => (
+                {[
+                    { title: "Total Users", value: Stats?.totalUsers || 0, icon: <LiaUserFriendsSolid size={40} className="text-blue-500" />, id: 1 },
+                    { title: "Active Users", value: Stats?.activeUsers || 0, content: "this week", icon: <BsFileText size={40} className="text-green-700" />, id: 2 },
+                    { title: "Total Handout", value: Stats?.totalHandouts || 0, icon: <BiBookOpen size={40} className="text-yellow-500" />, id: 3 },
+                {title: "Pro Users",  value: Stats?.proUsers || 0,  icon: <LiaUserFriendsSolid size={40} className="text-red-600" />, id: 4 },
+                ].map(list => (
+                <div key={list.id} className="shadow-sm shadow-gray-300 rounded-md p-3 border border-gray-100">
+                    <div className="flex justify-between ">
+                        <h3 className="font-light text-gray-400">{list.title}</h3>
+                        <span>{list.icon}</span>
+                    </div>
+                    <h1 className="font-light ">
+                        {list.value ?? list.heading}
+                    </h1>
+                    <p className="text-xs">
+                    </p>
+                </div>
+
+                ))}
+                {/* {stats.map((list) => (
                     <div key={list.id} className="shadow-sm shadow-gray-300 rounded-md p-3 border border-gray-100">
                         <div className="flex justify-between ">
                             <h3 className="font-light text-gray-400">{list.title}</h3>
@@ -200,7 +246,7 @@ const OctAdmin = () => {
                         <p className="text-xs">
                         </p>
                     </div>
-                ))}
+                ))} */}
                 <div className=" flex gap-40  items-center  w-[73vw] h-10 rounded-2xl p-4 mr-8 mb-4 bg-gray-200 font-light">
                     <button
                         onClick={() => setActive("users")}
@@ -233,28 +279,18 @@ const OctAdmin = () => {
                 <div className="w-[72vw]  border-gray-100 p-4  shadow-2xl rounded-2xl">
                     <h1 className="text2-l mt-1 text-black font-semibold mb-2">Recent Users </h1>
                     <p className="text-gray-400 mb-4">manage users account and supscriptions</p>
-<<<<<<< HEAD
-                    {data.map((list) => (
-                        <div key={list.id} className="shadow-md w-[70vw]  rounded-2xl  border-sm mb-6 bg-gray-10 p-4">
-                            <h2 className="  font-sans text-black ">{list.name}</h2>
-                            <p className="text-gray-500 mb-2 ">{list.email}</p>
-                            <div className=" flex items-center gap-120">
-                                <span className=" flex items-center mb-2 text-gray-500  gap-2">{list.university} <ul>{list.date}</ul></span>
-                                <span className="flex items-center  gap-5 text-xs"><a href="#" className="border rounded-2xl p-2 flex items-center text-xs gap-1 hover:bg-blue-200"> < Crown size={10} />{list.plan}</a> <a href="./Settings" className="border rounded-2xl p-1.5 hover:bg-blue-200 ">{list.details}</a></span>
-=======
-                    {/* {user.map((list) => (
+                    {user.map((list) => (
                         <div key={list._id} className="shadow-md w-[75vw] ml-5 rounded-2xl  border-sm mb-6 bg-gray-10 p-4">
                             <h2 className="  font-bold text-black ">{list.userName}</h2>
                             <p className="text-gray-500 mb-2 ">{list.email}</p>
                             <div className=" flex items-center gap-190">
                                 <span className=" flex items-center mb-2 text-gray-500  gap-2">{list.institution} <ul>{12 / 3 / 2010}</ul></span>
                                 <span className="flex items-center gap-6 text-xs"><a href="#" className="border rounded-2xl p-2 flex items-center text-xs gap-1 hover:bg-blue-200"> < Crown size={10} />{list.plan}</a> <a href="./Settings" className="border rounded-2xl p-1.5 hover:bg-blue-200 ">{list.Bio}</a></span>
->>>>>>> 619b96d88f2477ec6594f1a5322a8c546c664f77
 
                             </div>
 
                         </div>
-                    )) */}
+                    ))}
 
                     {/* } */}
                 </div>
@@ -288,13 +324,8 @@ const OctAdmin = () => {
                 <div className="fixed inset-0 items-center justify-center z-60">
                     <div className="justify-center items-center w-2/5 mt-32 ml-140 bg-gray-100 rounded-xl">
                         <div className="p-3 " >
-<<<<<<< HEAD
-                            <h1 className="text-xl mt-1 font-semibold">Ceate Announcement</h1>
-                            <p className="text-gray-400 mb-4 ">send announcement to all users</p>
-=======
                             <h1 className="text-2xl mt-1 font-bold">Create Handout</h1>
                             <p className="text-gray-400 mb-4 ">send handout to all users</p>
->>>>>>> 619b96d88f2477ec6594f1a5322a8c546c664f77
 
                             <label className="font-semibold">Title</label>
                             <br />
@@ -352,13 +383,7 @@ const OctAdmin = () => {
                                         cancel
                                     </button>
                                 </div>
-<<<<<<< HEAD
-                                <div className="border bg-blue-500 text-white p-1 h-7  rounded-xl w-12">
-                                    publish
-                                </div>
-=======
                                 <button onClick={handleHandout} className="border bg-blue-500 cursor-pointer text-white p-1 h-9 rounded-xl w-16">{loading ? "Publishing" : "Publish "}</button>
->>>>>>> 619b96d88f2477ec6594f1a5322a8c546c664f77
                             </div>
                         </div>
 
