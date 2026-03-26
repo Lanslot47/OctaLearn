@@ -3,11 +3,10 @@ import { BiBookOpen } from "react-icons/bi";
 import { LiaUserFriendsSolid } from "react-icons/lia";
 import { BsFileText } from "react-icons/bs";
 import { Shield } from "lucide-react"
+
 import { Crown, Trash2, Download } from "lucide-react"
 import React, { useEffect, useState } from "react";
 import { resolveSoa } from "dns";
-import { useRouter } from "next/navigation";
-
 
 type User = {
     _id: string;
@@ -47,7 +46,6 @@ const OctAdmin = () => {
     const [Stats, setStats] = useState(null)
     const [announcement, setAnnouncement] = useState<Announcement[]>([])
     const [file, setFile] = useState<File | null>(null)
-    const router = useRouter()
     // const [loading, setLoading] = useState(false)
     useEffect(() => {
         handleGetUsers()
@@ -134,7 +132,6 @@ const OctAdmin = () => {
             if (file) {
                 formData.append("file", file)
             }
-           
 
             const res = await fetch("http://localhost:4000/api/admin/handout", {
                 method: "POST",
@@ -161,25 +158,12 @@ const OctAdmin = () => {
             setLoading(false)
         }
     }
-    const handleDelete = async () => {
-        try {
-            const res = await fetch(`http://localhost:4000/api/users`, {
-             method:"DELETE"
-            })
-            const data = await res.json()
-            if(res.ok){
-           setUpload(data)
-            }
-        } catch (err) {
-            console.log(err)
-        }
-    }
-    const data = [
-        { name: "sarah", email: "user@gmail.com", university: "unijos", date: " joined . 12/feb/2026", plan: " grand pro", details: "view details", id: 1 },
-        { name: "sarah", email: "user@gmail.com", university: "unijos", date: " jooined . 12/feb/2026", plan: " grand pro", details: "view details", id: 2 },
-        { name: "sarah", email: "user@gmail.com", university: "unijos", date: " joined . 12/feb/2026", plan: "grand pro", details: "view details", id: 3 },
-        { name: "sarah", email: "user@gmail.com", university: "unijos", date: " joined . 12/feb/2026", plan: "grand pro", details: "view details", id: 4 }
-    ]
+    // const data = [
+    //     { name: "sarah", email: "user@gmail.com", university: "unijos", date: " joined . 12/feb/2026", plan: " grand pro", details: "view details", id: 1 },
+    //     { name: "sarah", email: "user@gmail.com", university: "unijos", date: " jooined . 12/feb/2026", plan: " grand pro", details: "view details", id: 2 },
+    //     { name: "sarah", email: "user@gmail.com", university: "unijos", date: " joined . 12/feb/2026", plan: "grand pro", details: "view details", id: 3 },
+    //     { name: "sarah", email: "user@gmail.com", university: "unijos", date: " joined . 12/feb/2026", plan: "grand pro", details: "view details", id: 4 }
+    // ]
     const handleStat = async () => {
         try {
             const res = await fetch('http://localhost:4000/api/stats')
@@ -202,9 +186,9 @@ const OctAdmin = () => {
         { topic: "Linear Algebra", subject: "Maths", level: "200 level", char: 1289, del: <Trash2 className="text-red-600" />, downloads: <Download size={15} />, date: "12/43/2028", id: 3 }
     ];
     const content = [
-        { topic: "data structure note", sunject: "computer", download: "2100 downloads", id: 1 },
-        { topic: "data structure note", sunject: "computer", download: "2100 downloads", id: 2 },
-        { topic: "data structure note", sunject: "computer", download: "2102 downloads", id: 3 }
+        { topic: "data structure note", sunject: "compute", download: "2100 downloads", id: 1 },
+        { topic: "data structure note", sunject: "compute", download: "2100 downloads", id: 2 },
+        { topic: "data structure note", sunject: "compute", download: "2102 downloads", id: 3 }
     ]
 
     const getdata = async () => {
@@ -230,7 +214,6 @@ const OctAdmin = () => {
 
     return (
         <div className="p-4 via-none">
-            <h3 className="text-red-500 font-bold text-right cursor-pointer" onClick={() => router.push('/adminLogin')}>Logout</h3>
             <span className="flex gap-2 mb-3"><Shield size={30} className="text-blue-500" /><h1 className=" mt-1 font-semibold">Admin Panel</h1></span>
             <p className="text-gray-400 mb-4">manage users , content , and system settings</p>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -238,19 +221,19 @@ const OctAdmin = () => {
                     { title: "Total Users", value: Stats?.totalUsers || 0, icon: <LiaUserFriendsSolid size={40} className="text-blue-500" />, id: 1 },
                     { title: "Active Users", value: Stats?.activeUsers || 0, content: "this week", icon: <BsFileText size={40} className="text-green-700" />, id: 2 },
                     { title: "Total Handout", value: Stats?.totalHandouts || 0, icon: <BiBookOpen size={40} className="text-yellow-500" />, id: 3 },
-                    { title: "Pro Users", value: Stats?.proUsers || 0, icon: <LiaUserFriendsSolid size={40} className="text-red-600" />, id: 4 },
+                {title: "Pro Users",  value: Stats?.proUsers || 0,  icon: <LiaUserFriendsSolid size={40} className="text-red-600" />, id: 4 },
                 ].map(list => (
-                    <div key={list.id} className="shadow-md rounded-md p-3 border border-gray-100 hover:shadow-xl">
-                        <div className="flex justify-between ">
-                            <h3 className="font-light text-gray-400">{list.title}</h3>
-                            <span>{list.icon}</span>
-                        </div>
-                        <h1 className="font-light ">
-                            {list.value ?? list.heading}
-                        </h1>
-                        <p className="text-xs">
-                        </p>
+                <div key={list.id} className="shadow-sm shadow-gray-300 rounded-md p-3 border border-gray-100">
+                    <div className="flex justify-between ">
+                        <h3 className="font-light text-gray-400">{list.title}</h3>
+                        <span>{list.icon}</span>
                     </div>
+                    <h1 className="font-light ">
+                        {list.value ?? list.heading}
+                    </h1>
+                    <p className="text-xs">
+                    </p>
+                </div>
 
                 ))}
                 {/* {stats.map((list) => (
@@ -264,7 +247,7 @@ const OctAdmin = () => {
                         </p>
                     </div>
                 ))} */}
-                <div className=" flex gap-70 sm:w-2xl   items-center  md:w-[97vw] h-10 rounded-2xl p-5 mr-8 mb-4 bg-gray-200 font-light">
+                <div className=" flex gap-40  items-center  w-[73vw] h-10 rounded-2xl p-4 mr-8 mb-4 bg-gray-200 font-light">
                     <button
                         onClick={() => setActive("users")}
                         className={active === "users" ? "bg-white p-1 rounded-xl" : "p-1"}
@@ -293,7 +276,7 @@ const OctAdmin = () => {
             </div>
             {/* USERS */}
             {active === "users" && (
-                <div className=" border-gray-100 p-4 w-[95vw] p-5  shadow-2xl rounded-2xl">
+                <div className="w-[72vw]  border-gray-100 p-4  shadow-2xl rounded-2xl">
                     <h1 className="text2-l mt-1 text-black font-semibold mb-2">Recent Users </h1>
                     <p className="text-gray-400 mb-4">manage users account and supscriptions</p>
                     {user.map((list) => (
@@ -315,7 +298,7 @@ const OctAdmin = () => {
 
             {/* Handouts */}
             {active === "handouts" && (
-                <div className="w-[95vw]  border-gray-100 p-6  shadow-2xl rounded-2xl ">
+                <div className="w-[72vw]  border-gray-100 p-4  shadow-2xl rounded-2xl ">
                     <h1 className="text-xl mt-1 text-black font-semibold mb-2">Manage Handouts </h1>
                     <p className="text-gray-400 mb-4">Uploads and manage study materials</p>
                     <button onClick={() => setUpload(prev => !prev)} className=" bg-blue-500 w-50 h-10 p-2 text-white rounded-xl items-left">uploads handout</button>
@@ -328,7 +311,7 @@ const OctAdmin = () => {
                                         <span>{material.topic}</span>
                                         <span className=" flex items-center text-xs">{material.downloads} {material.char}</span>
                                         <span>{material.date}</span>
-                                        <button className="ml-230" onClick={() => (handleDelete)}>{material.del}</button>
+                                        <span className="ml-230">{material.del}</span>
                                     </div>
                                 </div>
                             ))
@@ -339,7 +322,7 @@ const OctAdmin = () => {
 
             {upload &&
                 <div className="fixed inset-0 items-center justify-center z-60">
-                    <div className="justify-center items-center w-2/5 mt-20 ml-92 bg-gray-100 rounded-xl">
+                    <div className="justify-center items-center w-2/5 mt-32 ml-140 bg-gray-100 rounded-xl">
                         <div className="p-3 " >
                             <h1 className="text-2xl mt-1 font-bold">Create Handout</h1>
                             <p className="text-gray-400 mb-4 ">send handout to all users</p>
@@ -412,7 +395,7 @@ const OctAdmin = () => {
             }
             {/* {anouncement} */}
             {active === "announcement" && (
-                <div className="w-[95vw]  border-gray-100 p-5  shadow-2xl rounded-2xl ">
+                <div className="w-[72vw]  border-gray-100 p-4  shadow-2xl rounded-2xl ">
 
                     <h3 className="text-xl mt-1 text-black font-semibold mb-2">Anouncement </h3>
                     <p className="text-gray-400 mb-6">Create Anouncement for All Users</p>
@@ -434,8 +417,8 @@ const OctAdmin = () => {
             )}
 
             {clickEmail &&
-                <div className="fixed inset-0 items-center w-[80vw] justify-center z-60">
-                    <div className="justify-center items-center mt-15 ml-80 bg-gray-100 rounded-xl">
+                <div className="fixed inset-0 items-center justify-center z-60">
+                    <div className="justify-center items-center w-2/5 mt-32 ml-140 bg-gray-100 rounded-xl">
                         <div className="p-3 " >
                             <h1 className="text-xl mt-1 font-bold">Ceate Announcement</h1>
                             <p className="text-gray-400 mb-4">send announcement to all users</p>
@@ -484,12 +467,10 @@ const OctAdmin = () => {
                         {
                             content.map((content) => (
                                 <div key={content.id}>
-                                    <span className=" mt-1 text-black font-light">{content.topic}</span>
-                                    <span className="flex items-center font-extralight ">
-                                        <div className="flex items-center gap-106">
-                                            <span className=" text-center mb-4 text-xs">{content.sunject}</span>
-                                            <span className=" text-center mb-4 border-1 p-0.5 text-xs flex rounded-xl " >{content.download}</span>
-                                        </div>
+                                    <span className=" mt-1 text-black font-semibold">{content.topic}</span>
+                                    <span className="flex items-center gap-110">
+                                        <span className=" text-center mb-4 text-sm">{content.sunject}</span>
+                                        <span className=" text-center mb-4 border-1 p-1 text-xs flex rounded-xl " >{content.download}</span>
                                     </span>
                                 </div>
                             ))

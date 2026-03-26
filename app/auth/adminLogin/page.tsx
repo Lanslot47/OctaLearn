@@ -30,7 +30,7 @@ const Home = () => {
             alert('login successfully')
             const token = localStorage.setItem('token', data.token)
             console.log(token)
-            router.push('../admin')
+            router.push('/protected')
         }
         catch (err: any) {
             setError(err.message || "something went wrong")
