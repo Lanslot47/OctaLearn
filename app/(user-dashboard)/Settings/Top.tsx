@@ -18,7 +18,7 @@ const API = "http://localhost:4000";
 type SettingsForm = {
   fullName: string;
   phone: string;
-  bio: string;
+  Bio: string;
   course: string;
   level: string;
   interests: string;
@@ -28,7 +28,7 @@ export default function SettingsPage() {
   const [form, setForm] = useState<SettingsForm>({
     fullName: "",
     phone: "",
-    bio: "",
+    Bio: "",
     course: "",
     level: "",
     interests: "",
@@ -62,7 +62,7 @@ export default function SettingsPage() {
         setForm({
           fullName: data.userName || "",
           phone: data.phone || "",
-          bio: data.Bio || "",
+          Bio: data.Bio || "",
           course: data.course || "",
           level: data.level || "",
           interests: data.interest || "",
@@ -231,7 +231,7 @@ export default function SettingsPage() {
 
             <textarea
               name="bio"
-              value={form.bio}
+              value={form.Bio}
               onChange={handleChange}
               placeholder="Bio"
               className="border w-full p-2 rounded"
@@ -298,7 +298,7 @@ export default function SettingsPage() {
           </h1>
 
           <p>Name: {form.fullName}</p>
-          <p>Bio: {form.bio}</p>
+          <p>Bio: {form.Bio}</p>
           <p>Interest: {form.interests}</p>
           <p>Phone: {form.phone}</p>
         </section>
