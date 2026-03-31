@@ -5,10 +5,16 @@ import { IoNotificationsCircle } from "react-icons/io5";
 import { BiMessage, BiBrain, BiBookOpen } from "react-icons/bi";
 import { LiaUserFriendsSolid } from "react-icons/lia";
 import { BsFileText } from "react-icons/bs";
-
+type Announcement = {
+  _id: string,
+  title: string,
+  content: string,
+  createdAt: string
+};
 const Hero = () => {
   const [dashboard, setDashboard] = useState<any>(null);
   const [loading, setLoading] = useState(true);
+  const [announcement, setAnnouncement] = useState<Announcement[]>([]);
 
   useEffect(() => {
     const fetchDashboard = async () => {
@@ -28,7 +34,9 @@ const Hero = () => {
         }
 
         const data = await res.json();
+        console.log(data)
         setDashboard(data);
+        // console.log(dashboard)
       } catch (error) {
         console.error(error);
       } finally {
@@ -36,6 +44,28 @@ const Hero = () => {
       }
     };
 
+    const fetchAnnouncement = async ()=>{
+      try {
+        const res = await fetch("http://localhost:4000/api/admin/get-announcement", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+
+        if (!res.ok) {
+          throw new Error("Failed to fetch dashboard");
+        }
+
+        const data = await res.json();
+          setAnnouncement(data || []);
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchAnnouncement()
     fetchDashboard(); 
   }, []);
 
@@ -143,7 +173,7 @@ const Hero = () => {
         <div className="flex-1 rounded-md shadow shadow-gray-300 px-6 py-8">
           <h1 className="flex items-center gap-2 text-2xl font-semibold mb-2">
             <IoNotificationsCircle size={30} /> Announcements
-          </h1>
+          </h1>.
           <p className="text-gray-400 mb-8">
             Latest updates and news
           </p>
@@ -152,7 +182,7 @@ const Hero = () => {
             <p className="text-gray-500">No announcements available</p>
           )}
 
-          {dashboard?.announcements?.map((item: any) => (
+          {announcement.map((item) => (
             <div key={item._id} className="flex gap-4 mb-6">
               <div className="w-2 bg-blue-100 rounded"></div>
               <div>
