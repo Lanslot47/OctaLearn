@@ -62,7 +62,6 @@ const OctAdmin = () => {
 
 
 
-
   const handleGetUsers = async () => {
     try {
       const token = localStorage.getItem('token')
@@ -73,14 +72,18 @@ const OctAdmin = () => {
           Authorization: `Bearer ${token}`,
         },
       });
+
+      const data = await res.json(); // ✅ read body BEFORE checking res.ok
+
       if (!res.ok) {
-        throw new Error("Failed to fetch dashboard");
+        // Now you see exactly what the server said e.g "jwt expired", "Unauthorized" etc
+        throw new Error(`Fetch users failed [${res.status}]: ${data.message || JSON.stringify(data)}`);
       }
-      const data = await res.json();
+
       setUser(data);
-      // console.log(data)
-    } catch (err) {
-      console.error(err);
+
+    } catch (err: any) {
+      console.error("handleGetUsers →", err.message);
     }
   };
 
@@ -155,19 +158,25 @@ const OctAdmin = () => {
         body: formData,
       });
 
-      if (!res.ok) throw new Error("Upload failed");
+      const data = await res.json(); // ✅ read body BEFORE checking res.ok
+
+      if (!res.ok) {
+        // Now you see exactly what failed e.g "All fields must be filled", multer error etc
+        throw new Error(`Upload failed [${res.status}]: ${data.message || JSON.stringify(data)}`);
+      }
 
       setUpload(false);
       setTitle("");
       setContent("");
       setFile(null);
-      alert("Handout Created Successfully")
-    } catch (err) {
-      console.error(err);
+      alert("Handout Created Successfully");
+
+    } catch (err: any) {
+      console.error("handleHandout →", err.message);
+      alert(err.message); // ✅ surface the real error to the UI so you're not squinting at the console
     } finally {
       setLoading(false);
     }
-    // handleHandoutFetch()
   };
   useEffect(() => {
     handleGetUsers();
@@ -299,7 +308,7 @@ const OctAdmin = () => {
             ))}
           </div>
         </div>
-        
+
       )}
       {upload && (
         <div className="fixed inset-0 flex items-center justify-center bg-black/40 px-4">

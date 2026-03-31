@@ -16,10 +16,44 @@ const Home = () => {
     const [selectedSubject, setSelectedSubject] = useState("")
     const [selectedLevel, setSelectedLevel] = useState("")
     const [courses, setCourses] = useState<Handout[]>([])
-    // const [handout, setHandout] = useState<Handout[]>([])
     const [err, setErr] = useState("")
     const [loading, setLoading] = useState(false)
+    const [downloadingId, setDownloadingId] = useState<string | null>(null) // tracks which handout is downloading
 
+    // ✅ NEW: Download handler
+    const handleDownload = async (id: string, title: string) => {
+        try {
+            setDownloadingId(id)
+
+            const res = await fetch(`http://localhost:4000/api/admin/download/${id}`, {
+                method: "GET",
+            })
+
+            if (!res.ok) {
+                throw new Error("Download failed. File may not exist on server.")
+            }
+
+            // Convert the streamed response into a blob
+            const blob = await res.blob()
+
+            // Create a temporary anchor tag to trigger the browser download
+            const url = window.URL.createObjectURL(blob)
+            const a = document.createElement("a")
+            a.href = url
+            a.download = `${title}.pdf`
+            document.body.appendChild(a)
+            a.click()
+
+            // Cleanup
+            a.remove()
+            window.URL.revokeObjectURL(url)
+
+        } catch (error: any) {
+            setErr(error.message)
+        } finally {
+            setDownloadingId(null)
+        }
+    }
 
     const handleFindBySubject = async (e: React.ChangeEvent<HTMLSelectElement>) => {
         try {
@@ -33,11 +67,7 @@ const Home = () => {
                 headers: {
                     "Content-Type": "application/json",
                 },
-                // body: JSON.stringify({ subject: e.target.value }),
-            }
-            )
-
-
+            })
 
             if (!res.ok) {
                 throw new Error("Something went wrong")
@@ -47,17 +77,14 @@ const Home = () => {
             console.log(data)
             console.log(courses)
 
-
         } catch (error: any) {
-
             console.log(error)
-            // console.log(data.err)
             setErr(error.message)
-
         } finally {
             setLoading(false)
         }
     }
+
     const handleFindByLevel = async (e: React.ChangeEvent<HTMLSelectElement>) => {
         try {
             console.log(e.target.value)
@@ -70,11 +97,7 @@ const Home = () => {
                 headers: {
                     "Content-Type": "application/json",
                 },
-                // body: JSON.stringify({ subject: e.target.value }),
-            }
-            )
-
-
+            })
 
             if (!res.ok) {
                 throw new Error("Something went wrong")
@@ -84,39 +107,37 @@ const Home = () => {
             console.log(data)
             console.log(courses)
 
-
         } catch (error: any) {
-
             console.log(error)
-            // console.log(data.err)
             setErr(error.message)
-
         } finally {
             setLoading(false)
         }
     }
+
     const handleHandout = async () => {
-    try {
-        setLoading(true)
+        try {
+            setLoading(true)
 
-        const res = await fetch('http://localhost:4000/api/admin/get-handout')
+            const res = await fetch('http://localhost:4000/api/admin/get-handout')
 
-        const data = await res.json();
+            const data = await res.json();
 
-        if (!res.ok) {
-            throw new Error(data.message || "Something went wrong");
+            if (!res.ok) {
+                throw new Error(data.message || "Something went wrong");
+            }
+
+            setCourses(data)
+
+        } catch (error: any) {
+            console.log(error.message)
+        } finally {
+            setLoading(false)
         }
-
-        setCourses(data)
-
-    } catch (error: any) {
-        console.log(error.message)
-    } finally {
-        setLoading(false)
     }
-}
+
     useEffect(() => {
-    handleHandout()
+        handleHandout()
     }, [])
 
     return (
@@ -131,7 +152,6 @@ const Home = () => {
             </p>
 
             {/* Filters */}
-
             <div className="w-full rounded-md border border-gray-300 p-4 mb-6">
 
                 <h2 className="text-2xl font-bold mb-3">Find Study Materials</h2>
@@ -172,24 +192,22 @@ const Home = () => {
             </div>
 
             {/* Error */}
-
             {err && (
                 <p className="text-red-500 mb-4">{err}</p>
             )}
 
             {/* Loading */}
-
             {loading && (
                 <p className="text-gray-500">Loading courses...</p>
             )}
 
             {/* Courses */}
-
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
 
                 {courses.map((u) => (
 
                     <div
+                        key={u._id}
                         className="border p-5 rounded-md border-gray-300 bg-white flex flex-col justify-between"
                     >
 
@@ -239,9 +257,14 @@ const Home = () => {
 
                         </div>
 
+                        {/* ✅ UPDATED: Button now triggers download */}
                         <div className="mt-2">
-                            <button className="w-full py-2 rounded-md text-white bg-blue-500 hover:bg-blue-600">
-                                Subscribe to Download
+                            <button
+                                onClick={() => handleDownload(u._id, u.title)}
+                                disabled={downloadingId === u._id}
+                                className="w-full py-2 rounded-md text-white bg-blue-500 hover:bg-blue-600 disabled:opacity-60 disabled:cursor-not-allowed"
+                            >
+                                {downloadingId === u._id ? "Downloading..." : "Download Handout"}
                             </button>
                         </div>
 
