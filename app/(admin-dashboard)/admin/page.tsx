@@ -1,9 +1,6 @@
 "use client";
 
-import { BiBookOpen } from "react-icons/bi";
-import { LiaUserFriendsSolid } from "react-icons/lia";
-import { BsFileText } from "react-icons/bs";
-import { Shield, Crown, Trash2, Download } from "lucide-react";
+import { Shield, Crown} from "lucide-react";
 import React, { useEffect, useState } from "react";
 
 // ✅ FIX: ensure this file is .tsx (not .jsx) to avoid TS8008 error

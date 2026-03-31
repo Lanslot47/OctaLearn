@@ -7,6 +7,7 @@ import { CiSettings } from "react-icons/ci";
 import Link from "next/link";
 import { io } from "socket.io-client";
 
+
 const API = "http://localhost:4000";
 
 const Navbar = () => {

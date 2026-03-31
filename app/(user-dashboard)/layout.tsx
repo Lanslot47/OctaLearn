@@ -29,7 +29,7 @@ export default function RootLayout({
     if (isLoggedIn === false) {
       router.replace("../auth/Login");
     }
-  }, [isLoggedIn]);
+  }, [isLoggedIn, router]);
 
   if (isLoggedIn === null) {
     return <div>Loading...</div>;
