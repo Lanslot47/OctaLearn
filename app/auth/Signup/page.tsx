@@ -41,9 +41,10 @@ const Home = () => {
             setError(data.message || "Account Created Successfully")
             router.push('../auth/Login')
         }
-        catch (err: any) {
-            setError(err.message || "something went wrong")
-        } finally {
+        catch (err) {
+  const error = err as Error;
+  setError(error.message);
+} finally {
             setLoading(false)
         }
     }

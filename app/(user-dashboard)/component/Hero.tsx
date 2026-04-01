@@ -11,15 +11,28 @@ type Announcement = {
   content: string,
   createdAt: string
 };
+type Dashboard = {
+  aiConversations: number;
+  totalNotes: number;
+  totalDownloads: number;
+  totalConnections: number;
+  announcements?: Announcement[];
+  activities?: Activity[];
+};
+interface Activity {
+  _id: string;
+  message: string;
+  createdAt: string;
+}
 const Hero = () => {
- const [dashboard, setDashboard] = useState<Record<string, any> | null>(null);
+  const [dashboard, setDashboard] = useState<Dashboard | null>(null);
   const [loading, setLoading] = useState(true);
   const [announcement, setAnnouncement] = useState<Announcement[]>([]);
 
   useEffect(() => {
     const fetchDashboard = async () => {
       try {
-      
+
         const token = localStorage.getItem("token");
         const res = await fetch("http://localhost:4000/api/dashboard", {
           method: "GET",
@@ -44,7 +57,7 @@ const Hero = () => {
       }
     };
 
-    const fetchAnnouncement = async ()=>{
+    const fetchAnnouncement = async () => {
       try {
         const res = await fetch("http://localhost:4000/api/admin/get-announcement", {
           method: "GET",
@@ -58,7 +71,7 @@ const Hero = () => {
         }
 
         const data = await res.json();
-          setAnnouncement(data || []);
+        setAnnouncement(data || []);
       } catch (error) {
         console.error(error);
       } finally {
@@ -66,7 +79,7 @@ const Hero = () => {
       }
     }
     fetchAnnouncement()
-    fetchDashboard(); 
+    fetchDashboard();
   }, []);
 
   if (loading) {
@@ -121,12 +134,12 @@ const Hero = () => {
 
   return (
     <div className="font-sans px-4 md:px-6 mt-24 md:mt-6">
-      
+
       {/* Dashboard Stats */}
       <section className="mb-12">
         <h1 className="font-bold text-2xl mb-3">Dashboard</h1>
         <p className="text-gray-500 mb-10">
-          Welcome back! Here's what's happening with your studies
+          Welcome back! Here is what is happening with your studies
         </p>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -148,7 +161,7 @@ const Hero = () => {
 
       {/* Quick Actions + Announcements */}
       <section className="flex flex-col lg:flex-row gap-8 mb-8">
-        
+
         {/* Quick Actions */}
         <div className="flex-1 rounded-md shadow shadow-gray-300 px-6 py-8">
           <h1 className="text-2xl font-semibold mb-2">Quick Actions</h1>
@@ -215,17 +228,17 @@ const Hero = () => {
             </p>
           )}
 
-          {dashboard?.activities?.map((activity: Record<string, any>) => (
-            <div key={activity._id} className="flex gap-4 mb-4">
-              <div className="w-2 bg-blue-200 rounded"></div>
-              <div>
-                <p className="font-medium">{activity.message}</p>
-                <p className="text-sm text-gray-400">
-                  {new Date(activity.createdAt).toLocaleString()}
-                </p>
-              </div>
-            </div>
-          ))}
+          {dashboard?.activities?.map((activity) => (
+  <div key={activity._id} className="flex gap-4 mb-4">
+    <div className="w-2 bg-blue-200 rounded"></div>
+    <div>
+      <p className="font-medium">{activity.message}</p>
+      <p className="text-sm text-gray-400">
+        {new Date(activity.createdAt).toLocaleString()}
+      </p>
+    </div>
+  </div>
+))}
         </div>
       </section>
 
