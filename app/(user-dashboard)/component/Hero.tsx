@@ -12,7 +12,7 @@ type Announcement = {
   createdAt: string
 };
 const Hero = () => {
-  const [dashboard, setDashboard] = useState<any>(null);
+ const [dashboard, setDashboard] = useState<Record<string, any> | null>(null);
   const [loading, setLoading] = useState(true);
   const [announcement, setAnnouncement] = useState<Announcement[]>([]);
 
@@ -173,7 +173,7 @@ const Hero = () => {
         <div className="flex-1 rounded-md shadow shadow-gray-300 px-6 py-8">
           <h1 className="flex items-center gap-2 text-2xl font-semibold mb-2">
             <IoNotificationsCircle size={30} /> Announcements
-          </h1>.
+          </h1>
           <p className="text-gray-400 mb-8">
             Latest updates and news
           </p>
@@ -215,7 +215,7 @@ const Hero = () => {
             </p>
           )}
 
-          {dashboard?.activities?.map((activity: any) => (
+          {dashboard?.activities?.map((activity: Record<string, any>) => (
             <div key={activity._id} className="flex gap-4 mb-4">
               <div className="w-2 bg-blue-200 rounded"></div>
               <div>

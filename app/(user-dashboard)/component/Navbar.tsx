@@ -15,7 +15,7 @@ const Navbar = () => {
   const [character, setCharacter] = useState('');
   const [name, setName] = useState('');
   const [notifications, setNotifications] = useState({ requests: 0, messages: 0 });
-  const [socket, setSocket] = useState<any>(null);
+  const [socket, setSocket] = useState<unknown>(null);
 
   const userId = typeof window !== "undefined" ? localStorage.getItem("userId") : "";
   const token = typeof window !== "undefined" ? localStorage.getItem("token") : "";
@@ -29,7 +29,7 @@ const Navbar = () => {
     s.emit("join", userId);
 
     // 🔥 FIXED notification handling (IMPORTANT)
-    s.on("notification", (data: any) => {
+    s.on("notification", (data: { type: string; message?: string }) => {
       console.log("NOTIFICATION:", data);
 
       if (data.type === "request") {

@@ -1,10 +1,6 @@
 "use client";
-
-import { Shield, Crown} from "lucide-react";
+import { Shield, Crown } from "lucide-react";
 import React, { useEffect, useState } from "react";
-
-// ✅ FIX: ensure this file is .tsx (not .jsx) to avoid TS8008 error
-// Rename file to: OctAdmin.tsx
 
 type User = {
   _id: string;
@@ -31,6 +27,7 @@ type StatsType = {
   totalHandouts: number;
   proUsers: number;
 };
+
 type Handout = {
   _id: string,
   title: string
@@ -38,26 +35,22 @@ type Handout = {
   subject: string,
   level: string
 };
+
 const OctAdmin = () => {
   type AdminView = "users" | "handouts" | "announcement" | "analytics";
 
-  // const [token, setToken] = useState<string | null>(null);
   const [active, setActive] = useState<AdminView>("users");
-  const [user, setUser] = useState<User[]>([]); // ✅ now USED → error gone
+  const [user, setUser] = useState<User[]>([]);
   const [Stats, setStats] = useState<StatsType | null>(null);
   const [loading, setLoading] = useState(false);
-
   const [title, setTitle] = useState("");
   const [subject, setSubject] = useState("");
   const [contents, setContent] = useState("");
   const [level, setLevel] = useState("");
   const [announcement, setAnnouncement] = useState<Announcement[]>([]);
   const [handout, setHandout] = useState<Handout[]>([]);
-
   const [upload, setUpload] = useState(false);
   const [file, setFile] = useState<File | null>(null);
-
-
 
   const handleGetUsers = async () => {
     try {
@@ -66,21 +59,20 @@ const OctAdmin = () => {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${token}`, // ✅ FIXED
         },
       });
 
-      const data = await res.json(); // ✅ read body BEFORE checking res.ok
+      const data = await res.json();
 
       if (!res.ok) {
-        // Now you see exactly what the server said e.g "jwt expired", "Unauthorized" etc
         throw new Error(`Fetch users failed [${res.status}]: ${data.message || JSON.stringify(data)}`);
       }
 
       setUser(data);
-
-    } catch (err: any) {
-      console.error("handleGetUsers →", err.message);
+    } catch (err) {
+      const error = err as Error; // ✅ FIXED
+      console.error("handleGetUsers →", error.message);
     }
   };
 
@@ -91,9 +83,10 @@ const OctAdmin = () => {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`
+          Authorization: `Bearer ${token}` // ✅ FIXED
         }
       });
+
       const data = await res.json();
       setStats(data);
       console.log(Stats)
@@ -103,7 +96,6 @@ const OctAdmin = () => {
   };
 
   const getAnnouncement = async () => {
-    const token = localStorage.getItem('token')
     try {
       const res = await fetch("http://localhost:4000/api/admin/get-announcement");
       const data = await res.json();
@@ -121,7 +113,7 @@ const OctAdmin = () => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${token}`, // ✅ FIXED
         },
         body: JSON.stringify({ title, content: contents }),
       });
@@ -143,22 +135,25 @@ const OctAdmin = () => {
     try {
       setLoading(true);
       const formData = new FormData();
+
       formData.append("title", title);
       formData.append("content", contents);
       formData.append("subject", subject);
       formData.append("level", level);
+
       if (file) formData.append("file", file);
 
       const res = await fetch("http://localhost:4000/api/admin/handout", {
         method: "POST",
-        headers: { Authorization: `Bearer ${token}` },
+        headers: {
+          Authorization: `Bearer ${token}` // ✅ FIXED
+        },
         body: formData,
       });
 
-      const data = await res.json(); // ✅ read body BEFORE checking res.ok
+      const data = await res.json();
 
       if (!res.ok) {
-        // Now you see exactly what failed e.g "All fields must be filled", multer error etc
         throw new Error(`Upload failed [${res.status}]: ${data.message || JSON.stringify(data)}`);
       }
 
@@ -168,25 +163,26 @@ const OctAdmin = () => {
       setFile(null);
       alert("Handout Created Successfully");
 
-    } catch (err: any) {
-      console.error("handleHandout →", err.message);
-      alert(err.message); // ✅ surface the real error to the UI so you're not squinting at the console
+    } catch (err) {
+      const error = err as Error; // ✅ FIXED
+      console.error("handleHandout →", error.message);
+      alert(error.message);
     } finally {
       setLoading(false);
     }
   };
+
   useEffect(() => {
     handleGetUsers();
     getAnnouncement();
     handleStat();
     handleHandoutFetch()
   }, []);
+
   const handleHandoutFetch = async () => {
     try {
       setLoading(true)
-
       const res = await fetch('http://localhost:4000/api/admin/get-handout')
-
       const data = await res.json();
 
       if (!res.ok) {
@@ -194,9 +190,9 @@ const OctAdmin = () => {
       }
 
       setHandout(data)
-
-    } catch (error: any) {
-      console.log(error.message)
+    } catch (error) {
+      const err = error as Error; // ✅ FIXED
+      console.log(err.message)
     } finally {
       setLoading(false)
     }

@@ -48,9 +48,10 @@ const Home = () => {
             a.remove()
             window.URL.revokeObjectURL(url)
 
-        } catch (error: any) {
-            setErr(error.message)
-        } finally {
+        } catch (error) {
+  const err = error as Error;
+  setErr(err.message);
+} finally {
             setDownloadingId(null)
         }
     }
@@ -77,10 +78,10 @@ const Home = () => {
             console.log(data)
             console.log(courses)
 
-        } catch (error: any) {
-            console.log(error)
-            setErr(error.message)
-        } finally {
+        } catch (error) {
+  const err = error as Error;
+  setErr(err.message);
+} finally {
             setLoading(false)
         }
     }
@@ -107,10 +108,10 @@ const Home = () => {
             console.log(data)
             console.log(courses)
 
-        } catch (error: any) {
-            console.log(error)
-            setErr(error.message)
-        } finally {
+        } catch (error) {
+  const err = error as Error;
+  setErr(err.message);
+} finally {
             setLoading(false)
         }
     }
@@ -129,9 +130,10 @@ const Home = () => {
 
             setCourses(data)
 
-        } catch (error: any) {
-            console.log(error.message)
-        } finally {
+        } catch (error) {
+  const err = error as Error;
+  setErr(err.message);
+} finally {
             setLoading(false)
         }
     }

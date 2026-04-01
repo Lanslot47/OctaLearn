@@ -25,7 +25,7 @@ export default function BuddySection() {
   const [socket, setSocket] = useState<Socket | null>(null);
   const [activeTab, setActiveTab] = useState("buddies");
   const [buddies, setBuddies] = useState<User[]>([]);
-  const [requests, setRequests] = useState<any[]>([]);
+  const [requests, setRequests] = useState<Record<string, any>[]>([]);
   const [chats, setChats] = useState<User[]>([]);
   const [messages, setMessages] = useState<Message[]>([]);
   const [activeChat, setActiveChat] = useState<string | null>(null);

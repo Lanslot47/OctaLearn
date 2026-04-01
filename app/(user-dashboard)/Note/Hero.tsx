@@ -53,8 +53,9 @@ const Hero = () => {
       setTitle("");
       setContent("");
       setClicked(false);
-    } catch (err: any) {
-      setError(err.message);
+    } catch (err) {
+      const error = err as Error;
+      setError(error.message);
     } finally {
       setLoading(false);
     }
@@ -83,9 +84,10 @@ const Hero = () => {
         }
 
         setNotes(data.notes);
-      } catch (err: any) {
-        setError(err.message);
-      }
+      } catch (err) {
+  const error = err as Error;
+  setError(error.message);
+}
     };
 
     fetchNotes();

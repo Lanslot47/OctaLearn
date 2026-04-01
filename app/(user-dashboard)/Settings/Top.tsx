@@ -70,8 +70,9 @@ export default function SettingsPage() {
 
         setAvatar(data.avatar || "");
       } catch (err) {
-        console.error("Fetch error:", err);
-      }
+  const error = err as Error;
+  alert(error.message);
+}
     };
 
     fetchSettings();
@@ -111,9 +112,10 @@ export default function SettingsPage() {
       }
 
       alert("Settings Updated Successfully");
-    } catch (err: any) {
-      alert(err.message);
-    }
+    } catch (err) {
+  const error = err as Error;
+  alert(error.message);
+}
   };
 
   // ================= UPLOAD AVATAR =================
@@ -144,9 +146,10 @@ export default function SettingsPage() {
       }
 
       setAvatar(data.avatar);
-    } catch (err: any) {
-      alert(err.message);
-    }
+    } catch (err) {
+  const error = err as Error;
+  alert(error.message);
+}
   };
 
   return (
