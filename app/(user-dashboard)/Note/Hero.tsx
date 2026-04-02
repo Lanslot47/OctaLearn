@@ -14,6 +14,7 @@ type Note = {
 };
 
 const Hero = () => {
+  const apiUrl= process.env.NEXT_PUBLIC_API_URL
   const [clicked, setClicked] = useState(false);
   const [loading, setLoading] = useState(false);
   const [content, setContent] = useState("");
@@ -32,7 +33,7 @@ const Hero = () => {
     try {
       const token = localStorage.getItem("token");
 
-      const res = await fetch("http://localhost:4000/api/notes", {
+      const res = await fetch(`${apiUrl}/api/notes`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -69,7 +70,7 @@ const Hero = () => {
       try {
         const token = localStorage.getItem("token");
 
-        const res = await fetch("http://localhost:4000/api/get-note", {
+        const res = await fetch(`${apiUrl}/api/get-note`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",

@@ -4,7 +4,7 @@ import { BiArrowBack } from 'react-icons/bi'
 import Image from 'next/image'
 import React, { useState } from 'react'
 import { useRouter } from 'next/navigation'
-
+const apiUrl= process.env.NEXT_PUBLIC_API_URL
 const Home = () => {
     const router = useRouter()
     const [error, setError] = useState('')
@@ -16,7 +16,7 @@ const Home = () => {
         setLoading(true)
         setError('')
         try {
-            const res = await fetch('http://localhost:4000/api/admin/adminLogin ', {
+            const res = await fetch(`${apiUrl}/api/admin/adminLogin`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

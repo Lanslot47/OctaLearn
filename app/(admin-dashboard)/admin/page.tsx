@@ -37,6 +37,7 @@ type Handout = {
 };
 
 const OctAdmin = () => {
+  const apiUrl= process.env.NEXT_PUBLIC_API_URL
   type AdminView = "users" | "handouts" | "announcement" | "analytics";
 
   const [active, setActive] = useState<AdminView>("users");
@@ -55,7 +56,7 @@ const OctAdmin = () => {
   const handleGetUsers = async () => {
     try {
       const token = localStorage.getItem('token')
-      const res = await fetch("http://localhost:4000/api/admin/users", {
+      const res = await fetch(`${apiUrl}/api/admin/users`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -79,7 +80,7 @@ const OctAdmin = () => {
   const handleStat = async () => {
     const token = localStorage.getItem('token')
     try {
-      const res = await fetch("http://localhost:4000/api/admin/stats", {
+      const res = await fetch(`${apiUrl}/api/admin/stats`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -94,10 +95,9 @@ const OctAdmin = () => {
       console.error(err);
     }
   };
-
   const getAnnouncement = async () => {
     try {
-      const res = await fetch("http://localhost:4000/api/admin/get-announcement");
+      const res = await fetch(`${apiUrl}/api/admin/get-announcement`);
       const data = await res.json();
       setAnnouncement(data || []);
     } catch (err) {
@@ -109,7 +109,7 @@ const OctAdmin = () => {
     const token = localStorage.getItem('token')
     try {
       setLoading(true);
-      const res = await fetch("http://localhost:4000/api/admin/announcement", {
+      const res = await fetch(`${apiUrl}/api/admin/announcement`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -143,7 +143,7 @@ const OctAdmin = () => {
 
       if (file) formData.append("file", file);
 
-      const res = await fetch("http://localhost:4000/api/admin/handout", {
+      const res = await fetch(`${apiUrl}/api/admin/handout`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}` // ✅ FIXED
@@ -182,7 +182,7 @@ const OctAdmin = () => {
   const handleHandoutFetch = async () => {
     try {
       setLoading(true)
-      const res = await fetch('http://localhost:4000/api/admin/get-handout')
+      const res = await fetch(`${apiUrl}/api/admin/get-handout`)
       const data = await res.json();
 
       if (!res.ok) {

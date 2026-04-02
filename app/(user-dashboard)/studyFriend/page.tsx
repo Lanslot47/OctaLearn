@@ -4,8 +4,8 @@ import { io, Socket } from "socket.io-client";
 import { useEffect, useState, useRef } from "react";
 import { LiaUserFriendsSolid } from "react-icons/lia";
 
-const API = 'localhost:4000/api';
-
+const apiUrl= process.env.NEXT_PUBLIC_API_URL
+const url = "https://octalearnapi-9qjm.onrender.com"
 interface User {
   _id: string;
   userName: string;
@@ -57,7 +57,7 @@ export default function BuddySection() {
   useEffect(() => {
     if (!userId) return;
 
-    const s = io(API.replace("/api", ""), { transports: ["websocket"] });
+    const s = io(url.replace("/api", ""), { transports: ["websocket"] });
 
     s.emit("join", userId);
 
@@ -108,7 +108,7 @@ export default function BuddySection() {
 
   const fetchBuddies = async () => {
     try {
-      const res = await fetch(`${API}/user/getAllUser`, { headers });
+      const res = await fetch(`${apiUrl}/user/getAllUser`, { headers });
       const data = await res.json();
       setBuddies(Array.isArray(data.users) ? data.users : []);
     } catch {
@@ -118,7 +118,7 @@ export default function BuddySection() {
 
   const fetchRequests = async () => {
     try {
-      const res = await fetch(`${API}/requests`, { headers });
+      const res = await fetch(`${apiUrl}/requests`, { headers });
       const data = await res.json();
       setRequests(Array.isArray(data) ? data : []);
     } catch {
@@ -128,7 +128,7 @@ export default function BuddySection() {
 
   const fetchChats = async () => {
     try {
-      const res = await fetch(`${API}/chats`, { headers });
+      const res = await fetch(`${apiUrl}/chats`, { headers });
       const data = await res.json();
       setChats(Array.isArray(data) ? data : []);
     } catch {
@@ -137,7 +137,7 @@ export default function BuddySection() {
   };
 
   const connectUser = async (id: string) => {
-    await fetch(`${API}/connect`, {
+    await fetch(`${apiUrl}/connect`, {
       method: "POST",
       headers,
       body: JSON.stringify({ userId: id }),
@@ -146,7 +146,7 @@ export default function BuddySection() {
   };
 
   const respondRequest = async (requestId: string, action: string) => {
-    await fetch(`${API}/respond`, {
+    await fetch(`${apiUrl}/respond`, {
       method: "POST",
       headers,
       body: JSON.stringify({ requestId, action }),
@@ -162,7 +162,7 @@ export default function BuddySection() {
     setActiveUser(user);
 
     try {
-      const res = await fetch(`${API}/get-message/${user._id}`, { headers });
+      const res = await fetch(`${apiUrl}/get-message/${user._id}`, { headers });
       const data = await res.json();
       const sortedMessages = (data.messages || []).sort(
         (a: Message, b: Message) =>
@@ -179,7 +179,7 @@ export default function BuddySection() {
     if (!text.trim() || !activeChat) return;
 
     try {
-      const res = await fetch(`${API}/send-message`, {
+      const res = await fetch(`${apiUrl}/send-message`, {
         method: "POST",
         headers,
         body: JSON.stringify({

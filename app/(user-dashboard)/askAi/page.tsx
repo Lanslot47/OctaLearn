@@ -8,6 +8,7 @@ type Message = {
 };
 
 const AskAi = () => {
+  const apiUrl= process.env.NEXT_PUBLIC_API_URL
   const [question, setQuestion] = useState("");
   const [error, setError] = useState("");
   const [messages, setMessages] = useState<Message[]>([]);
@@ -27,7 +28,7 @@ const AskAi = () => {
     try {
       const token = localStorage.getItem("token");
 
-      const res = await fetch("http://localhost:4000/api/ask-ai", {
+      const res = await fetch(`${apiUrl}/api/ask-ai`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`, // ✅ FIXED

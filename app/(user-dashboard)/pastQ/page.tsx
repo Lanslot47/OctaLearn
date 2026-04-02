@@ -12,7 +12,7 @@ type Handout = {
   level: string;
 };
 
-const API = 'localhost:4000/api';
+const apiUrl= process.env.NEXT_PUBLIC_API_URL
 
 const PastQ = () => {
   const [selectedSubject, setSelectedSubject] = useState("");
@@ -26,7 +26,7 @@ const PastQ = () => {
     try {
       setDownloadingId(id);
 
-      const res = await fetch(`${API}/api/admin/download/${id}`);
+      const res = await fetch(`${apiUrl}/api/admin/download/${id}`);
       if (!res.ok) throw new Error("Download failed. File may not exist.");
 
       const blob = await res.blob();
@@ -49,7 +49,7 @@ const PastQ = () => {
     try {
       setLoading(true);
       setErr("");
-      const res = await fetch(`${API}${endpoint}`);
+      const res = await fetch(`${apiUrl}${endpoint}`);
       if (!res.ok) throw new Error("Something went wrong");
       const data = await res.json();
       setCourses(Array.isArray(data.handouts) ? data.handouts : [data.handout]);

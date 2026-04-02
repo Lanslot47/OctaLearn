@@ -8,9 +8,9 @@ import Link from "next/link";
 import { io } from "socket.io-client";
 
 
-const API = "http://localhost:4000";
 
 const Navbar = () => {
+  const apiUrl= process.env.NEXT_PUBLIC_API_URL
   const [showDropDown, setShowDropDown] = useState(false);
   const [character, setCharacter] = useState('');
   const [name, setName] = useState('');
@@ -24,7 +24,7 @@ const Navbar = () => {
   useEffect(() => {
     if (!userId) return;
 
-    const s = io(API);
+    const s = io(apiUrl);
 
     s.emit("join", userId);
 
@@ -62,7 +62,7 @@ const Navbar = () => {
   useEffect(() => {
     const fetchName = async () => {
       try {
-        const res = await fetch(`${API}/api/getname`, {
+        const res = await fetch(`${apiUrl}/api/getname`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         const data = await res.json();

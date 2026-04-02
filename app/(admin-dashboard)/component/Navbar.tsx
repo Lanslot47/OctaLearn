@@ -8,6 +8,7 @@ import Link from "next/link";
 
 
 const Navbar = () => {
+    const apiUrl= process.env.NEXT_PUBLIC_API_URL
     const [showDropDown, setShowDropDown] = useState(false)
     const [loading, setLoading] = useState(true);
     const [character, setCharacter] = useState('')
@@ -17,7 +18,7 @@ const Navbar = () => {
             try {
 
                 const token = localStorage.getItem("token");
-                const res = await fetch("http://localhost:4000/api/getname", {
+                const res = await fetch(`${apiUrl}/api/admin/getname`, {
                     method: "GET",
                     headers: {
                         "Content-Type": "application/json",

@@ -6,7 +6,6 @@ import { BiMessage, BiBrain, BiBookOpen } from "react-icons/bi";
 import { LiaUserFriendsSolid } from "react-icons/lia";
 import { BsFileText } from "react-icons/bs";
 
-const API = 'localhost:4000/api';
 
 type Announcement = { _id: string; title: string; content: string; createdAt: string };
 interface Activity { _id: string; message: string; createdAt: string; }
@@ -20,6 +19,7 @@ type Dashboard = {
 };
 
 export default function Hero() {
+   const apiUrl= process.env.NEXT_PUBLIC_API_URL
   const [dashboard, setDashboard] = useState<Dashboard | null>(null);
   const [loading, setLoading] = useState(true);
   const [announcement, setAnnouncement] = useState<Announcement[]>([]);
@@ -29,7 +29,7 @@ export default function Hero() {
 
     const fetchDashboard = async () => {
       try {
-        const res = await fetch(`${API}/api/dashboard`, {
+        const res = await fetch(`${apiUrl}/api/dashboard`, {
           headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
         });
         if (!res.ok) throw new Error("Failed to fetch dashboard");
@@ -41,7 +41,7 @@ export default function Hero() {
 
     const fetchAnnouncements = async () => {
       try {
-        const res = await fetch(`${API}/api/admin/get-announcement`);
+        const res = await fetch(`${apiUrl}/api/admin/get-announcement`);
         if (!res.ok) throw new Error("Failed to fetch announcements");
         setAnnouncement(await res.json());
       } catch (err) {

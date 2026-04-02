@@ -13,7 +13,7 @@ import {
 import { useState, useEffect } from "react";
 import Image from "next/image";
 
-const API = "http://localhost:4000";
+const apiUrl= process.env.NEXT_PUBLIC_API_URL
 
 type SettingsForm = {
   fullName: string;
@@ -45,7 +45,7 @@ export default function SettingsPage() {
       if (!token) return;
 
       try {
-        const res = await fetch(`${API}/api/get-settings`, {
+        const res = await fetch(`${apiUrl}/api/get-settings`, {
           method: "GET",
           headers: {
             Authorization: `Bearer ${token}`,
@@ -90,7 +90,7 @@ export default function SettingsPage() {
     if (!token) return;
 
     try {
-      const res = await fetch(`${API}/api/settings`, {
+      const res = await fetch(`${apiUrl}/api/settings`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -131,7 +131,7 @@ export default function SettingsPage() {
     formData.append("avatar", file);
 
     try {
-      const res = await fetch(`${API}/api/avatar`, {
+      const res = await fetch(`${apiUrl}/api/avatar`, {
         method: "PATCH",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -162,7 +162,7 @@ export default function SettingsPage() {
           height={34}
           width={34}
           unoptimized
-          src={avatar ? `${API}${avatar}` : "/Capture.PNG"}
+          src={avatar ? `${apiUrl}${avatar}` : "/Capture.PNG"}
           alt="profile"
           className="rounded-full object-cover border shadow"
         />
@@ -190,7 +190,7 @@ export default function SettingsPage() {
               height={120}
               width={120}
               unoptimized
-              src={avatar ? `${API}${avatar}` : "/Capture.PNG"}
+              src={avatar ? `${apiUrl}${avatar}` : "/Capture.PNG"}
               alt="Profile"
               className="rounded-full object-cover border-4 border-gray-200 shadow-lg hover:scale-105 transition mb-4"
             />
