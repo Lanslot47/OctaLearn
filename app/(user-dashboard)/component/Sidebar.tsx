@@ -26,7 +26,7 @@ const Sidebar = () => {
       {/* Mobile Top */}
       <div className="md:hidden flex items-center justify-between px-4 py-3 border-b">
         <h1 className="text-blue-500 font-bold flex items-center gap-2">
-          <Image src={"/Capture.PNg"} alt="Logo" height={25} width={25} />
+          <img src={"/Capture.PNg"} alt="Logo" height={25} width={25} />
           OctaLearn
         </h1>
         <button onClick={() => setOpen(!open)}>
