@@ -13,7 +13,7 @@ const Home = () => {
     const [confirm_passowrd, setConfirm_password] = useState('')
     const [password, setPassword] = useState('')
     const [institution, setInstitution] = useState('')
-    const [bio, setBio] = useState('')
+    const [Bio, setBio] = useState('')
     const [phone, setphone] = useState('')
     const [level, setLevel] = useState('')
     const [department, setDepartment] = useState('')
@@ -34,7 +34,7 @@ const Home = () => {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     email, password, interest, level,
-                    userName: name, institution, bio, phone,
+                    userName: name, institution, Bio, phone,
                     department, course,
                     confirmPassword: confirm_passowrd
                 })
@@ -113,10 +113,10 @@ const Home = () => {
                             <select onChange={(e) => setLevel(e.target.value)}
                                 className="w-full border p-2 rounded-md text-sm focus:outline-blue-500">
                                 <option value="">Level</option>
-                                <option>100</option>
-                                <option>200</option>
-                                <option>300</option>
-                                <option>400</option>
+                                <option value="100 level">100 level</option>
+                                <option value="200 level">200 level</option>
+                                <option value="300 level">300 level</option>
+                                <option value="400 level">400 level</option>
                             </select>
 
                             <input type="text" placeholder="Interest"
