@@ -12,7 +12,7 @@ type Handout = {
   level: string;
 };
 
-const apiUrl= process.env.NEXT_PUBLIC_API_URL
+const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
 const PastQ = () => {
   const [selectedSubject, setSelectedSubject] = useState("");
@@ -25,10 +25,8 @@ const PastQ = () => {
   const handleDownload = async (id: string, title: string) => {
     try {
       setDownloadingId(id);
-
       const res = await fetch(`${apiUrl}/api/admin/download/${id}`);
       if (!res.ok) throw new Error("Download failed. File may not exist.");
-
       const blob = await res.blob();
       const url = window.URL.createObjectURL(blob);
       const a = document.createElement("a");
@@ -52,7 +50,11 @@ const PastQ = () => {
       const res = await fetch(`${apiUrl}${endpoint}`);
       if (!res.ok) throw new Error("Something went wrong");
       const data = await res.json();
-      setCourses(Array.isArray(data.handouts) ? data.handouts : [data.handout]);
+
+      // Handle single object or array
+      if (Array.isArray(data.handouts)) setCourses(data.handouts);
+      else if (data.handout) setCourses([data.handout]);
+      else setCourses([]);
     } catch (error) {
       setErr((error as Error).message);
     } finally {
@@ -78,26 +80,28 @@ const PastQ = () => {
 
   return (
     <div className="font-sans max-w-[1400px] mx-auto mt-6 px-4 md:px-6">
-      <h1 className="text-2xl font-bold flex items-center gap-2">
+      <h1 className="text-2xl font-bold flex items-center gap-2 mb-2">
         <BiBookOpen size={26} className="text-blue-500" /> Past Questions & Handouts
       </h1>
-      <p className="text-gray-500 mb-4">Access thousands of study materials from various institutions</p>
+      <p className="text-gray-500 mb-4">
+        Access thousands of study materials from various institutions
+      </p>
 
       {/* Filters */}
       <div className="w-full rounded-md border border-gray-300 p-4 mb-6">
-        <h2 className="text-2xl font-bold mb-3">Find Study Materials</h2>
+        <h2 className="text-xl md:text-2xl font-bold mb-3">Find Study Materials</h2>
         <div className="flex flex-col md:flex-row gap-3">
           <div className="flex items-center border gap-3 flex-1 p-2 rounded-md border-gray-300 hover:border-blue-500">
             <BiFilter size={18} />
             <input
               type="text"
               placeholder="Search handouts and past questions..."
-              className="border-0 w-full outline-none text-sm text-gray-500"
+              className="border-0 w-full outline-none text-sm md:text-base text-gray-500"
             />
           </div>
 
           <select
-            className="p-2 border border-gray-300 rounded-md"
+            className="p-2 border border-gray-300 rounded-md text-sm md:text-base"
             onChange={handleFindBySubject}
             value={selectedSubject}
           >
@@ -110,7 +114,7 @@ const PastQ = () => {
           </select>
 
           <select
-            className="p-2 border border-gray-300 rounded-md"
+            className="p-2 border border-gray-300 rounded-md text-sm md:text-base"
             onChange={handleFindByLevel}
             value={selectedLevel}
           >
@@ -124,17 +128,20 @@ const PastQ = () => {
       </div>
 
       {err && <p className="text-red-500 mb-4">{err}</p>}
-      {loading && <p className="text-gray-500">Loading courses...</p>}
+      {loading && <p className="text-gray-500 mb-4">Loading courses...</p>}
+      {!loading && courses.length === 0 && (
+        <p className="text-gray-500 mb-4">No study materials found. Try adjusting your filters.</p>
+      )}
 
       {/* Courses */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {courses.map((u) => (
           <div
             key={u._id}
-            className="border p-5 rounded-md border-gray-300 bg-white flex flex-col justify-between"
+            className="border p-5 rounded-md border-gray-300 bg-white flex flex-col justify-between hover:shadow-md transition-shadow"
           >
             <div>
-              <div className="flex gap-3 mb-3">
+              <div className="flex flex-col sm:flex-row sm:justify-between gap-3 mb-3">
                 <div>
                   <h2 className="font-bold text-lg">{u.title}</h2>
                   <p className="text-sm text-gray-500">{u.level}</p>
@@ -149,7 +156,7 @@ const PastQ = () => {
                 dangerouslySetInnerHTML={{ __html: u.content }}
               />
 
-              <div className="flex justify-between text-sm text-gray-500 font-sans mb-3">
+              <div className="flex flex-col sm:flex-row justify-between text-sm text-gray-500 font-sans mb-3 gap-2">
                 <div className="flex gap-5">
                   <p>{u.subject}</p>
                   <p>{u.level}</p>

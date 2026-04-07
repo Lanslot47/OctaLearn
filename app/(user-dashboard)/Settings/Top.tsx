@@ -13,7 +13,7 @@ import {
 import { useState, useEffect } from "react";
 import Image from "next/image";
 
-const apiUrl= process.env.NEXT_PUBLIC_API_URL
+const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
 type SettingsForm = {
   fullName: string;
@@ -33,32 +33,20 @@ export default function SettingsPage() {
     level: "",
     interests: "",
   });
-
   const [avatar, setAvatar] = useState<string>("");
-
   const token =
     typeof window !== "undefined" ? localStorage.getItem("token") : null;
 
-  // ================= FETCH SETTINGS =================
   useEffect(() => {
     const fetchSettings = async () => {
       if (!token) return;
-
       try {
         const res = await fetch(`${apiUrl}/api/get-settings`, {
           method: "GET",
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+          headers: { Authorization: `Bearer ${token}` },
         });
-
-        if (!res.ok) {
-          const text = await res.text();
-          throw new Error(text);
-        }
-
+        if (!res.ok) throw new Error(await res.text());
         const data = await res.json();
-
         setForm({
           fullName: data.userName || "",
           phone: data.phone || "",
@@ -67,28 +55,20 @@ export default function SettingsPage() {
           level: data.level || "",
           interests: data.interest || "",
         });
-
         setAvatar(data.avatar || "");
       } catch (err) {
-  const error = err as Error;
-  alert(error.message);
-}
+        alert((err as Error).message);
+      }
     };
-
     fetchSettings();
   }, [token]);
 
-  // ================= HANDLE INPUT =================
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
-  ) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  };
+  ) => setForm({ ...form, [e.target.name]: e.target.value });
 
-  // ================= SAVE SETTINGS =================
   const handleSave = async () => {
     if (!token) return;
-
     try {
       const res = await fetch(`${apiUrl}/api/settings`, {
         method: "PUT",
@@ -104,60 +84,39 @@ export default function SettingsPage() {
             .filter((i) => i !== ""),
         }),
       });
-
       const data = await res.json();
-
-      if (!res.ok) {
-        throw new Error(data.error || "Failed to update");
-      }
-
+      if (!res.ok) throw new Error(data.error || "Failed to update");
       alert("Settings Updated Successfully");
     } catch (err) {
-  const error = err as Error;
-  alert(error.message);
-}
+      alert((err as Error).message);
+    }
   };
 
-  // ================= UPLOAD AVATAR =================
-  const handleImageUpload = async (
-    e: React.ChangeEvent<HTMLInputElement>
-  ) => {
+  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!token) return;
-
     const file = e.target.files?.[0];
     if (!file) return;
-
     const formData = new FormData();
     formData.append("avatar", file);
-
     try {
       const res = await fetch(`${apiUrl}/api/avatar`, {
         method: "PATCH",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+        headers: { Authorization: `Bearer ${token}` },
         body: formData,
       });
-
       const data = await res.json();
-
-      if (!res.ok) {
-        throw new Error(data.error || "Upload failed");
-      }
-
+      if (!res.ok) throw new Error(data.error || "Upload failed");
       setAvatar(data.avatar);
     } catch (err) {
-  const error = err as Error;
-  alert(error.message);
-}
+      alert((err as Error).message);
+    }
   };
 
   return (
     <div className="font-sans">
       {/* TOP BAR */}
-      <div className="fixed top-0 z-50 w-full border-b p-3 flex justify-end items-center gap-3 bg-white">
+      <div className="fixed top-0 z-50 w-full border-b p-3 flex justify-between md:justify-end items-center gap-3 bg-white">
         <BellIcon />
-
         <Image
           height={34}
           width={34}
@@ -166,18 +125,17 @@ export default function SettingsPage() {
           alt="profile"
           className="rounded-full object-cover border shadow"
         />
-
-        <h1 className="text-sm font-medium">{form.fullName}</h1>
+        <h1 className="hidden md:block text-sm font-medium">{form.fullName}</h1>
       </div>
 
-      <div className="mt-16 px-6">
+      <div className="mt-16 px-4 md:px-6">
         <h1 className="text-2xl font-bold flex items-center gap-3">
           <SettingsIcon size={30} />
           Settings
         </h1>
       </div>
 
-      <div className="flex flex-col lg:flex-row gap-6 px-6 mt-6">
+      <div className="flex flex-col lg:flex-row gap-6 px-4 md:px-6 mt-6">
         {/* PROFILE PICTURE */}
         <section className="flex-1 shadow-md rounded-xl p-6 bg-white">
           <h1 className="font-semibold flex items-center gap-2">
@@ -198,12 +156,7 @@ export default function SettingsPage() {
             <label className="flex items-center gap-2 text-white bg-blue-600 px-4 py-2 rounded-lg cursor-pointer hover:bg-blue-700 transition">
               <UploadIcon size={18} />
               Upload Photo
-              <input
-                type="file"
-                hidden
-                accept="image/*"
-                onChange={handleImageUpload}
-              />
+              <input type="file" hidden accept="image/*" onChange={handleImageUpload} />
             </label>
           </div>
         </section>
@@ -223,7 +176,6 @@ export default function SettingsPage() {
               placeholder="Full Name"
               className="border w-full p-2 rounded"
             />
-
             <input
               name="phone"
               value={form.phone}
@@ -231,9 +183,8 @@ export default function SettingsPage() {
               placeholder="Phone Number"
               className="border w-full p-2 rounded"
             />
-
             <textarea
-              name="bio"
+              name="Bio"
               value={form.Bio}
               onChange={handleChange}
               placeholder="Bio"
@@ -244,7 +195,7 @@ export default function SettingsPage() {
               <SchoolIcon /> Academic Info
             </h2>
 
-            <div className="flex gap-4">
+            <div className="flex flex-col md:flex-row gap-4">
               <input
                 name="course"
                 value={form.course}
@@ -252,7 +203,6 @@ export default function SettingsPage() {
                 placeholder="Course"
                 className="border w-full p-2 rounded"
               />
-
               <select
                 name="level"
                 value={form.level}
@@ -270,7 +220,6 @@ export default function SettingsPage() {
             <h2 className="font-semibold flex items-center gap-2">
               <Book /> Interests
             </h2>
-
             <input
               name="interests"
               value={form.interests}
@@ -293,7 +242,7 @@ export default function SettingsPage() {
       </div>
 
       {/* ACCOUNT INFO */}
-      <div className="mt-10 px-6 pb-10">
+      <div className="mt-10 px-4 md:px-6 pb-10">
         <section className="shadow-md rounded-xl p-6 bg-white">
           <h1 className="font-semibold flex items-center gap-2">
             <Shield />

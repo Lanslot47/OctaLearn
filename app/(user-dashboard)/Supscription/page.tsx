@@ -3,236 +3,151 @@ import { Crown, Zap } from "lucide-react";
 
 const Subscription = () => {
   return (
-    <div>
-      <nav>
+    <div className="flex flex-col lg:flex-row min-h-screen">
+      {/* Sidebar */}
+      <aside className="lg:w-64 w-full">
         <Sidebar />
-      </nav>
-      <nav className="flex items-center justify-center mb-6 ">
-        <span className="flex items-center text-sm">
-          <Crown size={15} className=" " /> premium Access
-        </span>
-      </nav>
-      <section className="">
-        <h1 className=" flex items-center justify-center text-blue-500 font-bold text-5xl mb-4">
-          Choose Your Plan
-        </h1>
-        <p className="flex items-center justify-center text-md text-gray-500 mb-8 text-semibold">
-          Your Trail has Ended. Subscribe to continue accessing preemium content
-        </p>
-      </section>
-      <div className="grid grid-cols-1 p-3 ml-15 gap-1 mx-3 space-y-9 lg:grid lg:grid-cols-3 justify-center">
-        <nav className="border h-138 lg:h-126 -mt-6 border-blue-500 items-center rounded-lg p-4 w-[410px] lg:w-76 pl-20 lg:pl-9 ">
-          <div className="ml-25 hover hover:shadow shadow-md-blue-500">
-            <Crown size={35} className="text-blue-500 font-bold font-xl mb-5 " />
-            <h1 className="text-2xl -mx-6 text-bold mb-4 ">Monthly</h1>
-            <p className="flex items-center gap-8 mx-5  mb-4 ">
-              <h1 className=" -mx-23 font-bold text-4xl">#2,000</h1>
-              <sub className="text-gray-500 text-md mx-15"> /month</sub>{" "}
-            </p>
-            <nav className="-mx-30 p-1.5 gap-4">
-              <i className="w-23 h-6 bg-blue-200 text-blue-600 rounded-full text-xs">
-                &#10003;
-              </i>{" "}
-              <span className="text-xs">
-                Get Unlimited Access To Past Questions
-              </span>
-            </nav>
-            <nav className="-mx-30 p-1.5 gap-4">
-              <i className="w-22 h-6 bg-blue-200 text-blue-600 rounded-full text-xs">
-                &#10003;
-              </i>{" "}
-              <span className="text-xs">
-                Get Unlimited Access To Past Questions
-              </span>
-            </nav>
-            <nav className="-mx-30 p-1.5 gap-4">
-              <i className="w-22 h-6 bg-blue-200 text-blue-600 rounded-full text-xs">
-                &#10003;
-              </i>{" "}
-              <span className="text-xs">
-                Get Unlimited Access To Past Questions
-              </span>
-            </nav>
-            <nav className="-mx-30 p-1.5 gap-4">
-              <i className="w-22 h-6 bg-blue-200 text-blue-600 rounded-full text-xs">
-                &#10003;
-              </i>{" "}
-              <span className="text-xs">
-                Get Unlimited Access To Past Questions
-              </span>
-            </nav>
-            <nav className="-mx-30 p-1.5 gap-4">
-              <i className="w-22 h-6 bg-blue-200 text-blue-600 rounded-full text-xs">
-                &#10003;
-              </i>{" "}
-              <span className="text-xs">
-                Get Unlimited Access To Past Questions
-              </span>
-            </nav>
-            <nav className="-mx-30 p-1.5 gap-4">
-              <i className="w-22 h-6 bg-blue-200 text-blue-600 rounded-full text-xs">
-                &#10003;
-              </i>{" "}
-              <span className="text-xs">
-                Get Unlimited Access To Past Questions
-              </span>
-            </nav>
-            <button className="hover:text-white cursor-pointer rounded-lg w-full -mx-18 mt-6 h-10 text-gray-600 font-bold hover hover:bg-blue-500 text-white-500 ">Subscribe</button>
+      </aside>
+
+      {/* Main Content */}
+      <main className="flex-1 p-4">
+        {/* Header */}
+        <div className="flex justify-center mb-6">
+          <span className="flex items-center text-sm font-semibold text-gray-700 gap-2">
+            <Crown size={15} className="text-yellow-500" /> Premium Access
+          </span>
+        </div>
+
+        {/* Title Section */}
+        <section className="text-center mb-8">
+          <h1 className="text-4xl lg:text-5xl font-bold text-blue-500 mb-4">
+            Choose Your Plan
+          </h1>
+          <p className="text-gray-500 text-md">
+            Your trial has ended. Subscribe to continue accessing premium content
+          </p>
+        </section>
+
+        {/* Plans Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          {/* Monthly Plan */}
+          <div className="border border-blue-500 rounded-lg p-6 flex flex-col items-center hover:shadow-lg transition-shadow">
+            <Crown size={35} className="text-blue-500 mb-4" />
+            <h2 className="text-2xl font-bold mb-2">Monthly</h2>
+            <p className="text-4xl font-bold text-gray-800 mb-1">#2,000</p>
+            <span className="text-gray-500 mb-4">/month</span>
+
+            {/* Features */}
+            <div className="space-y-2 w-full">
+              {Array(6)
+                .fill("Get Unlimited Access To Past Questions")
+                .map((feature, idx) => (
+                  <div key={idx} className="flex items-center gap-2">
+                    <i className="text-blue-500">&#10003;</i>
+                    <span className="text-xs">{feature}</span>
+                  </div>
+                ))}
+            </div>
+
+            <button className="mt-6 w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 rounded-lg transition-colors">
+              Subscribe
+            </button>
           </div>
-        </nav>
-        <nav className="border h-138 lg:h-126 -mt-6 border-blue-500 items-center rounded-lg p-4 w-[410px] lg:w-76 pl-20 lg:pl-9 ">
-          <div className="mx-28">
-            <nav className=" flex items center">
-              {/* <p className="">most popular</p> */}
-              <Zap size={35} className="text-white w-13 h-13 rounded-full bg-blue-500 font-bold p-2 -mx-4 mb-5 " />
-            </nav>
-            <h1 className="text-2xl -mx-12 text-bold mb-4 ">Semester</h1>
-            <p className="flex items-center gap-8 mx-5  mb-4 ">
-              <h1 className=" -mx-23 font-bold text-4xl">#10,000</h1>
-              <sub className="text-gray-500 text-md mx-15"> /month</sub>{" "}
-            </p>
-            <nav className="-mx-30 p-1.5 gap-4">
-              <i className="w-22 h-6 bg-blue-200 text-blue-600 rounded-full text-xs">
-                &#10003;
-              </i>{" "}
-              <span className="text-xs">
-                Get Unlimited Access To Past Questions
-              </span>
-            </nav>
-            <nav className="-mx-30 p-1.5 gap-4">
-              <i className="w-22 h-6 bg-blue-200 text-blue-600 rounded-full text-xs">
-                &#10003;
-              </i>{" "}
-              <span className="text-xs">
-                Get Unlimited Access To Past Questions
-              </span>
-            </nav>
-            <nav className="-mx-30 p-1.5 gap-4">
-              <i className="w-22 h-6 bg-blue-200 text-blue-600 rounded-full text-xs">
-                &#10003;
-              </i>{" "}
-              <span className="text-xs">
-                Get Unlimited Access To Past Questions
-              </span>
-            </nav>
-            <nav className="-mx-30 p-1.5 gap-4">
-              <i className="w-22 h-6 bg-blue-200 text-blue-600 rounded-full text-xs">
-                &#10003;
-              </i>{" "}
-              <span className="text-xs">
-                Get Unlimited Access To Past Questions
-              </span>
-            </nav>
-            <nav className="-mx-30 p-1.5 gap-4">
-              <i className="w-22 h-6 bg-blue-200 text-blue-600 rounded-full text-xs">
-                &#10003;
-              </i>{" "}
-              <span className="text-xs">
-                Get Unlimited Access To Past Questions
-              </span>
-            </nav>
-            <nav className="-mx-30 p-1.5 gap-4">
-              <i className="w-22 h-6 bg-blue-200 text-blue-600 rounded-full text-xs">
-                &#10003;
-              </i>{" "}
-              <span className="text-xs mb-18">
-                Get Unlimited Access To Past Questions
-              </span>
-              <button className="bg-blue-600 rounded-lg w-full mt-6 h-10 text-white font-bold hover -ml-9 lg:ml-0 hover:bg-blue-400">Subscribe</button>
-            </nav>
+
+          {/* Semester Plan */}
+          <div className="border border-blue-500 rounded-lg p-6 flex flex-col items-center hover:shadow-lg transition-shadow relative">
+            <Zap size={35} className="bg-blue-500 text-white p-2 rounded-full mb-4" />
+            <h2 className="text-2xl font-bold mb-2">Semester</h2>
+            <p className="text-4xl font-bold text-gray-800 mb-1">#10,000</p>
+            <span className="text-gray-500 mb-4">/month</span>
+
+            {/* Features */}
+            <div className="space-y-2 w-full">
+              {Array(6)
+                .fill("Get Unlimited Access To Past Questions")
+                .map((feature, idx) => (
+                  <div key={idx} className="flex items-center gap-2">
+                    <i className="text-blue-500">&#10003;</i>
+                    <span className="text-xs">{feature}</span>
+                  </div>
+                ))}
+            </div>
+
+            <button className="mt-6 w-full bg-blue-600 hover:bg-blue-400 text-white font-bold py-2 rounded-lg transition-colors">
+              Subscribe
+            </button>
           </div>
-        </nav>
-        <nav className="border h-138 lg:h-126 -mt-6 border-blue-500 items-center rounded-lg p-4 w-[410px] lg:w-76 pl-20 lg:pl-9 ">
-          <div className="mx-28  rounded">
-            <Crown size={35} className="text-blue-500 font-bold font-xl mb-5 " />
-            <h1 className="text-2xl -mx-6 text-bold mb-4 ">Annual</h1>
-            <p className="flex items-center gap-8 mx-5  mb-4 ">
-              <h1 className=" -mx-23 font-bold text-4xl">#20,000</h1>
-              <sub className="text-gray-500 text-md mx-15"> /month</sub>{" "}
-            </p>
-            <nav className="-mx-30 p-1.5 gap-4">
-              <i className="w-22 h-6 bg-blue-200 text-blue-600 rounded-full text-xs">
-                &#10003;
-              </i>{" "}
-              <span className="text-xs">
-                Get Unlimited Access To Past Questions
-              </span>
-            </nav>
-            <nav className="-mx-30 p-1.5 gap-4">
-              <i className="w-22 h-6 bg-blue-200 text-blue-600 rounded-full text-xs">
-                &#10003;
-              </i>{" "}
-              <span className="text-xs">
-                Get Unlimited Access To Past Questions
-              </span>
-            </nav>
-            <nav className="-mx-30 p-1.5 gap-4">
-              <i className="w-22 h-6 bg-blue-200 text-blue-600 rounded-full text-xs">
-                &#10003;
-              </i>{" "}
-              <span className="text-xs">
-                Get Unlimited Access To Past Questions
-              </span>
-            </nav>
-            <nav className="-mx-30 p-1.5 gap-4">
-              <i className="w-22 h-6 bg-blue-200 text-blue-600 rounded-full text-xs">
-                &#10003;
-              </i>{" "}
-              <span className="text-xs">
-                Get Unlimited Access To Past Questions
-              </span>
-            </nav>
-            <nav className="-mx-30 p-1.5 gap-4">
-              <i className="w-22 h-6 bg-blue-200 text-blue-600 rounded-full text-xs">
-                &#10003;
-              </i>{" "}
-              <span className="text-xs">
-                Get Unlimited Access To Past Questions
-              </span>
-            </nav>
-            <nav className="-mx-30 p-1.5 gap-4">
-              <i className="w-22 h-6 bg-blue-200 text-blue-600 rounded-full text-xs">
-                &#10003;
-              </i>{" "}
-              <span className="text-xs">
-                Get Unlimited Access To Past Questions
-              </span>
-            </nav>
-            <button className=" rounded-lg w-26 cursor-pointer hover:text-white -mx-12 mt-6 h-10 text-gray-600 font-bold hover hover:bg-blue-500 text-white-500">Subscribe</button>
+
+          {/* Annual Plan */}
+          <div className="border border-blue-500 rounded-lg p-6 flex flex-col items-center hover:shadow-lg transition-shadow">
+            <Crown size={35} className="text-blue-500 mb-4" />
+            <h2 className="text-2xl font-bold mb-2">Annual</h2>
+            <p className="text-4xl font-bold text-gray-800 mb-1">#20,000</p>
+            <span className="text-gray-500 mb-4">/year</span>
+
+            {/* Features */}
+            <div className="space-y-2 w-full">
+              {Array(6)
+                .fill("Get Unlimited Access To Past Questions")
+                .map((feature, idx) => (
+                  <div key={idx} className="flex items-center gap-2">
+                    <i className="text-blue-500">&#10003;</i>
+                    <span className="text-xs">{feature}</span>
+                  </div>
+                ))}
+            </div>
+
+            <button className="mt-6 w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 rounded-lg transition-colors">
+              Subscribe
+            </button>
           </div>
-        </nav>
-        <nav className="  shadow-md-gray-500 lg:w-[920px]  sm:w-[400px] shadow-lg shadow-gray-300 ">
-          <div className="p-4">
-            <h1 className="font-bolde text-2xl mb-4">Why Subscribe ?</h1>
-            <p className="text-gray-500 text-sm mb-5">
-              Get unlimited Access to Quality study Material and resources
-            </p>
-            <nav className="lg:flex gap-4 sm:grid grid-cols-1 ">
-              <div>
-                <h1 className="flex items-center juistiify center gap-2 mb-4"> <i className="text-blue-300 text-md font-semibold">&#10003;</i> <span className="text-md font-semibold">Comprehensive resources</span></h1>
-                <p className="mb-6 text-gray-500 text-sm">Access to thousands of past questions, note and handout from Top Nigerian universities </p>
-              </div>
-              <div>
-                <h1 className="flex items-center juistiify center gap-2 mb-4"> <i className="text-blue-300 text-md font-semibold">&#10003;</i> <span className="text-md font-semibold">AI-Powered Learning</span></h1>
-                <p className="mb-6 text-gray-500 text-sm">Get personalist study reconmendations and instant answers to you study questions</p>
-              </div>
-            </nav>
+        </div>
+
+        {/* Why Subscribe Section */}
+        <div className="mt-12 border rounded-lg shadow-lg p-6">
+          <h2 className="text-2xl font-bold mb-4">Why Subscribe?</h2>
+          <p className="text-gray-500 mb-6">
+            Get unlimited access to quality study material and resources
+          </p>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             <div>
-              <nav className="lg:flex gap-8 sm:grid grid-cols-1">
-                <div>
-                  <h1 className="flex items-center juistiify center gap-2 mb-4"> <i className="text-blue-300 text-md font-semibold">&#10003;</i> <span className="text-md font-semibold">Study-Buddy Network</span></h1>
-                  <p className="mb-6 text-gray-500 text-sm">Connect with peers from study Groups and collaborate on projects</p>
-                </div>
-                <div>
-                  <h1 className="flex items-center juistiify center gap-2 mb-4"> <i className="text-blue-300 text-md font-semibold">&#10003;</i> <span className="text-md font-semibold">Regular Updates</span></h1>
-                  <p className="mb-6 text-gray-500 text-sm">New Materials Added weekly.Stay ahead with the latest exams patterns and questions </p>
-                </div>
-              </nav>
+              <h3 className="flex items-center gap-2 font-semibold mb-2">
+                <i className="text-blue-500">&#10003;</i> Comprehensive Resources
+              </h3>
+              <p className="text-gray-500 text-sm">
+                Access thousands of past questions, notes, and handouts from top Nigerian universities.
+              </p>
+            </div>
+            <div>
+              <h3 className="flex items-center gap-2 font-semibold mb-2">
+                <i className="text-blue-500">&#10003;</i> AI-Powered Learning
+              </h3>
+              <p className="text-gray-500 text-sm">
+                Get personalized study recommendations and instant answers to your study questions.
+              </p>
+            </div>
+            <div>
+              <h3 className="flex items-center gap-2 font-semibold mb-2">
+                <i className="text-blue-500">&#10003;</i> Study-Buddy Network
+              </h3>
+              <p className="text-gray-500 text-sm">
+                Connect with peers from study groups and collaborate on projects.
+              </p>
+            </div>
+            <div>
+              <h3 className="flex items-center gap-2 font-semibold mb-2">
+                <i className="text-blue-500">&#10003;</i> Regular Updates
+              </h3>
+              <p className="text-gray-500 text-sm">
+                New materials added weekly. Stay ahead with the latest exam patterns and questions.
+              </p>
             </div>
           </div>
-        </nav>
-      </div>
+        </div>
+      </main>
     </div>
   );
 };
+
 export default Subscription;

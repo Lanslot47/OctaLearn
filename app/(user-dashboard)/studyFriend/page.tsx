@@ -108,7 +108,7 @@ export default function BuddySection() {
 
   const fetchBuddies = async () => {
     try {
-      const res = await fetch(`${apiUrl}/user/getAllUser`, { headers });
+      const res = await fetch(`${apiUrl}/api/user/getAllUser`, { headers });
       const data = await res.json();
       setBuddies(Array.isArray(data.users) ? data.users : []);
     } catch {
@@ -118,7 +118,7 @@ export default function BuddySection() {
 
   const fetchRequests = async () => {
     try {
-      const res = await fetch(`${apiUrl}/requests`, { headers });
+      const res = await fetch(`${apiUrl}/api/requests`, { headers });
       const data = await res.json();
       setRequests(Array.isArray(data) ? data : []);
     } catch {
@@ -128,7 +128,7 @@ export default function BuddySection() {
 
   const fetchChats = async () => {
     try {
-      const res = await fetch(`${apiUrl}/chats`, { headers });
+      const res = await fetch(`${apiUrl}/api/chats`, { headers });
       const data = await res.json();
       setChats(Array.isArray(data) ? data : []);
     } catch {
@@ -137,7 +137,7 @@ export default function BuddySection() {
   };
 
   const connectUser = async (id: string) => {
-    await fetch(`${apiUrl}/connect`, {
+    await fetch(`${apiUrl}/api/connect`, {
       method: "POST",
       headers,
       body: JSON.stringify({ userId: id }),
@@ -146,7 +146,7 @@ export default function BuddySection() {
   };
 
   const respondRequest = async (requestId: string, action: string) => {
-    await fetch(`${apiUrl}/respond`, {
+    await fetch(`${apiUrl}/api/respond`, {
       method: "POST",
       headers,
       body: JSON.stringify({ requestId, action }),
@@ -162,7 +162,7 @@ export default function BuddySection() {
     setActiveUser(user);
 
     try {
-      const res = await fetch(`${apiUrl}/get-message/${user._id}`, { headers });
+      const res = await fetch(`${apiUrl}/api/get-message/${user._id}`, { headers });
       const data = await res.json();
       const sortedMessages = (data.messages || []).sort(
         (a: Message, b: Message) =>
@@ -179,7 +179,7 @@ export default function BuddySection() {
     if (!text.trim() || !activeChat) return;
 
     try {
-      const res = await fetch(`${apiUrl}/send-message`, {
+      const res = await fetch(`${apiUrl}/api/send-message`, {
         method: "POST",
         headers,
         body: JSON.stringify({
@@ -208,13 +208,13 @@ export default function BuddySection() {
 
   return (
     <div className="max-w-[1400px] mx-auto mt-6 px-4">
-      <h1 className="text-2xl font-bold flex items-center gap-2">
+      <h1 className="text-2xl font-bold mt-6 flex items-center gap-2">
         <LiaUserFriendsSolid size={30} className="text-blue-500" />
         Study Buddy
       </h1>
 
-      <div className="bg-gray-100 p-3 rounded-md mt-4">
-        <div className="flex gap-2 mb-4">
+      <div className="bg-gray-100 p-3 rounded-md mt-4 overflow-x-auto">
+        <div className="flex gap-2 mb-4 flex-wrap">
           {["buddies", "request", "message"].map((tab) => (
             <button
               key={tab}
@@ -228,7 +228,7 @@ export default function BuddySection() {
           ))}
         </div>
 
-        <div className="bg-white p-4 rounded-md">
+        <div className="bg-white p-4 rounded-md overflow-x-auto">
           {activeTab === "request" &&
             requests.map((r) => (
               <div key={r._id} className="flex justify-between border-b py-3">
@@ -251,7 +251,7 @@ export default function BuddySection() {
             ))}
 
           {activeTab === "message" && (
-            <div className="grid grid-cols-3 gap-4 h-[500px]">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 h-[500px]">
               <div className="border rounded-2xl p-3 space-y-2 bg-white shadow-sm overflow-y-auto">
                 {chats.length === 0 ? (
                   <p className="text-gray-400 text-sm text-center mt-4">
@@ -262,7 +262,7 @@ export default function BuddySection() {
                     <div
                       key={u._id}
                       onClick={() => loadMessages(u)}
-                      className="flex items-center gap-3 p-3 cursor-pointer hover:bg-gray-100 rounded-xl transition"
+                      className="border rounded-2xl p-3 space-y-2 bg-white shadow-sm overflow-y-auto max-h-[500px]"
                     >
                       <div className="w-10 h-10 rounded-full bg-blue-500 text-white flex items-center justify-center font-semibold shadow">
                         {u.userName?.charAt(0).toUpperCase()}
@@ -276,7 +276,7 @@ export default function BuddySection() {
                 )}
               </div>
 
-              <div className="col-span-2 flex flex-col rounded-2xl overflow-hidden shadow-md bg-[#efeae2]">
+              <div className="col-span-1 md:col-span-2 flex flex-col rounded-2xl overflow-hidden shadow-md bg-[#efeae2]">
                 {!activeChat ? (
                   <div className="flex items-center justify-center h-full text-gray-400 text-sm">
                     Select a user to start chatting 💬

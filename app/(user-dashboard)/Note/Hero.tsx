@@ -1,10 +1,11 @@
 "use client";
+
 import { PrinterIcon } from "lucide-react";
 import { FiFileText } from "react-icons/fi";
 import { IoCalendarOutline } from "react-icons/io5";
 import { BsPlus, BsSearch } from "react-icons/bs";
-import { useEffect, useState } from "react";
 import { BiDownload } from "react-icons/bi";
+import { useEffect, useState } from "react";
 
 type Note = {
   _id: string;
@@ -14,7 +15,7 @@ type Note = {
 };
 
 const Hero = () => {
-  const apiUrl= process.env.NEXT_PUBLIC_API_URL
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL || "";
   const [clicked, setClicked] = useState(false);
   const [loading, setLoading] = useState(false);
   const [content, setContent] = useState("");
@@ -22,9 +23,7 @@ const Hero = () => {
   const [title, setTitle] = useState("");
   const [notes, setNotes] = useState<Note[]>([]);
 
-  // =========================
   // CREATE NOTE
-  // =========================
   const handleCreateNote = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
@@ -32,7 +31,6 @@ const Hero = () => {
 
     try {
       const token = localStorage.getItem("token");
-
       const res = await fetch(`${apiUrl}/api/notes`, {
         method: "POST",
         headers: {
@@ -41,16 +39,9 @@ const Hero = () => {
         },
         body: JSON.stringify({ title, content }),
       });
-
       const data = await res.json();
-
-      if (!res.ok) {
-        throw new Error(data.error || "Something went wrong");
-      }
-
-      // ADD NEW NOTE TO TOP (NOT MERGE)
+      if (!res.ok) throw new Error(data.error || "Something went wrong");
       setNotes((prev) => [data.note, ...prev]);
-
       setTitle("");
       setContent("");
       setClicked(false);
@@ -62,14 +53,12 @@ const Hero = () => {
     }
   };
 
-  // =========================
   // FETCH NOTES
-  // =========================
   useEffect(() => {
     const fetchNotes = async () => {
+      if (!apiUrl) return;
       try {
         const token = localStorage.getItem("token");
-
         const res = await fetch(`${apiUrl}/api/get-note`, {
           method: "GET",
           headers: {
@@ -77,30 +66,19 @@ const Hero = () => {
             Authorization: `Bearer ${token}`,
           },
         });
-
         const data = await res.json();
-
-        if (!res.ok) {
-          throw new Error(data.error || "Something went wrong");
-        }
-
+        if (!res.ok) throw new Error(data.error || "Something went wrong");
         setNotes(data.notes);
       } catch (err) {
-  const error = err as Error;
-  setError(error.message);
-}
+        const error = err as Error;
+        setError(error.message);
+      }
     };
-
     fetchNotes();
-  }, []);
+  }, [apiUrl]);
 
-  // =========================
   // STATS
-  // =========================
-  const totalCharacters = notes.reduce(
-    (acc, note) => acc + note.content.length,
-    0
-  );
+  const totalCharacters = notes.reduce((acc, note) => acc + note.content.length, 0);
 
   return (
     <div>
@@ -110,9 +88,7 @@ const Hero = () => {
           <FiFileText size={30} className="text-blue-500" />
           MyNotes
         </h1>
-        <p className="text-gray-400">
-          Create, organize, and sync your notes
-        </p>
+        <p className="text-gray-400">Create, organize, and sync your notes</p>
       </div>
 
       {/* NEW NOTE BUTTON */}
@@ -129,7 +105,7 @@ const Hero = () => {
       {/* MODAL */}
       {clicked && (
         <div className="fixed inset-0 bg-black/60 z-50 flex justify-center items-center">
-          <div className="w-[500px] bg-white p-6 rounded-xl shadow-lg">
+          <div className="w-full max-w-lg mx-4 bg-white p-6 rounded-xl shadow-lg">
             <h2 className="font-semibold mb-2">Create New Note</h2>
 
             <input
@@ -147,9 +123,7 @@ const Hero = () => {
               className="w-full p-2 border rounded-md mb-4 h-32"
             />
 
-            {error && (
-              <p className="text-red-500 text-sm mb-2">{error}</p>
-            )}
+            {error && <p className="text-red-500 text-sm mb-2">{error}</p>}
 
             <div className="flex justify-between items-center">
               <button
@@ -185,32 +159,28 @@ const Hero = () => {
       </div>
 
       {/* STATS */}
-      <section className="flex gap-6 p-4 flex-wrap">
-        <div className="border rounded-md p-4 w-60">
+      <section className="flex flex-col sm:flex-row gap-4 p-4">
+        <div className="border rounded-md p-4 w-full sm:w-60">
           <h1 className="text-2xl font-semibold">{notes.length}</h1>
           <p className="text-gray-400">Total Notes</p>
         </div>
 
-        <div className="border rounded-md p-4 w-60">
-          <h1 className="text-2xl font-semibold">
-            {totalCharacters}
-          </h1>
+        <div className="border rounded-md p-4 w-full sm:w-60">
+          <h1 className="text-2xl font-semibold">{totalCharacters}</h1>
           <p className="text-gray-400">Total Characters</p>
         </div>
       </section>
 
       {/* NOTES LIST */}
-      <section className="flex gap-6 p-4 flex-wrap">
+      <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 p-4">
         {notes.map((note) => (
           <div
             key={note._id}
-            className="border border-gray-300 h-72 w-72 rounded-md p-4"
+            className="border border-gray-300 h-auto min-h-[250px] w-full rounded-md p-4"
           >
             <h2 className="font-semibold mb-2">{note.title}</h2>
 
-            <p className="text-gray-500 mb-4 line-clamp-3">
-              {note.content}
-            </p>
+            <p className="text-gray-500 mb-4 line-clamp-3">{note.content}</p>
 
             <div className="flex items-center justify-between text-sm text-gray-500 mb-4">
               <span className="flex items-center gap-1">
