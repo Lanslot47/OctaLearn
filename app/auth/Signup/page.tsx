@@ -29,8 +29,13 @@ const Home = () => {
         setLoading(true)
         setError('')
         try {
+            if (password !== confirm_passowrd) {
+                setError("Passwords do not match");
+                setLoading(false);
+                return;
+            }
             const res = await fetch(`${apiUrl}/api/auth/signup`, {
-                method: 'Post',
+                method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     email, password, interest, level,
@@ -158,9 +163,9 @@ const Home = () => {
 
                     <div className="text-center">
                         <button disabled={loading}
-                            className={`p-2 w-full sm:w-[360px] mb-8 rounded-md text-white ${
-                                loading ? "bg-blue-300" : "bg-blue-500 hover:bg-blue-400"
-                            }`}>
+                            type='submit'
+                            className={`p-2 w-full sm:w-[360px] mb-8 rounded-md text-white ${loading ? "bg-blue-300" : "bg-blue-500 hover:bg-blue-400"
+                                }`}>
                             {loading ? "Creating..." : "Create Account"}
                         </button>
 

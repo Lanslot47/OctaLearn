@@ -20,8 +20,9 @@ const Home = () => {
         setError('')
         try {
             const res = await fetch(`${apiUrl}/api/auth/login`, {
-                method: 'Post',
+                method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
+
                 body: JSON.stringify({ email, password })
             })
             const data = await res.json()
@@ -42,7 +43,7 @@ const Home = () => {
 
     return (
         <div className="min-h-screen py-12 px-4 sm:px-6 md:px-8 bg-white text-black dark:bg-gray-900 dark:text-white">
-            <form className="font-sans w-full max-w-md sm:max-w-lg md:max-w-xl mx-auto bg-white dark:bg-gray-800 p-4 rounded-md shadow">
+            <form className="font-sans w-full max-w-md sm:max-w-lg md:max-w-xl mx-auto bg-white dark:bg-gray-800 p-4 rounded-md shadow" onSubmit={handleLogin}>
 
                 <h1 className="text-2xl sm:text-3xl text-center font-semibold">
                     Welcome Back
@@ -88,7 +89,7 @@ const Home = () => {
                 <div className="text-center">
                     <button
                         disabled={loading}
-                        onClick={handleLogin}
+                        type='submit'
                         className={`p-2 px-5 w-full sm:w-[360px] mb-8 rounded-md text-white transition ${
                             loading ? "bg-blue-300 cursor-not-allowed" : "bg-blue-500 hover:bg-blue-400"
                         }`}
