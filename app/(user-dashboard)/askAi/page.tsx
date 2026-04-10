@@ -59,12 +59,12 @@ const AskAi = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center px-2 sm:px-4 md:px-6 py-4">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-950 flex items-center justify-center px-2 sm:px-4 md:px-6 py-4 transition-colors">
       <div className="flex flex-col w-full max-w-3xl gap-4">
 
-        <div className="flex flex-col gap-3 p-3 sm:p-4 bg-white rounded-xl shadow-md h-[400px] sm:h-[500px] overflow-y-auto">
+        <div className="flex flex-col gap-3 p-3 sm:p-4 bg-white dark:bg-gray-900 rounded-xl shadow-md h-[400px] sm:h-[500px] overflow-y-auto border border-gray-100 dark:border-gray-800">
           {messages.length === 0 && (
-            <p className="text-gray-400 text-center text-sm sm:text-base">
+            <p className="text-gray-400 dark:text-gray-500 text-center text-sm sm:text-base">
               Start the conversation by asking a question.
             </p>
           )}
@@ -77,10 +77,10 @@ const AskAi = () => {
               }`}
             >
               <div
-                className={`max-w-[85%] sm:max-w-[70%] p-2 sm:p-3 text-sm sm:text-base rounded-lg break-words ${
+                className={`max-w-[85%] sm:max-w-[70%] p-2 sm:p-3 text-sm sm:text-base rounded-lg break-words shadow-sm ${
                   msg.sender === "user"
                     ? "bg-blue-500 text-white rounded-br-none"
-                    : "bg-gray-200 text-gray-800 rounded-bl-none"
+                    : "bg-gray-200 dark:bg-gray-800 text-gray-800 dark:text-gray-200 rounded-bl-none"
                 }`}
               >
                 {msg.text}
@@ -91,14 +91,14 @@ const AskAi = () => {
 
         <form
           onSubmit={handleAskAi}
-          className="flex w-full items-center gap-2 sm:gap-3 bg-white shadow-md p-2 sm:p-3 md:p-4 rounded-xl border"
+          className="flex w-full items-center gap-2 sm:gap-3 bg-white dark:bg-gray-900 shadow-md p-2 sm:p-3 md:p-4 rounded-xl border border-gray-200 dark:border-gray-800 transition-colors"
         >
-          <FileArchiveIcon size={20} className="text-gray-500 shrink-0" />
+          <FileArchiveIcon size={20} className="text-gray-500 dark:text-gray-400 shrink-0" />
 
           <input
             type="text"
             placeholder="Ask me anything..."
-            className="flex-1 border border-blue-400 rounded-md px-2 sm:px-3 py-2 text-sm sm:text-base"
+            className="flex-1 border border-blue-400 dark:border-blue-600 bg-transparent text-gray-900 dark:text-gray-100 rounded-md px-2 sm:px-3 py-2 text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-blue-400 dark:focus:ring-blue-600"
             value={question}
             onChange={(e) => setQuestion(e.target.value)}
             disabled={loading}
@@ -107,14 +107,14 @@ const AskAi = () => {
           <button
             type="submit"
             disabled={loading}
-            className="bg-blue-500 text-white p-2 rounded-lg"
+            className="bg-blue-500 hover:bg-blue-600 disabled:opacity-50 text-white p-2 rounded-lg transition"
           >
             <SendIcon size={18} />
           </button>
         </form>
 
         {error && <p className="text-red-500 text-center text-sm">{error}</p>}
-        {loading && <p className="text-gray-500 text-center text-sm">Thinking...</p>}
+        {loading && <p className="text-gray-500 dark:text-gray-400 text-center text-sm">Thinking...</p>}
       </div>
     </div>
   );

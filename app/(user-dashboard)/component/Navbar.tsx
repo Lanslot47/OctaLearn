@@ -15,11 +15,9 @@ const Navbar = () => {
   const [name, setName] = useState("");
   const [notifications, setNotifications] = useState({ requests: 0, messages: 0 });
 
-  // ✅ use simple string (NO null issues)
   const [userId, setUserId] = useState("");
   const [token, setToken] = useState("");
 
-  // ✅ SAFE localStorage access
   useEffect(() => {
     const storedUserId = localStorage.getItem("userId");
     const storedToken = localStorage.getItem("token");
@@ -28,7 +26,6 @@ const Navbar = () => {
     if (storedToken) setToken(storedToken);
   }, []);
 
-  // ✅ SOCKET CONNECTION
   useEffect(() => {
     if (!userId) return;
 
@@ -57,7 +54,6 @@ const Navbar = () => {
     };
   }, [userId, apiUrl]);
 
-  // ✅ FETCH USER DATA
   useEffect(() => {
     if (!token) return;
 
@@ -81,55 +77,59 @@ const Navbar = () => {
   const totalNotifications = notifications.requests + notifications.messages;
 
   return (
-    <div className="fixed md:static z-40 w-full h-16 sm:h-20 border-b px-3 sm:px-4 flex items-center bg-white shadow-sm">
+    <div className="fixed md:static z-40 w-full h-16 sm:h-20 border-b px-3 sm:px-4 flex items-center bg-white dark:bg-gray-950 dark:border-gray-800 shadow-sm transition-colors">
       <nav className="flex justify-between md:justify-end items-center gap-3 sm:gap-6 w-full">
 
-        {/* 🔔 Notifications */}
+        {/* Notifications */}
         <div className="relative cursor-pointer">
-          <IoNotificationsCircleSharp size={30} className="text-gray-600" />
+          <IoNotificationsCircleSharp
+            size={30}
+            className="text-gray-600 dark:text-gray-300"
+          />
+
           {totalNotifications > 0 && (
-            <span className="absolute -top-1 -right-1 bg-green-500 text-white text-[10px] rounded-full w-5 h-5 flex items-center justify-center">
+            <span className="absolute -top-1 -right-1 bg-green-500 text-white text-[10px] rounded-full w-5 h-5 flex items-center justify-center shadow">
               {totalNotifications}
             </span>
           )}
         </div>
 
-        {/* 👤 Profile */}
+        {/* Profile */}
         <div
           onClick={() => setShowDropDown((prev) => !prev)}
           className="relative cursor-pointer"
         >
-          <div className="flex items-center gap-2 sm:gap-3 p-2 hover:bg-gray-100 rounded-lg">
+          <div className="flex items-center gap-2 sm:gap-3 p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors">
 
-            <div className="h-8 w-8 rounded-full flex items-center justify-center bg-blue-500">
+            <div className="h-8 w-8 rounded-full flex items-center justify-center bg-blue-500 shadow-sm">
               <h3 className="text-white font-semibold">{character}</h3>
             </div>
 
-            <h3 className="text-xs sm:text-sm md:text-base font-semibold truncate max-w-[100px] sm:max-w-none">
+            <h3 className="text-xs sm:text-sm md:text-base font-semibold truncate max-w-[100px] sm:max-w-none text-gray-900 dark:text-gray-100">
               {name}
             </h3>
           </div>
 
           {showDropDown && (
-            <div className="absolute right-0 mt-2 w-44 sm:w-48 p-2 rounded-xl bg-white shadow-lg z-50">
+            <div className="absolute right-0 mt-2 w-44 sm:w-48 p-2 rounded-xl bg-white dark:bg-gray-900 shadow-lg dark:shadow-black/40 border border-gray-100 dark:border-gray-800 z-50 transition-colors">
 
               <Link
                 href="./Settings"
-                className="flex items-center gap-2 p-2 hover:bg-blue-100"
+                className="flex items-center gap-2 p-2 rounded-md hover:bg-blue-100 dark:hover:bg-gray-800 transition-colors"
               >
                 <LiaUserFriendsSolid size={20} /> Profile
               </Link>
 
               <Link
                 href="./Settings"
-                className="flex items-center gap-2 p-2 hover:bg-blue-100"
+                className="flex items-center gap-2 p-2 rounded-md hover:bg-blue-100 dark:hover:bg-gray-800 transition-colors"
               >
                 <CiSettings size={20} /> Settings
               </Link>
 
               <Link
                 href="/auth/Login"
-                className="flex items-center gap-2 p-2 hover:bg-red-100 text-red-500"
+                className="flex items-center gap-2 p-2 rounded-md hover:bg-red-100 dark:hover:bg-red-900/30 text-red-500 transition-colors"
               >
                 <LogOut size={20} /> Logout
               </Link>

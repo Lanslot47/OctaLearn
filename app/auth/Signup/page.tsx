@@ -60,22 +60,24 @@ const Home = () => {
     }
 
     return (
-        <div className="py-12 px-4 sm:px-6 md:px-8">
-            <form className="font-sans w-full max-w-3xl mx-auto bg-white" onSubmit={handleSignup}>
+        <div className="min-h-screen py-12 px-4 sm:px-6 md:px-8 bg-white text-black dark:bg-gray-900 dark:text-white">
+            <form className="font-sans w-full max-w-3xl mx-auto bg-white dark:bg-gray-800 p-4 rounded-md shadow" onSubmit={handleSignup}>
 
                 <div className="flex justify-center">
                     <img src="/Capture.PNG" height={50} width={50} alt="Logo" className="mb-5" />
                 </div>
 
                 <div className='space-y-4 mb-5'>
-                    <h1 className="text-2xl sm:text-3xl text-center font-semibold">Join OctaLearn</h1>
+                    <h1 className="text-2xl sm:text-3xl text-center font-semibold">
+                        Join OctaLearn
+                    </h1>
 
-                    <p className="text-sm sm:text-base text-gray-500 text-center">
+                    <p className="text-sm sm:text-base text-gray-500 dark:text-gray-400 text-center">
                         Create your account and start your learning journey
                     </p>
 
                     {/* ALERT */}
-                    <div className='border w-full p-2 rounded-md border-gray-500 text-center text-sm'>
+                    <div className='border w-full p-2 rounded-md border-gray-300 dark:border-gray-600 text-center text-sm bg-gray-50 dark:bg-gray-700'>
                         {error && <p className='text-red-400'>{error}</p>}
                         {modal && <p className='text-blue-500'>{modal}</p>}
                     </div>
@@ -86,32 +88,38 @@ const Home = () => {
                         <div>
                             <label className="font-medium">Full Name</label><br />
                             <input type="text" onChange={(e) => setName(e.target.value)}
-                                className="w-full border p-2 rounded-md text-sm focus:outline-blue-500" />
+                                className="w-full border p-2 rounded-md text-sm bg-white text-black border-gray-300 focus:outline-blue-500
+                                dark:bg-gray-800 dark:text-white dark:border-gray-600" />
                         </div>
 
                         <div>
                             <label className="font-medium">Email</label><br />
                             <input type="email" onChange={(e) => setEmail(e.target.value)}
-                                className="w-full border p-2 rounded-md text-sm focus:outline-blue-500" />
+                                className="w-full border p-2 rounded-md text-sm bg-white text-black border-gray-300 focus:outline-blue-500
+                                dark:bg-gray-800 dark:text-white dark:border-gray-600" />
                         </div>
 
                         <div className="flex flex-col md:flex-row gap-4">
                             <input type="text" placeholder="Institution"
                                 onChange={(e) => setInstitution(e.target.value)}
-                                className="w-full border p-2 rounded-md text-sm focus:outline-blue-500" />
+                                className="w-full border p-2 rounded-md text-sm bg-white text-black border-gray-300 focus:outline-blue-500
+                                dark:bg-gray-800 dark:text-white dark:border-gray-600" />
 
                             <input type="text" placeholder="Department"
                                 onChange={(e) => setDepartment(e.target.value)}
-                                className="w-full border p-2 rounded-md text-sm focus:outline-blue-500" />
+                                className="w-full border p-2 rounded-md text-sm bg-white text-black border-gray-300 focus:outline-blue-500
+                                dark:bg-gray-800 dark:text-white dark:border-gray-600" />
                         </div>
 
                         <input type="text" placeholder="Course"
                             onChange={(e) => setCourse(e.target.value)}
-                            className="w-full border p-2 rounded-md text-sm focus:outline-blue-500" />
+                            className="w-full border p-2 rounded-md text-sm bg-white text-black border-gray-300 focus:outline-blue-500
+                            dark:bg-gray-800 dark:text-white dark:border-gray-600" />
 
                         <div className="flex flex-col md:flex-row gap-4">
                             <select onChange={(e) => setLevel(e.target.value)}
-                                className="w-full border p-2 rounded-md text-sm focus:outline-blue-500">
+                                className="w-full border p-2 rounded-md text-sm bg-white text-black border-gray-300 focus:outline-blue-500
+                                dark:bg-gray-800 dark:text-white dark:border-gray-600">
                                 <option value="">Level</option>
                                 <option value="100 level">100 level</option>
                                 <option value="200 level">200 level</option>
@@ -121,26 +129,31 @@ const Home = () => {
 
                             <input type="text" placeholder="Interest"
                                 onChange={(e) => setInterest(e.target.value)}
-                                className="w-full border p-2 rounded-md text-sm focus:outline-blue-500" />
+                                className="w-full border p-2 rounded-md text-sm bg-white text-black border-gray-300 focus:outline-blue-500
+                                dark:bg-gray-800 dark:text-white dark:border-gray-600" />
                         </div>
 
                         <div className="flex flex-col md:flex-row gap-4">
                             <input type="number" placeholder="Phone"
                                 onChange={(e) => setphone(e.target.value)}
-                                className="w-full border p-2 rounded-md text-sm focus:outline-blue-500" />
+                                className="w-full border p-2 rounded-md text-sm bg-white text-black border-gray-300 focus:outline-blue-500
+                                dark:bg-gray-800 dark:text-white dark:border-gray-600" />
 
                             <input type="text" placeholder="Bio"
                                 onChange={(e) => setBio(e.target.value)}
-                                className="w-full border p-2 rounded-md text-sm focus:outline-blue-500" />
+                                className="w-full border p-2 rounded-md text-sm bg-white text-black border-gray-300 focus:outline-blue-500
+                                dark:bg-gray-800 dark:text-white dark:border-gray-600" />
                         </div>
 
                         <input type="password" placeholder="Password"
                             onChange={(e) => setPassword(e.target.value)}
-                            className="w-full border p-2 rounded-md text-sm focus:outline-blue-500" />
+                            className="w-full border p-2 rounded-md text-sm bg-white text-black border-gray-300 focus:outline-blue-500
+                            dark:bg-gray-800 dark:text-white dark:border-gray-600" />
 
                         <input type="password" placeholder="Confirm Password"
                             onChange={(e) => setConfirm_password(e.target.value)}
-                            className="w-full border p-2 rounded-md text-sm focus:outline-blue-500" />
+                            className="w-full border p-2 rounded-md text-sm bg-white text-black border-gray-300 focus:outline-blue-500
+                            dark:bg-gray-800 dark:text-white dark:border-gray-600" />
                     </div>
 
                     <div className="text-center">
@@ -154,7 +167,9 @@ const Home = () => {
                         <p className="mb-10 text-sm sm:text-base">
                             Already have an account?{" "}
                             <Link href="./Login">
-                                <span className="text-blue-500 hover:text-gray-600 cursor-pointer">Sign in</span>
+                                <span className="text-blue-500 hover:text-gray-600 dark:hover:text-gray-300 cursor-pointer">
+                                    Sign in
+                                </span>
                             </Link>
                         </p>
 

@@ -1,4 +1,5 @@
 "use client";
+
 import {
   BellIcon,
   SettingsIcon,
@@ -33,20 +34,25 @@ export default function SettingsPage() {
     level: "",
     interests: "",
   });
+
   const [avatar, setAvatar] = useState<string>("");
+
   const token =
     typeof window !== "undefined" ? localStorage.getItem("token") : null;
 
   useEffect(() => {
     const fetchSettings = async () => {
       if (!token) return;
+
       try {
         const res = await fetch(`${apiUrl}/api/get-settings`, {
           method: "GET",
           headers: { Authorization: `Bearer ${token}` },
         });
+
         if (!res.ok) throw new Error(await res.text());
         const data = await res.json();
+
         setForm({
           fullName: data.userName || "",
           phone: data.phone || "",
@@ -55,11 +61,13 @@ export default function SettingsPage() {
           level: data.level || "",
           interests: data.interest || "",
         });
+
         setAvatar(data.avatar || "");
       } catch (err) {
         alert((err as Error).message);
       }
     };
+
     fetchSettings();
   }, [token]);
 
@@ -69,6 +77,7 @@ export default function SettingsPage() {
 
   const handleSave = async () => {
     if (!token) return;
+
     try {
       const res = await fetch(`${apiUrl}/api/settings`, {
         method: "PUT",
@@ -84,8 +93,10 @@ export default function SettingsPage() {
             .filter((i) => i !== ""),
         }),
       });
+
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Failed to update");
+
       alert("Settings Updated Successfully");
     } catch (err) {
       alert((err as Error).message);
@@ -94,18 +105,23 @@ export default function SettingsPage() {
 
   const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!token) return;
+
     const file = e.target.files?.[0];
     if (!file) return;
+
     const formData = new FormData();
     formData.append("avatar", file);
+
     try {
       const res = await fetch(`${apiUrl}/api/avatar`, {
         method: "PATCH",
         headers: { Authorization: `Bearer ${token}` },
         body: formData,
       });
+
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Upload failed");
+
       setAvatar(data.avatar);
     } catch (err) {
       alert((err as Error).message);
@@ -113,10 +129,13 @@ export default function SettingsPage() {
   };
 
   return (
-    <div className="font-sans">
+    <div className="font-sans bg-gray-50 dark:bg-gray-950 min-h-screen text-gray-900 dark:text-gray-100 transition-colors">
+
       {/* TOP BAR */}
-      <div className="fixed top-0 z-50 w-full border-b p-3 flex justify-between md:justify-end items-center gap-3 bg-white">
-        <BellIcon />
+      <div className="fixed top-0 z-50 w-full border-b border-gray-200 dark:border-gray-800 p-3 flex justify-between md:justify-end items-center gap-3 bg-white dark:bg-gray-950 transition-colors">
+
+        <BellIcon className="text-gray-700 dark:text-gray-300" />
+
         <Image
           height={34}
           width={34}
@@ -125,7 +144,10 @@ export default function SettingsPage() {
           alt="profile"
           className="rounded-full object-cover border shadow"
         />
-        <h1 className="hidden md:block text-sm font-medium">{form.fullName}</h1>
+
+        <h1 className="hidden md:block text-sm font-medium text-gray-900 dark:text-gray-100">
+          {form.fullName}
+        </h1>
       </div>
 
       <div className="mt-16 px-4 md:px-6">
@@ -136,59 +158,74 @@ export default function SettingsPage() {
       </div>
 
       <div className="flex flex-col lg:flex-row gap-6 px-4 md:px-6 mt-6">
+
         {/* PROFILE PICTURE */}
-        <section className="flex-1 shadow-md rounded-xl p-6 bg-white">
+        <section className="flex-1 shadow-md rounded-xl p-6 bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 transition">
+
           <h1 className="font-semibold flex items-center gap-2">
             <CameraIcon />
             Profile Picture
           </h1>
 
           <div className="flex flex-col items-center mt-6">
+
             <Image
               height={120}
               width={120}
               unoptimized
               src={avatar ? `${apiUrl}${avatar}` : "/Capture.PNG"}
               alt="Profile"
-              className="rounded-full object-cover border-4 border-gray-200 shadow-lg hover:scale-105 transition mb-4"
+              className="rounded-full object-cover border-4 border-gray-200 dark:border-gray-700 shadow-lg hover:scale-105 transition mb-4"
             />
 
-            <label className="flex items-center gap-2 text-white bg-blue-600 px-4 py-2 rounded-lg cursor-pointer hover:bg-blue-700 transition">
+            <label className="flex items-center gap-2 text-white bg-blue-600 px-4 py-2 rounded-lg cursor-pointer hover:bg-blue-700 transition shadow">
+
               <UploadIcon size={18} />
               Upload Photo
-              <input type="file" hidden accept="image/*" onChange={handleImageUpload} />
+
+              <input
+                type="file"
+                hidden
+                accept="image/*"
+                onChange={handleImageUpload}
+              />
+
             </label>
           </div>
         </section>
 
         {/* PERSONAL INFO */}
-        <section className="flex-[2] shadow-md rounded-xl p-6 bg-white">
+        <section className="flex-[2] shadow-md rounded-xl p-6 bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 transition">
+
           <h1 className="font-semibold flex items-center gap-2">
             <User />
             Personal Information
           </h1>
 
           <div className="space-y-4 mt-4">
+
             <input
               name="fullName"
               value={form.fullName}
               onChange={handleChange}
               placeholder="Full Name"
-              className="border w-full p-2 rounded"
+              className="border border-gray-300 dark:border-gray-700 bg-transparent w-full p-2 rounded outline-none focus:ring-2 focus:ring-blue-400"
             />
+
             <input
               name="phone"
               value={form.phone}
               onChange={handleChange}
               placeholder="Phone Number"
-              className="border w-full p-2 rounded"
+              className="border border-gray-300 dark:border-gray-700 bg-transparent w-full p-2 rounded outline-none focus:ring-2 focus:ring-blue-400"
             />
+
             <textarea
               name="Bio"
               value={form.Bio}
               onChange={handleChange}
               placeholder="Bio"
-              className="border w-full p-2 rounded"
+              className="border border-gray-300 dark:border-gray-700 bg-transparent w-full p-2 rounded outline-none focus:ring-2 focus:ring-blue-400"
             />
 
             <h2 className="font-semibold flex items-center gap-2">
@@ -196,18 +233,20 @@ export default function SettingsPage() {
             </h2>
 
             <div className="flex flex-col md:flex-row gap-4">
+
               <input
                 name="course"
                 value={form.course}
                 onChange={handleChange}
                 placeholder="Course"
-                className="border w-full p-2 rounded"
+                className="border border-gray-300 dark:border-gray-700 bg-transparent w-full p-2 rounded outline-none focus:ring-2 focus:ring-blue-400"
               />
+
               <select
                 name="level"
                 value={form.level}
                 onChange={handleChange}
-                className="border w-full p-2 rounded"
+                className="border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 w-full p-2 rounded outline-none focus:ring-2 focus:ring-blue-400"
               >
                 <option value="">Select level</option>
                 <option value="100 level">100</option>
@@ -215,46 +254,54 @@ export default function SettingsPage() {
                 <option value="300 level">300</option>
                 <option value="400 level">400</option>
               </select>
+
             </div>
 
             <h2 className="font-semibold flex items-center gap-2">
               <Book /> Interests
             </h2>
+
             <input
               name="interests"
               value={form.interests}
               onChange={handleChange}
               placeholder="Web dev, AI, Backend..."
-              className="border w-full p-2 rounded"
+              className="border border-gray-300 dark:border-gray-700 bg-transparent w-full p-2 rounded outline-none focus:ring-2 focus:ring-blue-400"
             />
 
             <div className="flex justify-end">
               <button
                 onClick={handleSave}
-                className="bg-blue-600 text-white px-6 py-2 rounded flex items-center gap-2 hover:bg-blue-700 transition"
+                className="bg-blue-600 hover:bg-blue-700 transition text-white px-6 py-2 rounded flex items-center gap-2 shadow"
               >
                 <PrinterIcon size={18} />
                 Save Changes
               </button>
             </div>
+
           </div>
         </section>
       </div>
 
       {/* ACCOUNT INFO */}
       <div className="mt-10 px-4 md:px-6 pb-10">
-        <section className="shadow-md rounded-xl p-6 bg-white">
+
+        <section className="shadow-md rounded-xl p-6 bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 transition">
+
           <h1 className="font-semibold flex items-center gap-2">
             <Shield />
             Account Information
           </h1>
 
-          <p>Name: {form.fullName}</p>
-          <p>Bio: {form.Bio}</p>
-          <p>Interest: {form.interests}</p>
-          <p>Phone: {form.phone}</p>
+          <p className="text-gray-700 dark:text-gray-300">Name: {form.fullName}</p>
+          <p className="text-gray-700 dark:text-gray-300">Bio: {form.Bio}</p>
+          <p className="text-gray-700 dark:text-gray-300">Interest: {form.interests}</p>
+          <p className="text-gray-700 dark:text-gray-300">Phone: {form.phone}</p>
+
         </section>
+
       </div>
+
     </div>
   );
 }

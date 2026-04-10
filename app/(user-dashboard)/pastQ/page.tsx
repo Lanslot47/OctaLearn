@@ -27,14 +27,17 @@ const PastQ = () => {
       setDownloadingId(id);
       const res = await fetch(`${apiUrl}/api/admin/download/${id}`);
       if (!res.ok) throw new Error("Download failed. File may not exist.");
+
       const blob = await res.blob();
       const url = window.URL.createObjectURL(blob);
+
       const a = document.createElement("a");
       a.href = url;
       a.download = `${title}.pdf`;
       document.body.appendChild(a);
       a.click();
       a.remove();
+
       window.URL.revokeObjectURL(url);
     } catch (error) {
       setErr((error as Error).message);
@@ -47,11 +50,12 @@ const PastQ = () => {
     try {
       setLoading(true);
       setErr("");
+
       const res = await fetch(`${apiUrl}${endpoint}`);
       if (!res.ok) throw new Error("Something went wrong");
+
       const data = await res.json();
 
-      // Handle single object or array
       if (Array.isArray(data.handouts)) setCourses(data.handouts);
       else if (data.handout) setCourses([data.handout]);
       else setCourses([]);
@@ -79,29 +83,39 @@ const PastQ = () => {
   }, []);
 
   return (
-    <div className="font-sans max-w-[1400px] mx-auto mt-6 px-4 md:px-6">
+    <div className="font-sans max-w-[1400px] mx-auto mt-6 px-4 md:px-6 bg-gray-50 dark:bg-gray-950 min-h-screen text-gray-900 dark:text-gray-100 transition-colors">
+
+      {/* HEADER */}
       <h1 className="text-2xl font-bold flex items-center gap-2 mb-2">
-        <BiBookOpen size={26} className="text-blue-500" /> Past Questions & Handouts
+        <BiBookOpen size={26} className="text-blue-500" />
+        Past Questions & Handouts
       </h1>
-      <p className="text-gray-500 mb-4">
+
+      <p className="text-gray-500 dark:text-gray-400 mb-4">
         Access thousands of study materials from various institutions
       </p>
 
-      {/* Filters */}
-      <div className="w-full rounded-md border border-gray-300 p-4 mb-6">
-        <h2 className="text-xl md:text-2xl font-bold mb-3">Find Study Materials</h2>
+      {/* FILTERS */}
+      <div className="w-full rounded-md border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 p-4 mb-6 transition-colors">
+
+        <h2 className="text-xl md:text-2xl font-bold mb-3">
+          Find Study Materials
+        </h2>
+
         <div className="flex flex-col md:flex-row gap-3">
-          <div className="flex items-center border gap-3 flex-1 p-2 rounded-md border-gray-300 hover:border-blue-500">
-            <BiFilter size={18} />
+
+          <div className="flex items-center border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 gap-3 flex-1 p-2 rounded-md hover:border-blue-500 transition">
+            <BiFilter size={18} className="text-gray-500 dark:text-gray-400" />
+
             <input
               type="text"
               placeholder="Search handouts and past questions..."
-              className="border-0 w-full outline-none text-sm md:text-base text-gray-500"
+              className="border-0 w-full outline-none text-sm md:text-base text-gray-600 dark:text-gray-300 bg-transparent"
             />
           </div>
 
           <select
-            className="p-2 border border-gray-300 rounded-md text-sm md:text-base"
+            className="p-2 border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 rounded-md text-sm md:text-base text-gray-700 dark:text-gray-300"
             onChange={handleFindBySubject}
             value={selectedSubject}
           >
@@ -114,7 +128,7 @@ const PastQ = () => {
           </select>
 
           <select
-            className="p-2 border border-gray-300 rounded-md text-sm md:text-base"
+            className="p-2 border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 rounded-md text-sm md:text-base text-gray-700 dark:text-gray-300"
             onChange={handleFindByLevel}
             value={selectedLevel}
           >
@@ -124,50 +138,65 @@ const PastQ = () => {
             <option value="300 level">300 level</option>
             <option value="400 level">400 level</option>
           </select>
+
         </div>
       </div>
 
+      {/* STATUS */}
       {err && <p className="text-red-500 mb-4">{err}</p>}
-      {loading && <p className="text-gray-500 mb-4">Loading courses...</p>}
+      {loading && <p className="text-gray-500 dark:text-gray-400 mb-4">Loading courses...</p>}
+
       {!loading && courses.length === 0 && (
-        <p className="text-gray-500 mb-4">No study materials found. Try adjusting your filters.</p>
+        <p className="text-gray-500 dark:text-gray-400 mb-4">
+          No study materials found. Try adjusting your filters.
+        </p>
       )}
 
-      {/* Courses */}
+      {/* COURSES */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
         {courses.map((u) => (
           <div
             key={u._id}
-            className="border p-5 rounded-md border-gray-300 bg-white flex flex-col justify-between hover:shadow-md transition-shadow"
+            className="border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 rounded-md p-5 flex flex-col justify-between hover:shadow-md dark:hover:shadow-black/30 transition"
           >
+
             <div>
               <div className="flex flex-col sm:flex-row sm:justify-between gap-3 mb-3">
+
                 <div>
                   <h2 className="font-bold text-lg">{u.title}</h2>
-                  <p className="text-sm text-gray-500">{u.level}</p>
+                  <p className="text-sm text-gray-500 dark:text-gray-400">
+                    {u.level}
+                  </p>
                 </div>
-                <div className="h-6 w-20 bg-white border border-gray-300 rounded-full flex items-center justify-center">
+
+                <div className="h-6 w-20 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-full flex items-center justify-center">
                   <span className="text-xs">PDF</span>
                 </div>
+
               </div>
 
               <div
-                className="text-gray-500 text-xs space-y-1 mb-3"
+                className="text-gray-500 dark:text-gray-400 text-xs space-y-1 mb-3"
                 dangerouslySetInnerHTML={{ __html: u.content }}
               />
 
-              <div className="flex flex-col sm:flex-row justify-between text-sm text-gray-500 font-sans mb-3 gap-2">
+              <div className="flex flex-col sm:flex-row justify-between text-sm text-gray-500 dark:text-gray-400 mb-3 gap-2">
+
                 <div className="flex gap-5">
                   <p>{u.subject}</p>
                   <p>{u.level}</p>
                 </div>
+
                 <p className="flex gap-0.5 items-center">
-                  <Download size={15} />1,250
+                  <Download size={15} /> 1,250
                 </p>
+
               </div>
 
-              <p className="text-xs text-gray-400 mb-2 flex gap-1 items-center">
-                <Calendar size={15} />Added 1/14/2024
+              <p className="text-xs text-gray-400 dark:text-gray-500 mb-2 flex gap-1 items-center">
+                <Calendar size={15} /> Added 1/14/2024
               </p>
             </div>
 
@@ -175,13 +204,15 @@ const PastQ = () => {
               <button
                 onClick={() => handleDownload(u._id, u.title)}
                 disabled={downloadingId === u._id}
-                className="w-full py-2 rounded-md text-white bg-blue-500 hover:bg-blue-600 disabled:opacity-60 disabled:cursor-not-allowed"
+                className="w-full py-2 rounded-md text-white bg-blue-500 hover:bg-blue-600 disabled:opacity-60 disabled:cursor-not-allowed transition"
               >
                 {downloadingId === u._id ? "Downloading..." : "Download Handout"}
               </button>
             </div>
+
           </div>
         ))}
+
       </div>
     </div>
   );

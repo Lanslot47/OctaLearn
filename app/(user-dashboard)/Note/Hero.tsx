@@ -23,7 +23,6 @@ const Hero = () => {
   const [title, setTitle] = useState("");
   const [notes, setNotes] = useState<Note[]>([]);
 
-  // CREATE NOTE
   const handleCreateNote = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
@@ -39,8 +38,10 @@ const Hero = () => {
         },
         body: JSON.stringify({ title, content }),
       });
+
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Something went wrong");
+
       setNotes((prev) => [data.note, ...prev]);
       setTitle("");
       setContent("");
@@ -53,10 +54,10 @@ const Hero = () => {
     }
   };
 
-  // FETCH NOTES
   useEffect(() => {
     const fetchNotes = async () => {
       if (!apiUrl) return;
+
       try {
         const token = localStorage.getItem("token");
         const res = await fetch(`${apiUrl}/api/get-note`, {
@@ -66,36 +67,45 @@ const Hero = () => {
             Authorization: `Bearer ${token}`,
           },
         });
+
         const data = await res.json();
         if (!res.ok) throw new Error(data.error || "Something went wrong");
+
         setNotes(data.notes);
       } catch (err) {
         const error = err as Error;
         setError(error.message);
       }
     };
+
     fetchNotes();
   }, [apiUrl]);
 
-  // STATS
-  const totalCharacters = notes.reduce((acc, note) => acc + note.content.length, 0);
+  const totalCharacters = notes.reduce(
+    (acc, note) => acc + note.content.length,
+    0
+  );
 
   return (
-    <div>
+    <div className="bg-gray-50 dark:bg-gray-950 min-h-screen text-gray-900 dark:text-gray-100 transition-colors">
+
       {/* HEADER */}
       <div className="p-4">
         <h1 className="text-2xl font-semibold flex items-center gap-2 mb-2">
           <FiFileText size={30} className="text-blue-500" />
           MyNotes
         </h1>
-        <p className="text-gray-400">Create, organize, and sync your notes</p>
+
+        <p className="text-gray-400 dark:text-gray-500">
+          Create, organize, and sync your notes
+        </p>
       </div>
 
       {/* NEW NOTE BUTTON */}
       <div className="flex mb-8">
         <button
           onClick={() => setClicked(true)}
-          className="py-2 px-4 bg-blue-500 flex items-center gap-2 text-lg rounded-md text-white ml-4"
+          className="py-2 px-4 bg-blue-500 hover:bg-blue-600 transition flex items-center gap-2 text-lg rounded-md text-white ml-4 shadow"
         >
           <BsPlus size={24} />
           New Note
@@ -105,7 +115,8 @@ const Hero = () => {
       {/* MODAL */}
       {clicked && (
         <div className="fixed inset-0 bg-black/60 z-50 flex justify-center items-center">
-          <div className="w-full max-w-lg mx-4 bg-white p-6 rounded-xl shadow-lg">
+          <div className="w-full max-w-lg mx-4 bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 p-6 rounded-xl shadow-xl border border-gray-200 dark:border-gray-800">
+
             <h2 className="font-semibold mb-2">Create New Note</h2>
 
             <input
@@ -113,22 +124,24 @@ const Hero = () => {
               placeholder="Enter Note Title..."
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              className="w-full p-2 border rounded-md mb-4"
+              className="w-full p-2 border border-gray-300 dark:border-gray-700 bg-transparent rounded-md mb-4 focus:outline-none focus:ring-2 focus:ring-blue-400"
             />
 
             <textarea
               placeholder="Write your note..."
               value={content}
               onChange={(e) => setContent(e.target.value)}
-              className="w-full p-2 border rounded-md mb-4 h-32"
+              className="w-full p-2 border border-gray-300 dark:border-gray-700 bg-transparent rounded-md mb-4 h-32 focus:outline-none focus:ring-2 focus:ring-blue-400"
             />
 
-            {error && <p className="text-red-500 text-sm mb-2">{error}</p>}
+            {error && (
+              <p className="text-red-500 text-sm mb-2">{error}</p>
+            )}
 
             <div className="flex justify-between items-center">
               <button
                 onClick={() => setClicked(false)}
-                className="text-gray-500 hover:text-blue-500"
+                className="text-gray-500 dark:text-gray-400 hover:text-blue-500"
               >
                 Cancel
               </button>
@@ -136,7 +149,7 @@ const Hero = () => {
               <button
                 onClick={handleCreateNote}
                 disabled={loading}
-                className="bg-blue-500 text-white px-4 py-2 rounded-md flex items-center gap-2"
+                className="bg-blue-500 hover:bg-blue-600 transition text-white px-4 py-2 rounded-md flex items-center gap-2 disabled:opacity-50"
               >
                 <PrinterIcon size={18} />
                 {loading ? "Saving..." : "Save"}
@@ -148,10 +161,11 @@ const Hero = () => {
 
       {/* SEARCH */}
       <div className="p-4">
-        <div className="flex items-center border rounded-md px-3">
-          <BsSearch />
+        <div className="flex items-center border border-gray-300 dark:border-gray-800 bg-white dark:bg-gray-900 rounded-md px-3">
+          <BsSearch className="text-gray-500 dark:text-gray-400" />
+
           <input
-            className="w-full p-2 outline-none"
+            className="w-full p-2 outline-none bg-transparent text-gray-900 dark:text-gray-100"
             type="text"
             placeholder="Search your notes..."
           />
@@ -160,14 +174,16 @@ const Hero = () => {
 
       {/* STATS */}
       <section className="flex flex-col sm:flex-row gap-4 p-4">
-        <div className="border rounded-md p-4 w-full sm:w-60">
+        <div className="border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 rounded-md p-4 w-full sm:w-60">
           <h1 className="text-2xl font-semibold">{notes.length}</h1>
-          <p className="text-gray-400">Total Notes</p>
+          <p className="text-gray-400 dark:text-gray-500">Total Notes</p>
         </div>
 
-        <div className="border rounded-md p-4 w-full sm:w-60">
+        <div className="border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 rounded-md p-4 w-full sm:w-60">
           <h1 className="text-2xl font-semibold">{totalCharacters}</h1>
-          <p className="text-gray-400">Total Characters</p>
+          <p className="text-gray-400 dark:text-gray-500">
+            Total Characters
+          </p>
         </div>
       </section>
 
@@ -176,13 +192,15 @@ const Hero = () => {
         {notes.map((note) => (
           <div
             key={note._id}
-            className="border border-gray-300 h-auto min-h-[250px] w-full rounded-md p-4"
+            className="border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 rounded-md p-4 min-h-[250px] transition"
           >
             <h2 className="font-semibold mb-2">{note.title}</h2>
 
-            <p className="text-gray-500 mb-4 line-clamp-3">{note.content}</p>
+            <p className="text-gray-500 dark:text-gray-400 mb-4 line-clamp-3">
+              {note.content}
+            </p>
 
-            <div className="flex items-center justify-between text-sm text-gray-500 mb-4">
+            <div className="flex items-center justify-between text-sm text-gray-500 dark:text-gray-400 mb-4">
               <span className="flex items-center gap-1">
                 <IoCalendarOutline size={16} />
                 {note.createdAt
@@ -193,7 +211,7 @@ const Hero = () => {
               <span>{note.content.length} chars</span>
             </div>
 
-            <button className="w-full h-9 rounded-md flex items-center justify-center gap-2 border hover:bg-gray-100">
+            <button className="w-full h-9 rounded-md flex items-center justify-center gap-2 border border-gray-300 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 transition">
               <BiDownload size={18} />
               Download
             </button>

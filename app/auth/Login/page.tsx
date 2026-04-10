@@ -41,18 +41,21 @@ const Home = () => {
     }
 
     return (
-        <div className="py-12 px-4 sm:px-6 md:px-8">
-            <form className="font-sans w-full max-w-md sm:max-w-lg md:max-w-xl mx-auto bg-white">
-                <h1 className="text-2xl sm:text-3xl text-center font-semibold">Welcome Back</h1>
+        <div className="min-h-screen py-12 px-4 sm:px-6 md:px-8 bg-white text-black dark:bg-gray-900 dark:text-white">
+            <form className="font-sans w-full max-w-md sm:max-w-lg md:max-w-xl mx-auto bg-white dark:bg-gray-800 p-4 rounded-md shadow">
 
-                <p className="text-sm sm:text-base mb-5 text-gray-500 text-center">
+                <h1 className="text-2xl sm:text-3xl text-center font-semibold">
+                    Welcome Back
+                </h1>
+
+                <p className="text-sm sm:text-base mb-5 text-gray-500 dark:text-gray-400 text-center">
                     Sign in to your OctaLearn Account
                 </p>
 
                 <div className="space-y-4 mb-5">
 
                     {/* ALERT */}
-                        <div className='border w-full p-2 rounded-md border-gray-500 text-center text-sm'>
+                    <div className='border w-full p-2 rounded-md border-gray-300 dark:border-gray-600 text-center text-sm bg-gray-50 dark:bg-gray-700'>
                         {error && <p className='text-red-400'>{error}</p>}
                         {modal && <p className='text-blue-500'>{modal}</p>}
                     </div>
@@ -64,7 +67,8 @@ const Home = () => {
                             type="text"
                             placeholder="Enter Your Email Address"
                             onChange={(e) => setEmail(e.target.value)}
-                            className="w-full p-2 focus:outline-blue-500 border rounded-md text-gray-500 text-sm"
+                            className="w-full p-2 border rounded-md text-sm bg-white text-black border-gray-300 focus:outline-blue-500
+                            dark:bg-gray-800 dark:text-white dark:border-gray-600"
                         />
                     </div>
 
@@ -75,7 +79,8 @@ const Home = () => {
                             type="password"
                             placeholder="Enter Your Password"
                             onChange={(e) => setPassword(e.target.value)}
-                            className="w-full border p-2 focus:outline-blue-500 rounded-md text-gray-500 text-sm"
+                            className="w-full border p-2 rounded-md text-sm bg-white text-black border-gray-300 focus:outline-blue-500
+                            dark:bg-gray-800 dark:text-white dark:border-gray-600"
                         />
                     </div>
                 </div>
@@ -91,14 +96,16 @@ const Home = () => {
                         {loading ? 'Signing...' : "Login"}
                     </button>
 
-                    <p className="text-blue-500 hover:text-gray-600 cursor-pointer mb-8">
+                    <p className="text-blue-500 hover:text-gray-600 dark:hover:text-gray-300 cursor-pointer mb-8">
                         Forgot your password?
                     </p>
 
                     <p className="mb-10 text-sm sm:text-base">
                         Don’t have an account?{' '}
                         <Link href="./Signup">
-                            <span className="text-blue-500 hover:text-gray-600 cursor-pointer">Sign up here</span>
+                            <span className="text-blue-500 hover:text-gray-600 dark:hover:text-gray-300 cursor-pointer">
+                                Sign up here
+                            </span>
                         </Link>
                     </p>
 
